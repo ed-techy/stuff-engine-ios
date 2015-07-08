@@ -13,6 +13,9 @@
 		375F0A1D1B4D9B5500F894C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 375F0A1B1B4D9B5500F894C3 /* Main.storyboard */; };
 		375F0A2E1B4D9B5500F894C3 /* PlanetthingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A2D1B4D9B5500F894C3 /* PlanetthingTests.m */; };
 		375F0A381B4D9BC500F894C3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 375F0A371B4D9BC500F894C3 /* Images.xcassets */; };
+		375F0A3A1B4D9FF500F894C3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375F0A391B4D9FF500F894C3 /* GameKit.framework */; };
+		375F0A3C1B4D9FFB00F894C3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375F0A3B1B4D9FFB00F894C3 /* StoreKit.framework */; };
+		375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,11 @@
 		375F0A2C1B4D9B5500F894C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		375F0A2D1B4D9B5500F894C3 /* PlanetthingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlanetthingTests.m; sourceTree = "<group>"; };
 		375F0A371B4D9BC500F894C3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		375F0A391B4D9FF500F894C3 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		375F0A3B1B4D9FFB00F894C3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		375F0A421B4DA0EC00F894C3 /* IHgamecenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IHgamecenter.h; path = Planetthing/IHgamecenter.h; sourceTree = "<group>"; };
+		375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IHgamecenter.m; path = Planetthing/IHgamecenter.m; sourceTree = "<group>"; };
+		375F0A451B4DD68400F894C3 /* IHglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IHglobals.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				375F0A3A1B4D9FF500F894C3 /* GameKit.framework in Frameworks */,
+				375F0A3C1B4D9FFB00F894C3 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +71,8 @@
 		375F0A011B4D9B5500F894C3 = {
 			isa = PBXGroup;
 			children = (
+				375F0A3D1B4DA01D00F894C3 /* Frameworks */,
+				375F0A3E1B4DA09C00F894C3 /* iOS Helpers */,
 				375F0A0C1B4D9B5500F894C3 /* Planetthing */,
 				375F0A2A1B4D9B5500F894C3 /* PlanetthingTests */,
 				375F0A0B1B4D9B5500F894C3 /* Products */,
@@ -83,9 +95,9 @@
 				375F0A121B4D9B5500F894C3 /* AppDelegate.m */,
 				375F0A181B4D9B5500F894C3 /* GameViewController.h */,
 				375F0A191B4D9B5500F894C3 /* GameViewController.m */,
+				375F0A371B4D9BC500F894C3 /* Images.xcassets */,
 				375F0A1B1B4D9B5500F894C3 /* Main.storyboard */,
 				375F0A0D1B4D9B5500F894C3 /* Supporting Files */,
-				375F0A371B4D9BC500F894C3 /* Images.xcassets */,
 			);
 			path = Planetthing;
 			sourceTree = "<group>";
@@ -114,6 +126,26 @@
 				375F0A2C1B4D9B5500F894C3 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		375F0A3D1B4DA01D00F894C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				375F0A3B1B4D9FFB00F894C3 /* StoreKit.framework */,
+				375F0A391B4D9FF500F894C3 /* GameKit.framework */,
+			);
+			name = Frameworks;
+			path = Planetthing.xcodeproj;
+			sourceTree = "<group>";
+		};
+		375F0A3E1B4DA09C00F894C3 /* iOS Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				375F0A421B4DA0EC00F894C3 /* IHgamecenter.h */,
+				375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */,
+				375F0A451B4DD68400F894C3 /* IHglobals.h */,
+			);
+			name = "iOS Helpers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,6 +197,15 @@
 				TargetAttributes = {
 					375F0A091B4D9B5500F894C3 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 4WT5U2SGE8;
+						SystemCapabilities = {
+							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					375F0A261B4D9B5500F894C3 = {
 						CreatedOnToolsVersion = 6.4;
@@ -216,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				375F0A131B4D9B5500F894C3 /* AppDelegate.m in Sources */,
+				375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */,
 				375F0A1A1B4D9B5500F894C3 /* GameViewController.m in Sources */,
 				375F0A101B4D9B5500F894C3 /* main.m in Sources */,
 			);
@@ -338,10 +380,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = Planetthing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -350,10 +396,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = Planetthing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

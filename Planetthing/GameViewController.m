@@ -23,6 +23,9 @@
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+    
+    [IHGameCenter sharedIntance].MainView = self;
+    [[IHGameCenter sharedIntance] authenticateLocalPlayer];
 }
 
 - (void)dealloc
@@ -59,6 +62,11 @@
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
 
+}
+
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
+{
+    
 }
 
 @end
