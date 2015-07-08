@@ -1,7 +1,7 @@
 // ------------ VERBOSE SECTIONS ------------ //
 
 // iOS Helper verbose
-#define IH_VERBOSE
+#define IH_VERBOSE true
 
 ////////////////////////////////////////////////
 
@@ -11,7 +11,7 @@
 #define SIMPLENSLOG
 
 #if defined(SIMPLENSLOG)
-    #define NSLog(FORMAT, ...) printf("%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+    #define IHLog(CONTEXT, FORMAT, ...) if(CONTEXT)printf("%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 #endif
 
 ////////////////////////////////////////////////

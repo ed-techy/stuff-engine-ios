@@ -5,6 +5,8 @@
     __weak UIViewController* authentificationView;
 }
 
+- (bool)isInternetAvailable;
+
 @end
 
 @implementation IHGameCenter
@@ -21,9 +23,7 @@
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
         sharedIntance = [[IHGameCenter alloc] init];
-#if defined(IH_VERBOSE)
-        NSLog(@"GameCenter: Shared Game Center instance was allocated for the first time.");
-#endif
+        IHLog(IH_VERBOSE, @"GameCenter: Shared Game Center instance was allocated for the first time.");
     });
     
     return sharedIntance;
@@ -33,54 +33,62 @@
 {
     GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
     
-#if defined(IH_VERBOSE)
-    NSLog(@"GameCenter: Authentificating player...");
-#endif
+    IHLog(IH_VERBOSE, @"GameCenter: Authentificating player...");
     
     // iOS 6 requires an authentificat handler block.
     localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error)
     {
         if(viewController && !error) // The player is not authetificated because the credentials were not filled.
         {
-#if defined(IH_VERBOSE)
-            NSLog(@"GameCenter: The player is not anthentificated.");
-#endif
+            IHLog(IH_VERBOSE, @"GameCenter: The player is not anthentificated.");
+    
             // Weak reference to know when it was dealocated.
             authentificationView = viewController;
             
             // Present the authentification Game Center view if the player was not aithentificated.
             if(MainView)
             {
-#if defined(IH_VERBOSE)
-                NSLog(@"GameCenter: Presenting authentification Game Center view.");
-#endif
+                IHLog(IH_VERBOSE, @"GameCenter: Presenting authentification Game Center view.");
                 [MainView presentViewController:viewController animated:YES completion:nil];
             }
             else
             {
-#if defined(IH_VERBOSE)
-                NSLog(@"GameCenter: A main view is not specified the authentification Game Center vew can't be presented.");
-#endif
+                IHLog(IH_VERBOSE, @"GameCenter: A main view is not specified the authentification Game Center vew can't be presented.");
             }
             
+        }
+        else if(error)
+        {
+            Authenticated = false;
+            
+            if(![self isInternetAvailable])
+            {
+                IHLog(IH_VERBOSE, @"GameCenter: There is not internet connection.");
+            }
+            else if(error.code == 2)
+            {
+                IHLog(IH_VERBOSE, @"GameCenter: The user canceled the authentification operation.");
+            }
         }
         else if([GKLocalPlayer localPlayer].isAuthenticated)
         {
             Authenticated = true;
             LocalPlayer = [GKLocalPlayer localPlayer];
-            
-#if defined(IH_VERBOSE)
-            NSLog(@"GameCenter: Player \"%@\" was successfully authentificated.", LocalPlayer.alias);
-#endif
-        }
-        else
-        {
-#if defined(IH_VERBOSE)
-            NSLog(@"GameCenter: The player was already authentificated.");
-#endif
-            Authenticated = true;
+            IHLog(IH_VERBOSE, @"GameCenter: Player \"%@\" was successfully authentificated.", LocalPlayer.alias);
         }
     };
+}
+
+
+- (bool)isInternetAvailable
+{
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus internetStatus = [reachability currentReachabilityStatus];
+    
+    if (internetStatus == NotReachable)
+        return false;
+    else
+        return true;
 }
 
 @end

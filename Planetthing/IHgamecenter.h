@@ -2,6 +2,7 @@
 #define IOSHelper_gamecenter_h
 
 #import <GameKit/GameKit.h>
+#import "Reachability.h"
 #import "IHglobals.h"
 
 @interface IHGameCenter : NSObject
