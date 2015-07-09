@@ -7,6 +7,8 @@
     NSArray* m_leaderboards;
     NSArray* m_achievementDescriptions;
     
+    NSMutableDictionary* localPlayers;
+    
     NSString* m_encryptionKey;
     NSData* m_encryptionKeyData;
 }
@@ -14,10 +16,6 @@
 - (bool)isGameCenterAvailable;
 - (bool)isInternetAvailable;
 - (void)setUpData:(NSString*)encryptedKey;
-
-
-- (void)loadLeaderboards;
-- (void)loadAchievementDescriptions;
 
 @end
 
@@ -132,7 +130,6 @@
             Authenticated = true;
             LocalPlayer = [GKLocalPlayer localPlayer];
             CleanLog(IH_VERBOSE, @"GameCenter: Player \"%@\" was successfully authentificated.", LocalPlayer.alias);
-            [self syncPlayer];
         }
     };
 }
@@ -163,113 +160,8 @@
 // ---------------------------- Player Synchronization -------------------------- //
 // ------------------------------------------------------------------------------ //
 
-- (void)syncPlayer
-{
-    CleanLog(IH_VERBOSE, @"GameCenter: Syncing player data at the background...");
-    
-    if(!Available)
-    {
-        CleanLog(IH_VERBOSE, @"GameCenter: The GameCenter is not available.");
-        return;
-    }
-    
-    if(!Authenticated)
-    {
-        CleanLog(IH_VERBOSE, @"GameCenter: The player is not aunthenticated.");
-        return;
-    }
-    
-    // Ensure the task isn't interrupted even if the user exits the app
-    backgroundProcess = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [[UIApplication sharedApplication] endBackgroundTask:backgroundProcess];
-        backgroundProcess = UIBackgroundTaskInvalid;
-    }];
-    
-    // Move the process to the background thread to avoid clogging up the UI
-    dispatch_queue_t syncGameCenterOnBackgroundThread = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul);
-    dispatch_async(syncGameCenterOnBackgroundThread, ^{
-        
-        [self loadLeaderboards];
-        [self loadAchievementDescriptions];
-        
-    });
-    
-    // End the Background Process
-    [[UIApplication sharedApplication] endBackgroundTask:backgroundProcess];
-    backgroundProcess = UIBackgroundTaskInvalid;
-}
 
-- (void)loadLeaderboards
-{
-    CleanLog(IH_VERBOSE, @"GameCenter: Fetching leaderboards...");
-    
-    if(!Available)
-    {
-        CleanLog(IH_VERBOSE, @"GameCenter: The GameCenter is not available.");
-        return;
-    }
-    
-    if(!Authenticated)
-    {
-        CleanLog(IH_VERBOSE, @"GameCenter: The player is not aunthenticated.");
-        return;
-    }
-    
-    // Game Center leaderboards registered with the application.
-    if (m_leaderboards == nil)
-    {
-        [GKLeaderboard loadLeaderboardsWithCompletionHandler:^(NSArray *leaderboards, NSError *error){
-            if (leaderboards)
-            {
-                m_leaderboards = leaderboards;
-                CleanLog(IH_VERBOSE, @"GameCenter: %d leaderboards.", leaderboards.count);
-                for (GKLeaderboard* leaderboard in m_leaderboards)
-                    CleanLog(IH_VERBOSE, @"            %@.", leaderboard.title);
-            }
-            else
-            {
-                CleanLog(IH_VERBOSE, @"GameCenter: %@", error.description);
-            }
-        }];
-        return;
-    }
-    else
-    {
-        CleanLog(IH_VERBOSE, @"GameCenter: Leaderboards already loaded.");
-    }
-}
 
-- (void)loadAchievementDescriptions
-{
-    CleanLog(IH_VERBOSE, @"GameCenter: Fetching achievements...");
-    
-    if(!Available)
-    {
-        CleanLog(IH_VERBOSE, @"GameCenter: The GameCenter is not available.");
-        return;
-    }
-    
-    if(!Authenticated)
-    {
-        CleanLog(IH_VERBOSE, @"GameCenter: The player is not aunthenticated.");
-        return;
-    }
-    
-    // Game Center achievements registered with the application.
-    [GKAchievementDescription loadAchievementDescriptionsWithCompletionHandler:^(NSArray *descriptions, NSError *error) {
-        if (descriptions)
-        {
-            m_achievementDescriptions = descriptions;
-            CleanLog(IH_VERBOSE, @"GameCenter: %d achievements.", descriptions.count);
-            for (GKAchievementDescription* description in m_achievementDescriptions)
-                CleanLog(IH_VERBOSE, @"            %@.", description.title);
-        }
-        else
-        {
-            CleanLog(IH_VERBOSE, @"GameCenter: %@", error.description);
-        }
-    }];
-}
 
 // ------------------------------------------------------------------------------ //
 // ---------------------------------- Presenting -------------------------------- //

@@ -32,7 +32,6 @@
 // ------------- Public Functions ------------- //
 // -------------------------------------------- //
 - (void)authenticateLocalPlayer;
-- (void)syncPlayer;
 
 
 @end
