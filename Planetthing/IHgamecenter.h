@@ -1,33 +1,55 @@
-#ifndef IOSHelper_gamecenter_h
-#define IOSHelper_gamecenter_h
-
 #import <GameKit/GameKit.h>
 #import "Reachability.h"
+#import "NSDataAES256.h"
 #import "IHglobals.h"
 
-@interface IHGameCenter : NSObject
+#define LIBRARY_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Library"]
+#define GameCenterDataFile @"game_center.plist"
+#define GameCenterDataPath [LIBRARY_FOLDER stringByAppendingPathComponent:GameCenterDataFile]
 
-// --------------- Properties ----------------- //
-// View where the Game Center functionality will be displayed from.
+@class IHGameCenter;
+@protocol IHGameCenterViewDelegate;
+@protocol IHGameCenterControlDelegate;
+
+@interface IHGameCenter : NSObject<GKGameCenterControllerDelegate>
+
+// -------------------------------------------- //
+// ---------------- Properties ---------------- //
+// -------------------------------------------- //
+@property (readonly)bool Available;
 @property (readonly)bool Authenticated;
 @property (readonly)GKPlayer* LocalPlayer;
+@property id<IHGameCenterViewDelegate> ViewDelegate;
+@property id<IHGameCenterControlDelegate> ControlDelegate;
 
-@property UIViewController<GKGameCenterControllerDelegate>* MainView;
 
 // -------------------------------------------- //
-
-// ---------- No intanced Functions ----------- //
-// Share a unique instance all over the aplication.
+// ------------- Singleton / SetUp ------------ //
+// -------------------------------------------- //
 + (instancetype)sharedIntance;
 
-
 // -------------------------------------------- //
-
-
-// ------------ Public Functions -------------- //
-// Try to auntentificate the local player.
+// ------------- Public Functions ------------- //
+// -------------------------------------------- //
 - (void)authenticateLocalPlayer;
+- (void)syncPlayer;
+
 
 @end
 
-#endif
+// iOS Helper GameCenter Delegate. Know when the stuff is done.
+@protocol IHGameCenterViewDelegate <NSObject>
+
+@required
+- (void)presentGameCenterAuthentificationView:(UIViewController *)gameCenterLoginController;
+
+@end
+
+@protocol IHGameCenterControlDelegate <NSObject>
+
+
+
+@optional
+
+@end
+

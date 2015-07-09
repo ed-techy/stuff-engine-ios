@@ -17,6 +17,7 @@
 		375F0A3C1B4D9FFB00F894C3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375F0A3B1B4D9FFB00F894C3 /* StoreKit.framework */; };
 		375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */; };
 		375F0A491B4DE95100F894C3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A481B4DE95100F894C3 /* Reachability.m */; };
+		375F0A4C1B4DF3EB00F894C3 /* NSDataAES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A4B1B4DF3EB00F894C3 /* NSDataAES256.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		375F0A451B4DD68400F894C3 /* IHglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IHglobals.h; sourceTree = "<group>"; };
 		375F0A471B4DE95100F894C3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Planetthing/Reachability.h; sourceTree = "<group>"; };
 		375F0A481B4DE95100F894C3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Planetthing/Reachability.m; sourceTree = "<group>"; };
+		375F0A4A1B4DF3EB00F894C3 /* NSDataAES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDataAES256.h; path = Planetthing/NSDataAES256.h; sourceTree = "<group>"; };
+		375F0A4B1B4DF3EB00F894C3 /* NSDataAES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDataAES256.m; path = Planetthing/NSDataAES256.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +158,8 @@
 		375F0A461B4DE92A00F894C3 /* Dependecies */ = {
 			isa = PBXGroup;
 			children = (
+				375F0A4A1B4DF3EB00F894C3 /* NSDataAES256.h */,
+				375F0A4B1B4DF3EB00F894C3 /* NSDataAES256.m */,
 				375F0A471B4DE95100F894C3 /* Reachability.h */,
 				375F0A481B4DE95100F894C3 /* Reachability.m */,
 			);
@@ -269,6 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				375F0A4C1B4DF3EB00F894C3 /* NSDataAES256.m in Sources */,
 				375F0A131B4D9B5500F894C3 /* AppDelegate.m in Sources */,
 				375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */,
 				375F0A1A1B4D9B5500F894C3 /* GameViewController.m in Sources */,

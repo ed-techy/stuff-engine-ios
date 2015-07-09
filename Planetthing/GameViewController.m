@@ -24,8 +24,7 @@
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
-    [IHGameCenter sharedIntance].MainView = self;
-    [[IHGameCenter sharedIntance] authenticateLocalPlayer];
+    [IHGameCenter sharedIntance].ViewDelegate = self;
 }
 
 - (void)dealloc
@@ -64,9 +63,9 @@
 
 }
 
-- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
+- (void)presentGameCenterAuthentificationView:(UIViewController *)gameCenterLoginController
 {
-    
+    [self presentViewController:gameCenterLoginController animated:YES completion:nil];
 }
 
 @end
