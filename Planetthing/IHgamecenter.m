@@ -3,11 +3,8 @@
 @interface IHGameCenter()
 {
     __weak UIViewController* authentificationView;
-    UIBackgroundTaskIdentifier backgroundProcess;
-    NSArray* m_leaderboards;
-    NSArray* m_achievementDescriptions;
     
-    NSMutableDictionary* localPlayers;
+    NSMutableDictionary* m_localPlayers;
     
     NSString* m_encryptionKey;
     NSData* m_encryptionKeyData;
@@ -16,6 +13,10 @@
 - (bool)isGameCenterAvailable;
 - (bool)isInternetAvailable;
 - (void)setUpData:(NSString*)encryptedKey;
+- (void)generateNewPlayerWithID:(NSString*)playerid andDisplayName:(NSString*)displayname;
+- (void)genrateLocalData;
+- (void)loadLocalPlayers;
+- (void)saveLocalPlayers;
 
 @end
 
@@ -52,12 +53,20 @@
     
     if (self)
     {
-        // GameCenter availability.
-        Available = [self isGameCenterAvailable];
-        
-        // Setup.
-        [self setUpData:@"PlativolosMarinela"];
-        [self authenticateLocalPlayer];
+        // Do all the game center setup in the background.
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            // GameCenter availability.
+            Available = [self isGameCenterAvailable];
+            
+            // Setup.
+            [self setUpData:@"PlativolosMarinela"];
+            
+            // Local
+            [self loadLocalPlayers];
+            
+            // Aunthentification
+            [self authenticateLocalPlayer];
+        });
     }
     
     return self;
@@ -130,6 +139,13 @@
             Authenticated = true;
             LocalPlayer = [GKLocalPlayer localPlayer];
             CleanLog(IH_VERBOSE, @"GameCenter: Player \"%@\" was successfully authentificated.", LocalPlayer.alias);
+            
+            if(m_localPlayers[localPlayer.playerID] == nil)
+            {
+                CleanLog(IH_VERBOSE, @"GameCenter: New player creating record...");
+                [self generateNewPlayerWithID:LocalPlayer.playerID andDisplayName:LocalPlayer.alias];
+                [self saveLocalPlayers];
+            }
         }
     };
 }
@@ -142,7 +158,59 @@
         m_encryptionKeyData = [encryptionKey dataUsingEncoding:NSUTF8StringEncoding];
         
         CleanLog(IH_VERBOSE, @"GameCenter: Encryption Key Data created %@.", m_encryptionKeyData);
+        
+        /// Standar file mannger try to know if the player data is already in the disk.
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:GameCenterDataPath])
+        {
+            CleanLog(IH_VERBOSE, @"GameCenter: Players data not found creating save file.");
+            [self genrateLocalData];
+            [self saveLocalPlayers];
+        }
+        
+        
+        NSData *testdata = [[NSData dataWithContentsOfFile:GameCenterDataPath] decryptedWithKey:m_encryptionKeyData];
+        
+        // Check if the data is not corrupted.
+        if (testdata == nil)
+        {
+            CleanLog(IH_VERBOSE, @"GameCenter: Players data corrupted creating new save file.");
+            [self genrateLocalData];
+            [self saveLocalPlayers];
+        }
     });
+}
+
+- (void)generateNewPlayerWithID:(NSString*)playerid andDisplayName:(NSString*)displayname
+{
+    m_localPlayers[playerid] = [NSMutableDictionary dictionary];
+    
+    NSMutableDictionary* localPlayer = m_localPlayers[playerid];
+    localPlayer[@"display_name"] = displayname;
+    localPlayer[@"scores"] = [NSMutableDictionary dictionary];
+    localPlayer[@"achievements"] = [NSMutableDictionary dictionary];
+    
+    
+    NSMutableDictionary* scores = localPlayer[@"scores"];
+    NSMutableDictionary* achievements = localPlayer[@"achievements"];
+    
+    for(NSArray* leaderboard in GameCenterLeaderBoards)
+        scores[leaderboard[0]] = leaderboard[1];
+    
+    for(NSArray* achivement in GameCenterAchievements)
+    {
+        achievements[achivement[0]] = [NSMutableDictionary dictionary];
+        NSMutableDictionary* achivementD = achievements[achivement[0]];
+        achivementD[@"unlocked"] = @"no";
+        achivementD[@"progress"] = achivement[1];
+        achivementD[@"progress_goal"] = achivement[2];
+    }
+}
+
+- (void)genrateLocalData
+{
+    m_localPlayers = [NSMutableDictionary dictionary];
+    [self generateNewPlayerWithID:@"local_player" andDisplayName:@"Local Player"];
 }
 
 - (bool)isInternetAvailable
@@ -160,7 +228,28 @@
 // ---------------------------- Player Synchronization -------------------------- //
 // ------------------------------------------------------------------------------ //
 
+- (void)loadLocalPlayers
+{
+    CleanLog(IH_VERBOSE, @"GameCenter: Loading players data...");
+    
+    // Decrypt and create a new dictionary of users.
+    NSData *playersData = [[NSData dataWithContentsOfFile:GameCenterDataPath] decryptedWithKey:m_encryptionKeyData];
+    m_localPlayers = [NSKeyedUnarchiver unarchiveObjectWithData:playersData];
+    
+    CleanLog(IH_VERBOSE, @"GameCenter: %d local players.", m_localPlayers.count);
+    for(NSString* player in  m_localPlayers)
+    {
+        CleanLog(IH_VERBOSE, @"            Player: %@", m_localPlayers[player][@"display_name"]);
+    }
+}
 
+- (void)saveLocalPlayers
+{
+    CleanLog(IH_VERBOSE, @"GameCenter: Saving players data...");
+    
+    NSData *playersData = [[NSKeyedArchiver archivedDataWithRootObject:m_localPlayers] encryptedWithKey:m_encryptionKeyData];
+    [playersData writeToFile:GameCenterDataPath atomically:YES];
+}
 
 
 // ------------------------------------------------------------------------------ //
