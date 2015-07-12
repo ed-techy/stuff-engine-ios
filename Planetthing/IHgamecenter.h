@@ -19,6 +19,7 @@
 @property (readonly)bool Available;
 @property (readonly)bool Authenticated;
 @property (readonly)GKPlayer* LocalPlayer;
+@property (readonly)NSMutableDictionary* LocalPlayerData;
 @property id<IHGameCenterViewDelegate> ViewDelegate;
 @property id<IHGameCenterControlDelegate> ControlDelegate;
 
@@ -46,6 +47,8 @@
 
 @protocol IHGameCenterControlDelegate <NSObject>
 
+@optional
+- (void)didPlayerDataSync;
 
 
 @optional
