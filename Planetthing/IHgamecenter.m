@@ -5,6 +5,7 @@
     __weak UIViewController* authentificationView;
     
     NSMutableDictionary* m_localPlayers;
+    NSString* m_lastPlayer;
     
     NSString* m_encryptionKey;
     NSData* m_encryptionKeyData;
@@ -144,6 +145,10 @@
             {
                 CleanLog(IH_VERBOSE, @"GameCenter: The user canceled the authentification operation.");
             }
+            
+            LocalPlayerData = m_localPlayers[m_lastPlayer];
+            
+            CleanLog(IH_VERBOSE, @"GameCenter: Last player -> %@.", LocalPlayerData[@"display_name"]);
         }
         else if([GKLocalPlayer localPlayer].isAuthenticated)
         {
@@ -159,15 +164,19 @@
             {
                 CleanLog(IH_VERBOSE, @"GameCenter: New player creating record...");
                 [self generateNewPlayerWithID:LocalPlayer.playerID andDisplayName:LocalPlayer.alias];
-                [self saveLocalPlayers];
                 
                 LocalPlayerData = m_localPlayers[LocalPlayer.playerID];
+                m_lastPlayer = LocalPlayerData[@"player_id"];
             }
             else
             {
+                
                 LocalPlayerData = m_localPlayers[LocalPlayer.playerID];
+                m_lastPlayer = LocalPlayerData[@"player_id"];
+                
             }
             
+            [self saveLocalPlayers];
             [self syncCurrentPlayer];
         }
     };
@@ -189,8 +198,8 @@
             CleanLog(IH_VERBOSE, @"GameCenter: Players data not found creating save file.");
             [self genrateLocalData];
             [self saveLocalPlayers];
+            return;
         }
-        
         
         NSData *testdata = [[NSData dataWithContentsOfFile:GameCenterDataPath] decryptedWithKey:m_encryptionKeyData];
         
@@ -242,6 +251,7 @@
 - (void)genrateLocalData
 {
     m_localPlayers = [NSMutableDictionary dictionary];
+    m_lastPlayer = @"local_player";
     [self generateNewPlayerWithID:@"local_player" andDisplayName:@"Local Player"];
 }
 
@@ -394,7 +404,10 @@
     
     // Decrypt and create a new dictionary of users.
     NSData *playersData = [[NSData dataWithContentsOfFile:GameCenterDataPath] decryptedWithKey:m_encryptionKeyData];
-    m_localPlayers = [NSKeyedUnarchiver unarchiveObjectWithData:playersData];
+    NSMutableDictionary* dataDic = [NSKeyedUnarchiver unarchiveObjectWithData:playersData];
+    
+    m_localPlayers = dataDic[@"players"];
+    m_lastPlayer = dataDic[@"last_player"];
     
     CleanLog(IH_VERBOSE, @"GameCenter: %d local players.", m_localPlayers.count);
     for(NSString* player in  m_localPlayers)
@@ -407,7 +420,7 @@
 {
     CleanLog(IH_VERBOSE, @"GameCenter: Saving players data...");
     
-    NSData *playersData = [[NSKeyedArchiver archivedDataWithRootObject:m_localPlayers] encryptedWithKey:m_encryptionKeyData];
+    NSData *playersData = [[NSKeyedArchiver archivedDataWithRootObject:@{@"players" : m_localPlayers, @"last_player" : m_lastPlayer}] encryptedWithKey:m_encryptionKeyData];
     [playersData writeToFile:GameCenterDataPath atomically:YES];
 }
 

@@ -18,6 +18,7 @@
 		375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */; };
 		375F0A491B4DE95100F894C3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A481B4DE95100F894C3 /* Reachability.m */; };
 		375F0A4C1B4DF3EB00F894C3 /* NSDataAES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A4B1B4DF3EB00F894C3 /* NSDataAES256.m */; };
+		376C221E1B54566E00DC3874 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376C221D1B54566E00DC3874 /* MediaPlayer.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		375F0A481B4DE95100F894C3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Planetthing/Reachability.m; sourceTree = "<group>"; };
 		375F0A4A1B4DF3EB00F894C3 /* NSDataAES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDataAES256.h; path = Planetthing/NSDataAES256.h; sourceTree = "<group>"; };
 		375F0A4B1B4DF3EB00F894C3 /* NSDataAES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDataAES256.m; path = Planetthing/NSDataAES256.m; sourceTree = "<group>"; };
+		376C221D1B54566E00DC3874 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				376C221E1B54566E00DC3874 /* MediaPlayer.framework in Frameworks */,
 				375F0A3A1B4D9FF500F894C3 /* GameKit.framework in Frameworks */,
 				375F0A3C1B4D9FFB00F894C3 /* StoreKit.framework in Frameworks */,
 			);
@@ -137,6 +140,7 @@
 		375F0A3D1B4DA01D00F894C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				376C221D1B54566E00DC3874 /* MediaPlayer.framework */,
 				375F0A3B1B4D9FFB00F894C3 /* StoreKit.framework */,
 				375F0A391B4D9FF500F894C3 /* GameKit.framework */,
 			);
@@ -480,6 +484,7 @@
 				375F0A331B4D9B5500F894C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		375F0A341B4D9B5500F894C3 /* Build configuration list for PBXNativeTarget "PlanetthingTests" */ = {
 			isa = XCConfigurationList;
@@ -488,6 +493,7 @@
 				375F0A361B4D9B5500F894C3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

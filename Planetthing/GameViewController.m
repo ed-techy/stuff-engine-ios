@@ -1,6 +1,8 @@
 #import "GameViewController.h"
 #import <OpenGLES/ES2/glext.h>
 
+#import <MediaPlayer/MediaPlayer.h>
+
 @interface GameViewController()
 {
 
