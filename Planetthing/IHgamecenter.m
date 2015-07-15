@@ -20,7 +20,6 @@
 - (void)generateNewPlayerWithID:(NSString*)playerid andDisplayName:(NSString*)displayname;
 - (void)genrateLocalData;
 - (void)loadLocalPlayers;
-- (void)saveLocalPlayers;
 - (void)syncCurrentPlayer;
 
 @end
@@ -232,7 +231,9 @@
         scores[leaderboard[0]] = [NSMutableDictionary dictionary];
         NSMutableDictionary* scoreD = scores[leaderboard[0]];
         scoreD[@"value"] = leaderboard[1];
+        scoreD[@"context"] = @0;
         scoreD[@"date"] = [[NSDate alloc] initWithTimeIntervalSince1970:0];
+        scoreD[@"order"] = leaderboard[2];
     }
     
     
@@ -296,26 +297,55 @@
                  
                  CleanLog(IH_VERBOSE, @"            Leaderboard %@:", score.leaderboardIdentifier);
                  
-                 if([score.date compare:scoreL[@"date"]] == NSOrderedDescending)
+                 NSString* order = scoreL[@"order"];
+                 
+                 if([order isEqual:@"greater"])
                  {
-                     CleanLog(IH_VERBOSE, @"                Local      %@ -> %@.", scoreL[@"value"], scoreL[@"date"]);
-                     CleanLog(IH_VERBOSE, @"                GameCenter %lldi -> %@. (getting)", score.value, score.date);
-                     
-                     m_upToDate = false;
-                     
-                     scoreL[@"value"] = [[NSNumber alloc] initWithUnsignedInt:(unsigned int)score.value];
-                     scoreL[@"date"] = score.date;
-                 }
-                 else if([score.date compare:scoreL[@"date"]] == NSOrderedAscending)
-                 {
-                     CleanLog(IH_VERBOSE, @"                Local      %@ -> %@. (keeping and submiting)", scoreL[@"value"], scoreL[@"date"]);
-                     CleanLog(IH_VERBOSE, @"                GameCenter %lldi -> %@.", score.value, score.date);
-                     
+                     if([scoreL[@"value"] floatValue] < (double)score.value)
+                     {
+                         CleanLog(IH_VERBOSE, @"                Local      %@ -> %@.", scoreL[@"value"], scoreL[@"date"]);
+                         CleanLog(IH_VERBOSE, @"                GameCenter %lldi -> %@. (getting)", score.value, score.date);
+                         
+                         m_upToDate = false;
+                         
+                         scoreL[@"value"] = @((double)score.value);
+                         scoreL[@"date"] = score.date;
+                     }
+                     else if ([scoreL[@"value"] doubleValue] > (double)score.value)
+                     {
+                         CleanLog(IH_VERBOSE, @"                Local      %@ -> %@. (keeping and submiting)", scoreL[@"value"], scoreL[@"date"]);
+                         CleanLog(IH_VERBOSE, @"                GameCenter %lldi -> %@.", score.value, score.date);
+                         
+                     }
+                     else
+                     {
+                         CleanLog(IH_VERBOSE, @"                Local      %@ -> %@. (keeping)", scoreL[@"value"], scoreL[@"date"]);
+                         CleanLog(IH_VERBOSE, @"                GameCenter %lldi -> %@.", score.value, score.date);
+                     }
                  }
                  else
                  {
-                     CleanLog(IH_VERBOSE, @"                Local      %@ -> %@. (keeping)", scoreL[@"value"], scoreL[@"date"]);
-                     CleanLog(IH_VERBOSE, @"                GameCenter %lldi -> %@.", score.value, score.date);
+                     if([scoreL[@"value"] doubleValue] > (double)score.value)
+                     {
+                         CleanLog(IH_VERBOSE, @"                Local      %@ -> %@.", scoreL[@"value"], scoreL[@"date"]);
+                         CleanLog(IH_VERBOSE, @"                GameCenter %lldi -> %@. (getting)", score.value, score.date);
+                         
+                         m_upToDate = false;
+                         
+                         scoreL[@"value"] = @((double)score.value);
+                         scoreL[@"date"] = score.date;
+                     }
+                     else if ([scoreL[@"value"] floatValue] < (double)score.value)
+                     {
+                         CleanLog(IH_VERBOSE, @"                Local      %@ -> %@. (keeping and submiting)", scoreL[@"value"], scoreL[@"date"]);
+                         CleanLog(IH_VERBOSE, @"                GameCenter %lldi -> %@.", score.value, score.date);
+                         
+                     }
+                     else
+                     {
+                         CleanLog(IH_VERBOSE, @"                Local      %@ -> %@. (keeping)", scoreL[@"value"], scoreL[@"date"]);
+                         CleanLog(IH_VERBOSE, @"                GameCenter %lldi -> %@.", score.value, score.date);
+                     }
                  }
                  
                  m_syncThreads--;
@@ -352,13 +382,13 @@
                 
                 CleanLog(IH_VERBOSE, @"            Achievement %@:", achievement.identifier);
                 
-                if(achievement.percentComplete == [achievementC[@"percentage"] floatValue])
+                if(achievement.percentComplete == [achievementC[@"percentage"] doubleValue])
                 {
                     CleanLog(IH_VERBOSE, @"                Local      %@ -> %@. (keeping)", achievementC[@"percentage"], achievementC[@"date"]);
                     CleanLog(IH_VERBOSE, @"                GameCenter %fi -> %@.", achievement.percentComplete, achievement.lastReportedDate);
                     
                 }
-                else if(achievement.percentComplete > [achievementC[@"percentage"] floatValue])
+                else if(achievement.percentComplete > [achievementC[@"percentage"] doubleValue])
                 {
                     CleanLog(IH_VERBOSE, @"                Local      %@ -> %@.", achievementC[@"percentage"], achievementC[@"date"]);
                     CleanLog(IH_VERBOSE, @"                GameCenter %fi -> %@. (getting)", achievement.percentComplete, achievement.lastReportedDate);
@@ -373,6 +403,7 @@
                 {
                     CleanLog(IH_VERBOSE, @"                Local      %@ -> %@. (keeping and submiting)", achievementC[@"percentage"], achievementC[@"date"]);
                     CleanLog(IH_VERBOSE, @"                GameCenter %fi -> %@.", achievement.percentComplete, achievement.lastReportedDate);
+
                 }
             }
         }
@@ -396,6 +427,110 @@
         }
     }];
     
+}
+
+- (void)setScore:(NSNumber*)scoreValue andContext:(NSNumber*)context forIdentifier:(NSString*)identifier
+{
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        NSMutableDictionary* score = LocalPlayerData[@"scores"][identifier];
+        
+        NSString* order = score[@"order"];
+        
+        CleanLog(IH_VERBOSE, @"GameCenter: Seting %@ for value %@.", identifier, scoreValue);
+        
+        bool submit = false;
+        
+        // Id the new score wortnhh it? save and submit
+        if([order isEqual:@"greater"])
+        {
+            if([score[@"value"] doubleValue] < [scoreValue doubleValue])
+            {
+                m_upToDate = false;
+                submit = true;
+                
+                score[@"value"] = scoreValue;
+                score[@"context"] = context;
+                score[@"date"] = [[NSDate alloc] init];
+            }
+            else
+            {
+                CleanLog(IH_VERBOSE, @"GameCenter: The new value is not worth.");
+            }
+        }
+        else
+        {
+            if([score[@"value"] doubleValue] > [scoreValue doubleValue])
+            {
+                m_upToDate = false;
+                submit = true;
+                
+                score[@"value"] = scoreValue;
+                score[@"context"] = context;
+                score[@"date"] = [[NSDate alloc] init];
+            }
+            else
+            {
+                CleanLog(IH_VERBOSE, @"GameCenter: The new value is not worth.");
+            }
+        }
+        
+        // If worth it submit
+        if(submit)
+        {
+            GKScore *gkScore = [[GKScore alloc] initWithLeaderboardIdentifier:identifier player:LocalPlayer];
+            gkScore.value = [scoreValue doubleValue];
+            gkScore.context = [context doubleValue];
+            
+            m_syncThreads++;
+            
+            [gkScore reportScoreWithCompletionHandler:^(NSError *error) {
+                if(!m_syncThreads )
+                {
+                    CleanLog(IH_VERBOSE, @"GameCenter: Synchronization complete.");
+                    
+                    if(!m_upToDate)
+                        [self saveLocalPlayers];
+                    
+                    // Rise event.
+                    if([ControlDelegate respondsToSelector:@selector(didPlayerDataSync)])
+                        [ControlDelegate didPlayerDataSync];
+                }
+            }];
+        }
+        
+    });
+}
+
+- (void)setAchievementProgress:(NSNumber*)progess forIdentifier:(NSString*)identifier
+{
+    NSMutableDictionary* achievement = LocalPlayerData[@"achievements"][identifier];
+    
+    CleanLog(IH_VERBOSE, @"GameCenter: Seting %@ for progress %@.", identifier, progess);
+    
+    achievement[@"progress"] = progess;
+    if([achievement[@"progress"] integerValue] == [achievement[@"progress_goal"] integerValue])
+        achievement[@"precenteage"] = @100.0f;
+    else
+        achievement[@"precenteage"] = @([achievement[@"progress_goal"] floatValue] / [progess floatValue]);
+    
+    GKAchievement *gkAchievement = [[GKAchievement alloc] initWithIdentifier:identifier player:LocalPlayer];
+    gkAchievement.percentComplete = [achievement[@"precenteage"] doubleValue];
+    
+     m_syncThreads++;
+    
+    [gkAchievement reportAchievementWithCompletionHandler:^(NSError *error) {
+        if(!m_syncThreads )
+        {
+            CleanLog(IH_VERBOSE, @"GameCenter: Synchronization complete.");
+            
+            if(!m_upToDate)
+                [self saveLocalPlayers];
+            
+            // Rise event.
+            if([ControlDelegate respondsToSelector:@selector(didPlayerDataSync)])
+                [ControlDelegate didPlayerDataSync];
+        }
+    }];
 }
 
 - (void)loadLocalPlayers
@@ -422,6 +557,8 @@
     
     NSData *playersData = [[NSKeyedArchiver archivedDataWithRootObject:@{@"players" : m_localPlayers, @"last_player" : m_lastPlayer}] encryptedWithKey:m_encryptionKeyData];
     [playersData writeToFile:GameCenterDataPath atomically:YES];
+    
+    m_upToDate = true;
 }
 
 

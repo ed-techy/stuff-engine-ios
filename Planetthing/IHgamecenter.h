@@ -33,6 +33,9 @@
 // ------------- Public Functions ------------- //
 // -------------------------------------------- //
 - (void)authenticateLocalPlayer;
+- (void)setScore:(NSNumber*)scoreValue andContext:(NSNumber*)context forIdentifier:(NSString*)identifier;
+- (void)setAchievementProgress:(NSNumber*)progess forIdentifier:(NSString*)identifier;
+- (void)saveLocalPlayers;
 
 
 @end
