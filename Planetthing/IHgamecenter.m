@@ -12,6 +12,7 @@
     
     unsigned int m_syncThreads;
     bool m_upToDate;
+    bool m_initialSync;
 }
 
 - (bool)isGameCenterAvailable;
@@ -60,6 +61,9 @@
     {
         // Do all the game center setup in the background.
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+            
+            m_initialSync = true;
+            
             // GameCenter availability.
             Available = [self isGameCenterAvailable];
             
@@ -146,6 +150,8 @@
             }
             
             LocalPlayerData = m_localPlayers[m_lastPlayer];
+            
+            m_initialSync = false;
             
             CleanLog(IH_VERBOSE, @"GameCenter: Last player -> %@.", LocalPlayerData[@"display_name"]);
         }
@@ -354,6 +360,8 @@
                  {
                      CleanLog(IH_VERBOSE, @"GameCenter: Synchronization complete.");
                      
+                     m_initialSync = false;
+                     
                      if(!m_upToDate)
                          [self saveLocalPlayers];
                      else
@@ -395,7 +403,7 @@
                     
                     m_upToDate = false;
                     
-                    if(achievement.percentComplete == 100) achievementC[@"unlocked"] = @"yes";
+                    if(achievement.completed) achievementC[@"unlocked"] = @"yes";
                     achievementC[@"percentage"] = [[NSNumber alloc] initWithFloat:achievement.percentComplete];
                     achievementC[@"date"] = achievement.lastReportedDate;
                 }
@@ -413,6 +421,8 @@
         if(!m_syncThreads )
         {
             CleanLog(IH_VERBOSE, @"GameCenter: Synchronization complete.");
+            
+            m_initialSync = false;
             
             if(!m_upToDate)
                 [self saveLocalPlayers];
@@ -432,6 +442,11 @@
 - (void)setScore:(NSNumber*)scoreValue andContext:(NSNumber*)context forIdentifier:(NSString*)identifier
 {
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        
+        // Wait for the initial sync
+        while(m_initialSync)
+            sleep(1);
+        
         NSMutableDictionary* score = LocalPlayerData[@"scores"][identifier];
         
         NSString* order = score[@"order"];
@@ -475,16 +490,24 @@
         }
         
         // If worth it submit
-        if(submit)
+        if(submit && Authenticated)
         {
             GKScore *gkScore = [[GKScore alloc] initWithLeaderboardIdentifier:identifier player:LocalPlayer];
             gkScore.value = [scoreValue doubleValue];
             gkScore.context = [context doubleValue];
             
+            CleanLog(IH_VERBOSE, @"GameCenter: Submiting...");
+            
             m_syncThreads++;
             
             [gkScore reportScoreWithCompletionHandler:^(NSError *error) {
-                if(!m_syncThreads )
+                if(error)
+                {
+                    CleanLog(IH_VERBOSE, @"GameCenter: There was an error trying to submit the score.");
+                }
+                
+                m_syncThreads--;
+                if(!m_syncThreads)
                 {
                     CleanLog(IH_VERBOSE, @"GameCenter: Synchronization complete.");
                     
@@ -503,34 +526,57 @@
 
 - (void)setAchievementProgress:(NSNumber*)progess forIdentifier:(NSString*)identifier
 {
-    NSMutableDictionary* achievement = LocalPlayerData[@"achievements"][identifier];
-    
-    CleanLog(IH_VERBOSE, @"GameCenter: Seting %@ for progress %@.", identifier, progess);
-    
-    achievement[@"progress"] = progess;
-    if([achievement[@"progress"] integerValue] == [achievement[@"progress_goal"] integerValue])
-        achievement[@"precenteage"] = @100.0f;
-    else
-        achievement[@"precenteage"] = @([achievement[@"progress_goal"] floatValue] / [progess floatValue]);
-    
-    GKAchievement *gkAchievement = [[GKAchievement alloc] initWithIdentifier:identifier player:LocalPlayer];
-    gkAchievement.percentComplete = [achievement[@"precenteage"] doubleValue];
-    
-     m_syncThreads++;
-    
-    [gkAchievement reportAchievementWithCompletionHandler:^(NSError *error) {
-        if(!m_syncThreads )
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        
+        // Wait for the initial sync;
+        while(m_initialSync)
+            sleep(1000);
+        
+        NSMutableDictionary* achievement = LocalPlayerData[@"achievements"][identifier];
+        
+        CleanLog(IH_VERBOSE, @"GameCenter: Seting %@ for progress %@.", identifier, progess);
+        
+        // Percenteg calculation base progress and goal
+        achievement[@"progress"] = progess;
+        if([achievement[@"progress"] integerValue] == [achievement[@"progress_goal"] integerValue])
+            achievement[@"precenteage"] = @100.0f;
+        else
+            achievement[@"precenteage"] = @([achievement[@"progress_goal"] floatValue] / [progess floatValue]);
+        
+        // Submit if is a player authentificated.
+        if(Authenticated)
         {
-            CleanLog(IH_VERBOSE, @"GameCenter: Synchronization complete.");
+            GKAchievement *gkAchievement = [[GKAchievement alloc] initWithIdentifier:identifier player:LocalPlayer];
+            gkAchievement.percentComplete = [achievement[@"precenteage"] doubleValue];
             
-            if(!m_upToDate)
-                [self saveLocalPlayers];
+            if([achievement[@"precentage"] doubleValue] == 100.0)
+                gkAchievement.showsCompletionBanner = YES;
             
-            // Rise event.
-            if([ControlDelegate respondsToSelector:@selector(didPlayerDataSync)])
-                [ControlDelegate didPlayerDataSync];
+            m_syncThreads++;
+            
+            CleanLog(IH_VERBOSE, @"GameCenter: Submiting...");
+            
+            [gkAchievement reportAchievementWithCompletionHandler:^(NSError *error) {
+                if(error)
+                {
+                    CleanLog(IH_VERBOSE, @"GameCenter: There was an error trying to submit the achievement.");
+                }
+                
+                m_syncThreads--;
+                if(!m_syncThreads)
+                {
+                    CleanLog(IH_VERBOSE, @"GameCenter: Synchronization complete.");
+                    
+                    if(!m_upToDate)
+                        [self saveLocalPlayers];
+                    
+                    // Rise event.
+                    if([ControlDelegate respondsToSelector:@selector(didPlayerDataSync)])
+                        [ControlDelegate didPlayerDataSync];
+                }
+            }];
         }
-    }];
+    });
 }
 
 - (void)loadLocalPlayers

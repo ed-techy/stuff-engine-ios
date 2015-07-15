@@ -27,6 +27,8 @@
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
     [IHGameCenter sharedIntance].ViewDelegate = self;
+    
+    [[IHGameCenter sharedIntance] setScore:@3 andContext:@666 forIdentifier:@"planetthing_test_leaderboard_2"];
 }
 
 - (void)dealloc

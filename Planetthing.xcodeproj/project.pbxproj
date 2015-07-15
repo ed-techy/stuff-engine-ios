@@ -77,9 +77,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		373CF0871B56DEDB002A9CFD /* Game */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
 		375F0A011B4D9B5500F894C3 = {
 			isa = PBXGroup;
 			children = (
+				373CF0871B56DEDB002A9CFD /* Game */,
 				375F0A3D1B4DA01D00F894C3 /* Frameworks */,
 				375F0A3E1B4DA09C00F894C3 /* iOS Helpers */,
 				375F0A0C1B4D9B5500F894C3 /* Planetthing */,
