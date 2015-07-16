@@ -17,8 +17,9 @@
 		375F0A3C1B4D9FFB00F894C3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375F0A3B1B4D9FFB00F894C3 /* StoreKit.framework */; };
 		375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */; };
 		375F0A491B4DE95100F894C3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A481B4DE95100F894C3 /* Reachability.m */; };
-		375F0A4C1B4DF3EB00F894C3 /* NSDataAES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A4B1B4DF3EB00F894C3 /* NSDataAES256.m */; };
 		376C221E1B54566E00DC3874 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376C221D1B54566E00DC3874 /* MediaPlayer.framework */; };
+		37A064DF1B582A880002F5F1 /* GMmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064DE1B582A880002F5F1 /* GMmain.m */; };
+		37A064E21B582D150002F5F1 /* NSDataAES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064E11B582D150002F5F1 /* NSDataAES256.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,10 +51,12 @@
 		375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IHgamecenter.m; path = Planetthing/IHgamecenter.m; sourceTree = "<group>"; };
 		375F0A471B4DE95100F894C3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Planetthing/Reachability.h; sourceTree = "<group>"; };
 		375F0A481B4DE95100F894C3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Planetthing/Reachability.m; sourceTree = "<group>"; };
-		375F0A4A1B4DF3EB00F894C3 /* NSDataAES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDataAES256.h; path = Planetthing/NSDataAES256.h; sourceTree = "<group>"; };
-		375F0A4B1B4DF3EB00F894C3 /* NSDataAES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDataAES256.m; path = Planetthing/NSDataAES256.m; sourceTree = "<group>"; };
 		376C221D1B54566E00DC3874 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		37D0EE991B58054100306DC7 /* IHglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IHglobals.h; path = Planetthing/IHglobals.h; sourceTree = "<group>"; };
+		37A064DD1B582A880002F5F1 /* GMmain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GMmain.h; path = Planetthing/GMmain.h; sourceTree = "<group>"; };
+		37A064DE1B582A880002F5F1 /* GMmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GMmain.m; path = Planetthing/GMmain.m; sourceTree = "<group>"; };
+		37A064E01B582D150002F5F1 /* NSDataAES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDataAES256.h; path = Planetthing/NSDataAES256.h; sourceTree = "<group>"; };
+		37A064E11B582D150002F5F1 /* NSDataAES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDataAES256.m; path = Planetthing/NSDataAES256.m; sourceTree = "<group>"; };
+		37D0EE991B58054100306DC7 /* GMglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GMglobals.h; path = Planetthing/GMglobals.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +83,9 @@
 		373CF0871B56DEDB002A9CFD /* Game */ = {
 			isa = PBXGroup;
 			children = (
+				37D0EE991B58054100306DC7 /* GMglobals.h */,
+				37A064DD1B582A880002F5F1 /* GMmain.h */,
+				37A064DE1B582A880002F5F1 /* GMmain.m */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -87,8 +93,8 @@
 		375F0A011B4D9B5500F894C3 = {
 			isa = PBXGroup;
 			children = (
-				373CF0871B56DEDB002A9CFD /* Game */,
 				375F0A3D1B4DA01D00F894C3 /* Frameworks */,
+				373CF0871B56DEDB002A9CFD /* Game */,
 				375F0A3E1B4DA09C00F894C3 /* iOS Helpers */,
 				375F0A0C1B4D9B5500F894C3 /* Planetthing */,
 				375F0A2A1B4D9B5500F894C3 /* PlanetthingTests */,
@@ -162,7 +168,6 @@
 				375F0A461B4DE92A00F894C3 /* Dependecies */,
 				375F0A421B4DA0EC00F894C3 /* IHgamecenter.h */,
 				375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */,
-				37D0EE991B58054100306DC7 /* IHglobals.h */,
 			);
 			name = "iOS Helpers";
 			sourceTree = "<group>";
@@ -170,8 +175,8 @@
 		375F0A461B4DE92A00F894C3 /* Dependecies */ = {
 			isa = PBXGroup;
 			children = (
-				375F0A4A1B4DF3EB00F894C3 /* NSDataAES256.h */,
-				375F0A4B1B4DF3EB00F894C3 /* NSDataAES256.m */,
+				37A064E01B582D150002F5F1 /* NSDataAES256.h */,
+				37A064E11B582D150002F5F1 /* NSDataAES256.m */,
 				375F0A471B4DE95100F894C3 /* Reachability.h */,
 				375F0A481B4DE95100F894C3 /* Reachability.m */,
 			);
@@ -286,11 +291,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				375F0A4C1B4DF3EB00F894C3 /* NSDataAES256.m in Sources */,
 				375F0A131B4D9B5500F894C3 /* AppDelegate.m in Sources */,
+				37A064DF1B582A880002F5F1 /* GMmain.m in Sources */,
 				375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */,
 				375F0A1A1B4D9B5500F894C3 /* GameViewController.m in Sources */,
 				375F0A101B4D9B5500F894C3 /* main.m in Sources */,
+				37A064E21B582D150002F5F1 /* NSDataAES256.m in Sources */,
 				375F0A491B4DE95100F894C3 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,12 +17,16 @@
 
 - (bool)isGameCenterAvailable;
 - (bool)isInternetAvailable;
-- (void)setUpDataWithKey:(NSString*)key;
-- (void)generateNewPlayerWithID:(NSString*)playerid andDisplayName:(NSString*)displayname;
-- (void)genrateLocalData;
+
+- (void)authenticateLocalPlayer;
 - (void)loadLocalPlayers;
 - (void)syncCurrentPlayer;
 - (void)loadFriedsData;
+- (void)saveLocalPlayers;
+
+- (void)setUpDataWithKey:(NSString*)key;
+- (void)generateNewPlayerWithID:(NSString*)playerid andDisplayName:(NSString*)displayname;
+- (void)genrateLocalData;
 
 @end
 

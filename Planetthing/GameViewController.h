@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 #import <GLKit/GLKit.h>
-#import "IHgamecenter.h"
+#import "GMmain.h"
 
 @interface GameViewController : GLKViewController<IHGameCenterViewDelegate>
 

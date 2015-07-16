@@ -5,13 +5,18 @@
 
 @interface GameViewController()
 {
-
+    GMmain* m_GMMain;
 }
 @property (strong, nonatomic) EAGLContext *context;
 
 @end
 
 @implementation GameViewController
+
+// ------------------------------------------------------------------------------ //
+// ------------------------------ View Load - Unload ---------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark View Load - Unload
 
 - (void)viewDidLoad
 {
@@ -26,9 +31,12 @@
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
-    [IHGameCenter sharedIntance].ViewDelegate = self;
     
-    //[[IHGameCenter sharedIntance] setScore:@3 andContext:@666 forIdentifier:@"planetthing_test_leaderboard_2"];
+    
+    // Initialize Game Center features.
+    [IHGameCenter sharedIntance].ViewDelegate = self;
+
+    m_GMMain = [GMmain sharedIntance];
 }
 
 - (void)dealloc
@@ -57,15 +65,30 @@
     return YES;
 }
 
+// ------------------------------------------------------------------------------ //
+// --------------------------- Frame - Render - Layout -------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Frame - Render - Layout
+
 - (void)update
 {
-
+    [m_GMMain frame:self.timeSinceLastUpdate];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-
+    [m_GMMain render];
 }
+
+- (void)viewDidLayoutSubviews
+{
+    [m_GMMain layoutForWidth:@(self.view.bounds.size.width) andHeight:@(self.view.bounds.size.height)];
+}
+
+// ------------------------------------------------------------------------------ //
+// ------------------------------ View Presentation ----------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark View Presentation
 
 - (void)presentGameCenterAuthentificationView:(UIViewController *)gameCenterLoginController
 {

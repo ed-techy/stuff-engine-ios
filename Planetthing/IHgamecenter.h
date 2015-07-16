@@ -1,7 +1,7 @@
 #import <GameKit/GameKit.h>
 #import "Reachability.h"
 #import "NSDataAES256.h"
-#import "IHglobals.h"
+#import "GMglobals.h"
 
 #define LIBRARY_FOLDER [NSHomeDirectory() stringByAppendingPathComponent:@"Library"]
 #define GameCenterDataFile @"game_center.plist"
@@ -16,6 +16,7 @@
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
+#pragma mark Properties
 @property (readonly)bool Available;
 @property (readonly)bool Authenticated;
 @property (readonly)GKLocalPlayer* LocalPlayer;
@@ -26,20 +27,19 @@
 
 
 // -------------------------------------------- //
-// ------------- Singleton / SetUp ------------ //
+// ----------------- Singleton ---------------- //
 // -------------------------------------------- //
+#pragma mark Sngleton
 + (instancetype)sharedIntance;
 
 // -------------------------------------------- //
-// ------------- Public Functions ------------- //
+// ------------- Stters / Getters ------------- //
 // -------------------------------------------- //
-- (void)authenticateLocalPlayer;
+#pragma mark Setters / Getters
 - (void)setScore:(NSNumber*)scoreValue andContext:(NSNumber*)context forIdentifier:(NSString*)identifier;
 - (void)setAchievementProgress:(NSNumber*)progess forIdentifier:(NSString*)identifier;
 - (NSMutableDictionary*)getScoreForIdentifier:(NSString*)identifier;
 - (NSMutableDictionary*)getAchievementForIdentifier:(NSString*)identifier;
-- (void)saveLocalPlayers;
-
 
 @end
 
