@@ -1,13 +1,15 @@
-#import "IHgamecenter.h"
-#import "GErenderbox.h"
+#import <GLKit/GLKit.h>
+#import "GMglobals.h"
 
-@interface GMmain : NSObject
+@interface GEContext : NSObject
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
 
+@property GLKView* ContextView;
+@property (readonly) GLint MaxTextureSize;
 
 // -------------------------------------------- //
 // ----------------- Singleton ---------------- //
@@ -16,11 +18,10 @@
 + (instancetype)sharedIntance;
 
 // -------------------------------------------- //
-// --------- Frame - Render - Layout ---------- //
+// ------------- Public Functions ------------- //
 // -------------------------------------------- //
-#pragma mark Frame - Render - Layout
-- (void)frame:(float)time;
-- (void)render;
-- (void)layoutForWidth:(NSNumber*)width andHeight:(NSNumber*)height;
+#pragma mark Public Functions
+
+- (void)setBackgroundColor:(GLKVector4)color;
 
 @end

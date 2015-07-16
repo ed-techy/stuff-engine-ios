@@ -20,6 +20,9 @@
 		376C221E1B54566E00DC3874 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376C221D1B54566E00DC3874 /* MediaPlayer.framework */; };
 		37A064DF1B582A880002F5F1 /* GMmain.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064DE1B582A880002F5F1 /* GMmain.m */; };
 		37A064E21B582D150002F5F1 /* NSDataAES256.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064E11B582D150002F5F1 /* NSDataAES256.m */; };
+		37A064E61B583ED90002F5F1 /* GErenderbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064E51B583ED90002F5F1 /* GErenderbox.m */; };
+		37A064E91B584C150002F5F1 /* GEview.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064E81B584C150002F5F1 /* GEview.m */; };
+		37A064EC1B5857EB0002F5F1 /* GEcontext.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064EB1B5857EB0002F5F1 /* GEcontext.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +59,13 @@
 		37A064DE1B582A880002F5F1 /* GMmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GMmain.m; path = Planetthing/GMmain.m; sourceTree = "<group>"; };
 		37A064E01B582D150002F5F1 /* NSDataAES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDataAES256.h; path = Planetthing/NSDataAES256.h; sourceTree = "<group>"; };
 		37A064E11B582D150002F5F1 /* NSDataAES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDataAES256.m; path = Planetthing/NSDataAES256.m; sourceTree = "<group>"; };
+		37A064E41B583ED90002F5F1 /* GErenderbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GErenderbox.h; path = Planetthing/GErenderbox.h; sourceTree = "<group>"; };
+		37A064E51B583ED90002F5F1 /* GErenderbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GErenderbox.m; path = Planetthing/GErenderbox.m; sourceTree = "<group>"; };
+		37A064E71B584C150002F5F1 /* GEview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEview.h; path = Planetthing/GEview.h; sourceTree = "<group>"; };
+		37A064E81B584C150002F5F1 /* GEview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEview.m; path = Planetthing/GEview.m; sourceTree = "<group>"; };
+		37A064EA1B5857D40002F5F1 /* GEcontext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEcontext.h; path = Planetthing/GEcontext.h; sourceTree = "<group>"; };
+		37A064EB1B5857EB0002F5F1 /* GEcontext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEcontext.m; path = Planetthing/GEcontext.m; sourceTree = "<group>"; };
+		37A064ED1B5860AE0002F5F1 /* GEcommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEcommon.h; path = Planetthing/GEcommon.h; sourceTree = "<group>"; };
 		37D0EE991B58054100306DC7 /* GMglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GMglobals.h; path = Planetthing/GMglobals.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -93,6 +103,7 @@
 		375F0A011B4D9B5500F894C3 = {
 			isa = PBXGroup;
 			children = (
+				37A064E31B583E680002F5F1 /* GE Classes */,
 				375F0A3D1B4DA01D00F894C3 /* Frameworks */,
 				373CF0871B56DEDB002A9CFD /* Game */,
 				375F0A3E1B4DA09C00F894C3 /* iOS Helpers */,
@@ -181,6 +192,20 @@
 				375F0A481B4DE95100F894C3 /* Reachability.m */,
 			);
 			name = Dependecies;
+			sourceTree = "<group>";
+		};
+		37A064E31B583E680002F5F1 /* GE Classes */ = {
+			isa = PBXGroup;
+			children = (
+				37A064ED1B5860AE0002F5F1 /* GEcommon.h */,
+				37A064EA1B5857D40002F5F1 /* GEcontext.h */,
+				37A064EB1B5857EB0002F5F1 /* GEcontext.m */,
+				37A064E41B583ED90002F5F1 /* GErenderbox.h */,
+				37A064E51B583ED90002F5F1 /* GErenderbox.m */,
+				37A064E71B584C150002F5F1 /* GEview.h */,
+				37A064E81B584C150002F5F1 /* GEview.m */,
+			);
+			name = "GE Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,9 +318,12 @@
 			files = (
 				375F0A131B4D9B5500F894C3 /* AppDelegate.m in Sources */,
 				37A064DF1B582A880002F5F1 /* GMmain.m in Sources */,
+				37A064E91B584C150002F5F1 /* GEview.m in Sources */,
 				375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */,
 				375F0A1A1B4D9B5500F894C3 /* GameViewController.m in Sources */,
+				37A064EC1B5857EB0002F5F1 /* GEcontext.m in Sources */,
 				375F0A101B4D9B5500F894C3 /* main.m in Sources */,
+				37A064E61B583ED90002F5F1 /* GErenderbox.m in Sources */,
 				37A064E21B582D150002F5F1 /* NSDataAES256.m in Sources */,
 				375F0A491B4DE95100F894C3 /* Reachability.m in Sources */,
 			);

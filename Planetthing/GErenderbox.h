@@ -1,13 +1,12 @@
-#import "IHgamecenter.h"
-#import "GErenderbox.h"
+#import "GEview.h"
 
-@interface GMmain : NSObject
+@interface GERenderBox : NSObject
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-
+@property (readonly) GEView* MainView;
 
 // -------------------------------------------- //
 // ----------------- Singleton ---------------- //

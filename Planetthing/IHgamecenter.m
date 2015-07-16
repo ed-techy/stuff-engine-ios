@@ -52,7 +52,7 @@
     
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
-        CleanLog(IH_VERBOSE, @"GameCenter: Shared GameCenter instance was allocated for the first time.");
+        CleanLog(IH_VERBOSE, @"GameCenter: Shared instance was allocated for the first time.");
         sharedIntance = [[IHGameCenter alloc] init];
     });
     

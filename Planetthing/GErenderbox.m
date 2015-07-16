@@ -1,29 +1,31 @@
-#import "GMmain.h"
+#import "GErenderbox.h"
 
-@interface GMmain()
+@interface GERenderBox()
 {
-    GERenderBox* m_renderBox;
+
 }
 
 @end
 
-@implementation GMmain
+@implementation GERenderBox
+
+@synthesize MainView;
 
 
 // ------------------------------------------------------------------------------ //
-// ---------------------------- Game Main singleton --------------------------- //
+// ---------------------------- Render Box singleton --------------------------- //
 // ------------------------------------------------------------------------------ //
-#pragma mark Game Main Singleton
+#pragma mark Render Box Singleton
 
 + (instancetype)sharedIntance
 {
-    static GMmain* sharedIntance;
+    static GERenderBox* sharedIntance;
     static dispatch_once_t onceToken;
     
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
-        CleanLog(GM_VERBOSE, @"Game Main: Shared instance was allocated for the first time.");
-        sharedIntance = [[GMmain alloc] init];
+        CleanLog(RB_VERBOSE, @"Render Box: Shared instance was allocated for the first time.");
+        sharedIntance = [[GERenderBox alloc] init];
     });
     
     return sharedIntance;
@@ -35,13 +37,11 @@
     
     if (self)
     {
-        m_renderBox = [GERenderBox sharedIntance];
-        m_renderBox.MainView.BackgroundColor = GLKVector4Make(0.9f  , 0.93f, 0.93f, 1.0f);
+        MainView = [[GEView alloc] init];
     }
     
     return self;
 }
-
 
 // ------------------------------------------------------------------------------ //
 // -------------------------- Frame - Render - Layout --------------------------- //
@@ -50,18 +50,24 @@
 
 - (void)frame:(float)time
 {
-    [m_renderBox frame:time];
+    
 }
 
 - (void)render
 {
-    [m_renderBox render];
-    
+    // Render to screen
+    [MainView render];
 }
 
 - (void)layoutForWidth:(NSNumber*)width andHeight:(NSNumber*)height
 {
-    [m_renderBox layoutForWidth:width andHeight:height];
+    
 }
+
+// ------------------------------------------------------------------------------ //
+// ------------------------------ Setters - Getters ----------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Setters - Getters
+
 
 @end

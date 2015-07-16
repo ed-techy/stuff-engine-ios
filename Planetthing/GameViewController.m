@@ -1,7 +1,4 @@
 #import "GameViewController.h"
-#import <OpenGLES/ES2/glext.h>
-
-#import <MediaPlayer/MediaPlayer.h>
 
 @interface GameViewController()
 {
@@ -27,15 +24,17 @@
     if (!self.context)
         NSLog(@"Failed to create ES context");
     
+    // Basic draw properties
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     
-    
+    // Initialize Context Mannager
+    [GEContext sharedIntance].ContextView = view;
     
     // Initialize Game Center features.
     [IHGameCenter sharedIntance].ViewDelegate = self;
-
+    
     m_GMMain = [GMmain sharedIntance];
 }
 

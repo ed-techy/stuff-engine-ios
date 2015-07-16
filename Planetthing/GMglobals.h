@@ -2,8 +2,11 @@
 // ------------- VERBOSE SECTIONS ------------- //
 // -------------------------------------------- //
 
-// iOS Helper verbose
-#define IH_VERBOSE true
+#define IH_VERBOSE false // iOS Helper verbose
+#define GM_VERBOSE true // Game Main verbose
+
+// Game Engine verbose
+#define RB_VERBOSE true // Render Box verbose
 
 // -------------------------------------------- //
 // ----------------- CLEAN LOG ---------------- //
