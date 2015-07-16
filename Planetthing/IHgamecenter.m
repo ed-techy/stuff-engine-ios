@@ -442,25 +442,20 @@
 
 - (void)loadFriedsData
 {
-    m_syncThreads++;
-    
     LocalPlayerFriends = [[NSMutableDictionary alloc] init];
     
     // Get User fiends
     [LocalPlayer loadFriendsWithCompletionHandler:^(NSArray *friendIDs, NSError *error) {
-        m_syncThreads--;
         if(error)
         {
             CleanLog(IH_VERBOSE, @"GameCenter: There was an error trying to load player's friends ids.");
         }
         else
         {
-            m_syncThreads++;
             [GKPlayer loadPlayersForIdentifiers:friendIDs withCompletionHandler:^(NSArray *players, NSError *error) {
-                m_syncThreads--;
                 if (error)
                 {
-                    CleanLog(IH_VERBOSE, @"GameCenter: There was an error trying to load player's friends ids.");
+                    CleanLog(IH_VERBOSE, @"GameCenter: There was an error trying to load player's friends data.");
                 }
                 else
                 {
@@ -481,10 +476,35 @@
                         GKLeaderboard* gkLeaderboard = [[GKLeaderboard alloc] initWithPlayers:players];
                         gkLeaderboard.identifier = leaderboard[0];
                         [gkLeaderboard loadScoresWithCompletionHandler:^(NSArray *scores, NSError *error) {
-                            m_syncThreads--;
-                            for(GKScore* score in scores)
+                            if(error)
                             {
-                                LocalPlayerFriends[score.playerID][@"scores"][score.leaderboardIdentifier] = @((float)score.value);
+                                CleanLog(IH_VERBOSE, @"GameCenter: There was an error trying to load player's friends ids.");
+                            }
+                            else
+                            {
+                                for(GKScore* score in scores)
+                                {
+                                    LocalPlayerFriends[score.playerID][@"scores"][score.leaderboardIdentifier] = @((float)score.value);
+                                }
+                            }
+                            m_syncThreads--;
+                            
+                            if(!m_syncThreads )
+                            {
+                                CleanLog(IH_VERBOSE, @"GameCenter: Synchronization complete.");
+                                
+                                m_initialSync = false;
+                                
+                                if(!m_upToDate)
+                                    [self saveLocalPlayers];
+                                else
+                                {
+                                    CleanLog(IH_VERBOSE, @"GameCenter: Up to date.");
+                                }
+                                
+                                // Rise event.
+                                if([ControlDelegate respondsToSelector:@selector(didPlayerDataSync)])
+                                    [ControlDelegate didPlayerDataSync];
                             }
                         }];
                     }
