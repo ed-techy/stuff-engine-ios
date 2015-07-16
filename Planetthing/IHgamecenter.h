@@ -18,7 +18,8 @@
 // -------------------------------------------- //
 @property (readonly)bool Available;
 @property (readonly)bool Authenticated;
-@property (readonly)GKPlayer* LocalPlayer;
+@property (readonly)GKLocalPlayer* LocalPlayer;
+@property (readonly)NSMutableDictionary* LocalPlayerFriends;
 @property (readonly)NSMutableDictionary* LocalPlayerData;
 @property id<IHGameCenterViewDelegate> ViewDelegate;
 @property id<IHGameCenterControlDelegate> ControlDelegate;
@@ -35,6 +36,8 @@
 - (void)authenticateLocalPlayer;
 - (void)setScore:(NSNumber*)scoreValue andContext:(NSNumber*)context forIdentifier:(NSString*)identifier;
 - (void)setAchievementProgress:(NSNumber*)progess forIdentifier:(NSString*)identifier;
+- (NSMutableDictionary*)getScoreForIdentifier:(NSString*)identifier;
+- (NSMutableDictionary*)getAchievementForIdentifier:(NSString*)identifier;
 - (void)saveLocalPlayers;
 
 

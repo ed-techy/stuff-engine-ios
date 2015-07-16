@@ -22,6 +22,7 @@
 - (void)genrateLocalData;
 - (void)loadLocalPlayers;
 - (void)syncCurrentPlayer;
+- (void)loadFriedsData;
 
 @end
 
@@ -33,6 +34,7 @@
 @synthesize LocalPlayerData;
 @synthesize ViewDelegate;
 @synthesize ControlDelegate;
+@synthesize LocalPlayerFriends;
 
 // ------------------------------------------------------------------------------ //
 // ---------------------------- Game Center singleton --------------------------- //
@@ -60,7 +62,7 @@
     if (self)
     {
         // Do all the game center setup in the background.
-        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
             
             m_initialSync = true;
             
@@ -139,7 +141,7 @@
         {
             Authenticated = false;
             
-            // Kow the reason whay is not possible authentificate the user.
+            // Know the reason whay is not possible authentificate the user.
             if(![self isInternetAvailable])
             {
                 CleanLog(IH_VERBOSE, @"GameCenter: There is not internet connection.");
@@ -175,10 +177,8 @@
             }
             else
             {
-                
                 LocalPlayerData = m_localPlayers[LocalPlayer.playerID];
                 m_lastPlayer = LocalPlayerData[@"player_id"];
-                
             }
             
             [self saveLocalPlayers];
@@ -287,6 +287,9 @@
     m_syncThreads = scores.count + 1;
     m_upToDate = true;
     
+    // Friends
+    [self loadFriedsData];
+    
     for(NSString* score in scores)
     {
         GKLeaderboard *leaderboardRequest = [[GKLeaderboard alloc] initWithPlayers:@[LocalPlayer]];
@@ -373,13 +376,11 @@
                      if([ControlDelegate respondsToSelector:@selector(didPlayerDataSync)])
                          [ControlDelegate didPlayerDataSync];
                  }
-                     
              }];
         }
     }
     
     [GKAchievement loadAchievementsWithCompletionHandler:^(NSArray *achievements, NSError *error) {
-        
         NSMutableDictionary* achievementsL = LocalPlayerData[@"achievements"];
         
         if(achievements != nil)
@@ -411,7 +412,7 @@
                 {
                     CleanLog(IH_VERBOSE, @"                Local      %@ -> %@. (keeping and submiting)", achievementC[@"percentage"], achievementC[@"date"]);
                     CleanLog(IH_VERBOSE, @"                GameCenter %fi -> %@.", achievement.percentComplete, achievement.lastReportedDate);
-
+                    
                 }
             }
         }
@@ -438,6 +439,93 @@
     }];
     
 }
+
+- (void)loadFriedsData
+{
+    m_syncThreads++;
+    
+    LocalPlayerFriends = [[NSMutableDictionary alloc] init];
+    
+    // Get User fiends
+    [LocalPlayer loadFriendsWithCompletionHandler:^(NSArray *friendIDs, NSError *error) {
+        m_syncThreads--;
+        if(error)
+        {
+            CleanLog(IH_VERBOSE, @"GameCenter: There was an error trying to load player's friends ids.");
+        }
+        else
+        {
+            m_syncThreads++;
+            [GKPlayer loadPlayersForIdentifiers:friendIDs withCompletionHandler:^(NSArray *players, NSError *error) {
+                m_syncThreads--;
+                if (error)
+                {
+                    CleanLog(IH_VERBOSE, @"GameCenter: There was an error trying to load player's friends ids.");
+                }
+                else
+                {
+                    CleanLog(IH_VERBOSE, @"GameCenter: The player has %d friends.", players.count);
+
+                    for(GKPlayer* player in players)
+                    {
+                        LocalPlayerFriends[player.playerID] = [[NSMutableDictionary alloc] init];
+                        LocalPlayerFriends[player.playerID][@"player_id"] = player.playerID;
+                        LocalPlayerFriends[player.playerID][@"display_name"] = player.alias;
+                        LocalPlayerFriends[player.playerID][@"scores"] = [[NSMutableDictionary alloc] init];
+                    }
+                    
+                    m_syncThreads += GameCenterLeaderBoards.count;
+                    
+                    for(NSArray* leaderboard in GameCenterLeaderBoards)
+                    {
+                        GKLeaderboard* gkLeaderboard = [[GKLeaderboard alloc] initWithPlayers:players];
+                        gkLeaderboard.identifier = leaderboard[0];
+                        [gkLeaderboard loadScoresWithCompletionHandler:^(NSArray *scores, NSError *error) {
+                            m_syncThreads--;
+                            for(GKScore* score in scores)
+                            {
+                                LocalPlayerFriends[score.playerID][@"scores"][score.leaderboardIdentifier] = @((float)score.value);
+                            }
+                        }];
+                    }
+                }
+            }];
+        }
+    }];
+}
+
+- (void)loadLocalPlayers
+{
+    CleanLog(IH_VERBOSE, @"GameCenter: Loading players data...");
+    
+    // Decrypt and create a new dictionary of users.
+    NSData *playersData = [[NSData dataWithContentsOfFile:GameCenterDataPath] decryptedWithKey:m_encryptionKeyData];
+    NSMutableDictionary* dataDic = [NSKeyedUnarchiver unarchiveObjectWithData:playersData];
+    
+    m_localPlayers = dataDic[@"players"];
+    m_lastPlayer = dataDic[@"last_player"];
+    
+    CleanLog(IH_VERBOSE, @"GameCenter: %d local players.", m_localPlayers.count);
+    for(NSString* player in  m_localPlayers)
+    {
+        CleanLog(IH_VERBOSE, @"            Player: %@", m_localPlayers[player][@"display_name"]);
+    }
+}
+
+- (void)saveLocalPlayers
+{
+    CleanLog(IH_VERBOSE, @"GameCenter: Saving players data...");
+    
+    NSData *playersData = [[NSKeyedArchiver archivedDataWithRootObject:@{@"players" : m_localPlayers, @"last_player" : m_lastPlayer}] encryptedWithKey:m_encryptionKeyData];
+    [playersData writeToFile:GameCenterDataPath atomically:YES];
+    
+    m_upToDate = true;
+}
+
+// ------------------------------------------------------------------------------ //
+// ----------------------------------- Setters ---------------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Setters
 
 - (void)setScore:(NSNumber*)scoreValue andContext:(NSNumber*)context forIdentifier:(NSString*)identifier
 {
@@ -579,34 +667,20 @@
     });
 }
 
-- (void)loadLocalPlayers
+// ------------------------------------------------------------------------------ //
+// ----------------------------------- Getters --------------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Getters
+
+- (NSMutableDictionary*)getScoreForIdentifier:(NSString*)identifier
 {
-    CleanLog(IH_VERBOSE, @"GameCenter: Loading players data...");
-    
-    // Decrypt and create a new dictionary of users.
-    NSData *playersData = [[NSData dataWithContentsOfFile:GameCenterDataPath] decryptedWithKey:m_encryptionKeyData];
-    NSMutableDictionary* dataDic = [NSKeyedUnarchiver unarchiveObjectWithData:playersData];
-    
-    m_localPlayers = dataDic[@"players"];
-    m_lastPlayer = dataDic[@"last_player"];
-    
-    CleanLog(IH_VERBOSE, @"GameCenter: %d local players.", m_localPlayers.count);
-    for(NSString* player in  m_localPlayers)
-    {
-        CleanLog(IH_VERBOSE, @"            Player: %@", m_localPlayers[player][@"display_name"]);
-    }
+    return LocalPlayerData[@"scores"][identifier];
 }
 
-- (void)saveLocalPlayers
+- (NSMutableDictionary*)getAchievementForIdentifier:(NSString*)identifier
 {
-    CleanLog(IH_VERBOSE, @"GameCenter: Saving players data...");
-    
-    NSData *playersData = [[NSKeyedArchiver archivedDataWithRootObject:@{@"players" : m_localPlayers, @"last_player" : m_lastPlayer}] encryptedWithKey:m_encryptionKeyData];
-    [playersData writeToFile:GameCenterDataPath atomically:YES];
-    
-    m_upToDate = true;
+    return LocalPlayerData[@"achievements"][identifier];
 }
-
 
 // ------------------------------------------------------------------------------ //
 // ---------------------------------- Presenting -------------------------------- //

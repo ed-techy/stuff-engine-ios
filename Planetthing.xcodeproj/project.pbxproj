@@ -48,12 +48,12 @@
 		375F0A3B1B4D9FFB00F894C3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		375F0A421B4DA0EC00F894C3 /* IHgamecenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IHgamecenter.h; path = Planetthing/IHgamecenter.h; sourceTree = "<group>"; };
 		375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IHgamecenter.m; path = Planetthing/IHgamecenter.m; sourceTree = "<group>"; };
-		375F0A451B4DD68400F894C3 /* IHglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IHglobals.h; sourceTree = "<group>"; };
 		375F0A471B4DE95100F894C3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Planetthing/Reachability.h; sourceTree = "<group>"; };
 		375F0A481B4DE95100F894C3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Planetthing/Reachability.m; sourceTree = "<group>"; };
 		375F0A4A1B4DF3EB00F894C3 /* NSDataAES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDataAES256.h; path = Planetthing/NSDataAES256.h; sourceTree = "<group>"; };
 		375F0A4B1B4DF3EB00F894C3 /* NSDataAES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDataAES256.m; path = Planetthing/NSDataAES256.m; sourceTree = "<group>"; };
 		376C221D1B54566E00DC3874 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		37D0EE991B58054100306DC7 /* IHglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IHglobals.h; path = Planetthing/IHglobals.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +162,7 @@
 				375F0A461B4DE92A00F894C3 /* Dependecies */,
 				375F0A421B4DA0EC00F894C3 /* IHgamecenter.h */,
 				375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */,
-				375F0A451B4DD68400F894C3 /* IHglobals.h */,
+				37D0EE991B58054100306DC7 /* IHglobals.h */,
 			);
 			name = "iOS Helpers";
 			sourceTree = "<group>";
