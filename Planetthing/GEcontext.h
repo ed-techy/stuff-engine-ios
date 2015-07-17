@@ -1,5 +1,6 @@
 #import <GLKit/GLKit.h>
 #import "GMglobals.h"
+#import "GEcommon.h"
 
 @interface GEContext : NSObject
 
