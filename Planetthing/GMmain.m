@@ -36,7 +36,7 @@
     if (self)
     {
         m_renderBox = [GERenderBox sharedIntance];
-        m_renderBox.MainView.BackgroundColor = GLKVector4Make(0.9f  , 0.93f, 0.93f, 1.0f);
+        m_renderBox.MainView.BackgroundColor = GLKVector4Make(0.9f, 0.93f, 0.93f, 1.0f);
     }
     
     return self;
