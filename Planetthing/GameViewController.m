@@ -38,7 +38,7 @@
     
     m_GMMain = [GMmain sharedIntance];
     
-    texture = [GETexture textureFromFileName:@"Caca"];
+    texture = [GETexture textureFromFileName:@"hotwasser_512_512"];
 }
 
 - (void)dealloc

@@ -24,6 +24,7 @@
 		37A064E61B583ED90002F5F1 /* GErenderbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064E51B583ED90002F5F1 /* GErenderbox.m */; };
 		37A064E91B584C150002F5F1 /* GEview.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064E81B584C150002F5F1 /* GEview.m */; };
 		37A064EC1B5857EB0002F5F1 /* GEcontext.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064EB1B5857EB0002F5F1 /* GEcontext.m */; };
+		37F4CD8B1B5EE06D009269BE /* hotwasser_512_512.png in Resources */ = {isa = PBXBuildFile; fileRef = 37F4CD8A1B5EE06D009269BE /* hotwasser_512_512.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		37A064EB1B5857EB0002F5F1 /* GEcontext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEcontext.m; path = Planetthing/GEcontext.m; sourceTree = "<group>"; };
 		37A064ED1B5860AE0002F5F1 /* GEcommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEcommon.h; path = Planetthing/GEcommon.h; sourceTree = "<group>"; };
 		37D0EE991B58054100306DC7 /* GMglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GMglobals.h; path = Planetthing/GMglobals.h; sourceTree = "<group>"; };
+		37F4CD8A1B5EE06D009269BE /* hotwasser_512_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotwasser_512_512.png; path = Planetthing/Resources/hotwasser_512_512.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,13 +108,14 @@
 		375F0A011B4D9B5500F894C3 = {
 			isa = PBXGroup;
 			children = (
-				37A064E31B583E680002F5F1 /* GE Classes */,
 				375F0A3D1B4DA01D00F894C3 /* Frameworks */,
 				373CF0871B56DEDB002A9CFD /* Game */,
+				37A064E31B583E680002F5F1 /* GE Classes */,
 				375F0A3E1B4DA09C00F894C3 /* iOS Helpers */,
 				375F0A0C1B4D9B5500F894C3 /* Planetthing */,
 				375F0A2A1B4D9B5500F894C3 /* PlanetthingTests */,
 				375F0A0B1B4D9B5500F894C3 /* Products */,
+				37F4CD891B5EE05F009269BE /* Resources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -213,6 +216,14 @@
 			name = "GE Classes";
 			sourceTree = "<group>";
 		};
+		37F4CD891B5EE05F009269BE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				37F4CD8A1B5EE06D009269BE /* hotwasser_512_512.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -304,6 +315,7 @@
 			files = (
 				375F0A1D1B4D9B5500F894C3 /* Main.storyboard in Resources */,
 				375F0A381B4D9BC500F894C3 /* Images.xcassets in Resources */,
+				37F4CD8B1B5EE06D009269BE /* hotwasser_512_512.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

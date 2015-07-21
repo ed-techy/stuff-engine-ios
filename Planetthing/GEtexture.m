@@ -5,7 +5,8 @@
     
 }
 
-- (char*)LoadImageFromFileName:(NSString*)filename;
+- (char*)loadImageFromFileName:(NSString*)filename;
+- (void)generateTextureFromPixels:(char*)rawPixels;
 
 @end
 
@@ -29,6 +30,7 @@ static NSMapTable* m_texturesHolder;
    if(m_texturesHolder == nil)
        m_texturesHolder = [NSMapTable strongToWeakObjectsMapTable];
     
+    // The texture is already loaded?
     GETexture* texture = [m_texturesHolder objectForKey:filename];
     if(texture == nil)
     {
@@ -42,9 +44,10 @@ static NSMapTable* m_texturesHolder;
 - (void)dealloc
 {
     [m_texturesHolder removeObjectForKey:FileName];
-        
+    
+    // Remove the texture holder if there is no more textures to hold
     if(m_texturesHolder.count == 0)
-            m_texturesHolder = nil;
+        m_texturesHolder = nil;
 }
 
 - (id)initFromFilename:(NSString*)filename
@@ -53,18 +56,29 @@ static NSMapTable* m_texturesHolder;
     
     if(self)
     {
-        [self LoadImageFromFileName:filename];
+        TextureID = 0;
+        Width = 0;
+        Height = 0;
+        
+        // Load the image form file
+        char* rawPixels = [self loadImageFromFileName:filename];
+        
+        // Generate the openGL reference in the video card
+        [self generateTextureFromPixels:rawPixels];
+        
+        // Don't keep the pixels in RAM
+        free(rawPixels);
     }
     
     return self;
 }
 
 // ------------------------------------------------------------------------------ //
-// --------------------------------- Load Image --------------------------------- //
+// ---------------------------- Load Image - Texture ---------------------------- //
 // ------------------------------------------------------------------------------ //
 #pragma mark Load Image
 
-- (char*)LoadImageFromFileName:(NSString*)filename
+- (char*)loadImageFromFileName:(NSString*)filename
 {
     // Load the image.
     CGImageRef spriteImage = [UIImage imageNamed:filename].CGImage;
@@ -85,10 +99,38 @@ static NSMapTable* m_texturesHolder;
     
     CGContextRef spriteContext = CGBitmapContextCreate(rawPixels, Width, Height, 8, Width * 4, CGImageGetColorSpace(spriteImage), (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
     
+    // Create the pixel Data
     CGContextDrawImage(spriteContext, CGRectMake(0, 0, Width, Height), spriteImage);
     CGContextRelease(spriteContext);
     
     return rawPixels;
 }
+
+- (void)generateTextureFromPixels:(char*)rawPixels
+{
+    // Generate an ID for the texture.
+    glGenTextures(1, &TextureID);
+    
+    // Bind the texture as a 2D texture.
+    glBindTexture(GL_TEXTURE_2D, TextureID);
+    
+    // Load the image data into the texture unit.
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, rawPixels);
+    
+    // Use linear filetring
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    
+    // Generate mipmaps for the texture.
+    glGenerateMipmap(GL_TEXTURE_2D);
+}
+
+
 
 @end
