@@ -3,6 +3,7 @@
 @interface GameViewController()
 {
     GMmain* m_GMMain;
+    GETexture* texture;
 }
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -33,9 +34,11 @@
     [GEContext sharedIntance].ContextView = view;
     
     // Initialize Game Center features.
-    [IHGameCenter sharedIntance].ViewDelegate = self;
+    //[IHGameCenter sharedIntance].ViewDelegate = self;
     
     m_GMMain = [GMmain sharedIntance];
+    
+    texture = [GETexture textureFromFileName:@"Caca"];
 }
 
 - (void)dealloc

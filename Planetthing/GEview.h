@@ -1,4 +1,4 @@
-#import "GEcontext.h"
+#import "GEtexture.h"
 
 @interface GEView : NSObject
 
