@@ -4,7 +4,7 @@
 {
     GMmain* m_GMMain;
     GETexture* texture;
-    GETextureShader* shader;
+    GEFullScreen* fullScreen;
 }
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -26,12 +26,12 @@
     if (!self.context)
         NSLog(@"Failed to create ES context");
     
-    [EAGLContext setCurrentContext:self.context];
-    
     // Basic draw properties
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+    
+    [EAGLContext setCurrentContext:self.context];
     
     // Initialize Context Mannager
     [GEContext sharedIntance].ContextView = view;
@@ -41,8 +41,9 @@
     
     m_GMMain = [GMmain sharedIntance];
     
-    texture = [GETexture textureFromFileName:@"hotwasser_512_512"];
-    shader = [GETextureShader sharedIntance];
+    texture = [GETexture textureFromFileName:@"hotwasser_512_512.png"];
+    fullScreen = [GEFullScreen sharedIntance];
+    fullScreen.TextureID = texture.TextureID;
 }
 
 - (void)dealloc
@@ -84,11 +85,12 @@
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
     [m_GMMain render];
+    [fullScreen render];
 }
 
 - (void)viewDidLayoutSubviews
 {
-    [m_GMMain layoutForWidth:@(self.view.bounds.size.width) andHeight:@(self.view.bounds.size.height)];
+    [m_GMMain layoutForWidth:@(self.view.bounds.size.width * 2) andHeight:@(self.view.bounds.size.height * 2)];
 }
 
 // ------------------------------------------------------------------------------ //

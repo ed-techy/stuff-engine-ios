@@ -5,13 +5,12 @@
 	GLint m_uniforms[GE_NUM_UNIFORMS];
 }
 
-- (void)SetUpSahder;
+- (void)setUpSahder;
 
 @end
 
 @implementation GETextureShader
 
-@synthesize ProgramID;
 @synthesize ModelViewProjectionMatrix;
 @synthesize TextureID;
 @synthesize TextureCompression;
@@ -19,9 +18,9 @@
 @synthesize OpasityComponent;
 
 // ------------------------------------------------------------------------------ //
-// ---------------------------- Render Box singleton --------------------------- //
+// ----------------------------------  Singleton -------------------------------- //
 // ------------------------------------------------------------------------------ //
-#pragma mark Render Box Singleton
+#pragma mark Singleton
 
 + (instancetype)sharedIntance
 {
@@ -30,7 +29,7 @@
     
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
-        CleanLog(GE_VERBOSE && TX_VERBOSE, @"Shader: Shared instance was allocated for the first time.");
+        CleanLog(GE_VERBOSE && SH_VERBOSE, @"Texture Shader: Shared instance was allocated for the first time.");
         sharedIntance = [[GETextureShader alloc] init];
     });
     
@@ -39,17 +38,23 @@
 
 - (id)init
 {
-	self = [super initWithFileName:@"texture_shader" BufferMode:GE_BUFFER_MODE_POSITION_TEXTURE];
+    self = [super initWithFileName:@"texture_shader" BufferMode:GE_BUFFER_MODE_POSITION_TEXTURE];
 	
 	if(self)
-	   [self SetUpSahder];
+	   [self setUpSahder];
 	
 	return self;
 	
 }
 
-- (void)useProgram{
-	glUseProgram(ProgramID);
+// ------------------------------------------------------------------------------ //
+// ---------------------------------- Use Program ------------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Use Program
+
+- (void)useProgram
+{
+	glUseProgram(m_programID);
 	
 	// Set the Projection View Model Matrix to the shader.
 	glUniformMatrix4fv(m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, ModelViewProjectionMatrix->m);
@@ -67,14 +72,14 @@
 	glUniform1i(m_uniforms[GE_UNIFORM_TEXTURE], 0);
 }
 
-- (void)SetUpSahder
+- (void)setUpSahder
 {
 	// Get uniform locations.
-	m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(ProgramID, "modelViewProjectionMatrix");
-	m_uniforms[GE_UNIFORM_TEXTURE] = glGetUniformLocation(ProgramID, "textureSampler");
-	//m_uniforms[GE_UNIFORM_COLOR] = glGetUniformLocation(ProgramID, "ColorOut");
-	m_uniforms[GE_UNIFORM_TEXTURE_COMPRESSION] = glGetUniformLocation(ProgramID, "textureCompression");
-	m_uniforms[GE_UNIFORM_OPASITY] = glGetUniformLocation(ProgramID, "opasityCompound");
+	m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(m_programID, "modelViewProjectionMatrix");
+	m_uniforms[GE_UNIFORM_TEXTURE] = glGetUniformLocation(m_programID, "textureSampler");
+	//m_uniforms[GE_UNIFORM_COLOR] = glGetUniformLocation(m_programID, "ColorOut");
+	m_uniforms[GE_UNIFORM_TEXTURE_COMPRESSION] = glGetUniformLocation(m_programID, "textureCompression");
+	m_uniforms[GE_UNIFORM_OPASITY] = glGetUniformLocation(m_programID, "opasityCompound");
 }
 
 @end

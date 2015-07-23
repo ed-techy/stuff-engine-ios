@@ -1,4 +1,5 @@
 #import <GLKit/GLKit.h>
+#import <OpenGLES/ES2/glext.h>
 #import "GMglobals.h"
 
 // -------------------------------------------- //

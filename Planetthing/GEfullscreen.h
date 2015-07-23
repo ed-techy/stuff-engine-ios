@@ -1,14 +1,22 @@
-#import "GEtexture.h"
-#import "GEtextureshader.h"
-#import "GEfullscreen.h"
+#import "GEcommon.h"
+#import "GEfullscreenshader.h"
 
-@interface GEView : NSObject
+@interface GEFullScreen : NSObject
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-@property GLKVector4 BackgroundColor;
+
+@property GLuint TextureID;
+
+// -------------------------------------------- //
+// ----------------- Singleton ---------------- //
+// -------------------------------------------- //
+#pragma mark Singleton
+
++ (instancetype)sharedIntance;
+
 
 // -------------------------------------------- //
 // ------------------ Render ------------------ //

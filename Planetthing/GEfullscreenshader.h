@@ -1,28 +1,22 @@
 #import "GEshader.h"
 
-@interface GETextureShader : GEShader
+@interface GEFullScreenShader : GEShader
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-@property GLKMatrix4* ModelViewProjectionMatrix;
 @property GLuint TextureID;
-@property GLKVector3 TextureCompression;
-@property GLKVector3 ColorComponent;
-@property float OpasityComponent;
 
 // -------------------------------------------- //
 // ----------------- Singleton ---------------- //
 // -------------------------------------------- //
-#pragma mark Singleton
 + (instancetype)sharedIntance;
 
 // -------------------------------------------- //
 // ---------------- Use Program --------------- //
 // -------------------------------------------- //
 #pragma mark Use Program
-
 - (void)useProgram;
 
 @end

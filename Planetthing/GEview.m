@@ -3,6 +3,8 @@
 @interface GEView()
 {
     GEContext* m_context;
+    
+    
 }
 
 @end
@@ -14,7 +16,7 @@
 // ------------------------------------------------------------------------------ //
 // -------------------------- Initialization and Set up ------------------------- //
 // ------------------------------------------------------------------------------ //
-#pragma mark Render Box Singleton
+#pragma mark Initialization and Set up
 
 - (id)init
 {

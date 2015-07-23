@@ -1,12 +1,9 @@
 #import "GEcommon.h"
 
 @interface GEShader : NSObject
-
-// -------------------------------------------- //
-// ---------------- Properties ---------------- //
-// -------------------------------------------- //
-#pragma mark Properties
-@property (readonly)GLuint ProgramID;
+{
+    GLuint m_programID;
+}
 
 // -------------------------------------------- //
 // -------------- Initialization -------------- //

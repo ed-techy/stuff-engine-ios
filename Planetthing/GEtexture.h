@@ -6,7 +6,7 @@
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-@property (readonly) unsigned int TextureID;
+@property (readonly) GLuint TextureID;
 @property (readonly) NSString* FileName;
 @property (readonly) unsigned int Width;
 @property (readonly) unsigned int Height;

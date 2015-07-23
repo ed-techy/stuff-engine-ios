@@ -13,6 +13,7 @@
 #define CT_VERBOSE true // Context verbose
 #define TX_VERBOSE true // Texture verbose
 #define SH_VERBOSE true // Shader verbose
+#define FS_VERBOSE true // Full screen verbose
 
 // -------------------------------------------- //
 // ----------------- CLEAN LOG ---------------- //
