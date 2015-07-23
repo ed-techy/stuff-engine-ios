@@ -97,7 +97,9 @@ static NSMapTable* m_texturesHolder;
     
     char* rawPixels = (char*)calloc(Width * Height * 4, sizeof(char));
     
-    CGContextRef spriteContext = CGBitmapContextCreate(rawPixels, Width, Height, 8, Width * 4, CGImageGetColorSpace(spriteImage), (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
+    // Fucking ios aplha premultiplied inevitable.
+    CGContextRef spriteContext = CGBitmapContextCreate(rawPixels, Width, Height, 8, Width * 4, CGImageGetColorSpace(spriteImage), (CGBitmapInfo)kCGImageAlphaNoneSkipLast);
+    CGContextSetBlendMode(spriteContext, kCGBlendModeCopy);
     
     // Create the pixel Data
     CGContextDrawImage(spriteContext, CGRectMake(0, 0, Width, Height), spriteImage);

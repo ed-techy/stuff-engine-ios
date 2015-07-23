@@ -85,6 +85,10 @@
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
     [m_GMMain render];
+    
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendEquation(GL_FUNC_ADD);
     [fullScreen render];
 }
 

@@ -62,8 +62,7 @@
          1.0f,  1.0f, 0.0f,		1.0f, 1.0f,
          1.0f, -1.0f, 0.0f,		1.0f, 0.0f
     };
-    
-    
+
     glGenVertexArraysOES(1, &m_fullScreenVertexArrayId);
     glBindVertexArrayOES(m_fullScreenVertexArrayId);
     
