@@ -1,6 +1,39 @@
+#import <GLKit/GLKit.h>
+#import "GMglobals.h"
+
+// -------------------------------------------- //
+// ---------------- BUFFER MODE --------------- //
+// -------------------------------------------- //
+#pragma mark Buffer Mode
+
+enum GE_BUFFER_MODE
+{
+    GE_BUFFER_MODE_POSITION,
+    GE_BUFFER_MODE_POSITION_TEXTURE,
+    GE_BUFFER_MODE_POSITION_NORMAL,
+    GE_BUFFER_MODE_ALL
+};
+
+
+// -------------------------------------------- //
+// ---------------- UNIFORM IDs --------------- //
+// -------------------------------------------- //
+#pragma mark Uniform IDs
+enum
+{
+    GE_UNIFORM_MODELVIEWPROJECTION_MATRIX,
+    GE_UNIFORM_TEXTURE,
+    GE_UNIFORM_TEXTURE_COMPRESSION,
+    GE_UNIFORM_COLOR,
+    GE_UNIFORM_OPASITY,
+    GE_NUM_UNIFORMS
+};
+
+
 // -------------------------------------------- //
 // ------------------- COLORS ----------------- //
 // -------------------------------------------- //
+#pragma mark Colors
 
 #define     color_indian_red              GLKVector4Make(0.690196078f,  0.090196078f,   0.121568627f,   1.0f)
 #define     color_crimson                 GLKVector4Make(0.862745098f,  0.078431373f,   0.235294118f,   1.0f)

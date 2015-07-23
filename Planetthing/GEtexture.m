@@ -76,7 +76,7 @@ static NSMapTable* m_texturesHolder;
 // ------------------------------------------------------------------------------ //
 // ---------------------------- Load Image - Texture ---------------------------- //
 // ------------------------------------------------------------------------------ //
-#pragma mark Load Image
+#pragma mark Load Image - Texture
 
 - (char*)loadImageFromFileName:(NSString*)filename
 {
@@ -84,7 +84,7 @@ static NSMapTable* m_texturesHolder;
     CGImageRef spriteImage = [UIImage imageNamed:filename].CGImage;
     if (spriteImage == nil)
     {
-        NSLog(@"Texture: Failed to load image %@", filename);
+        CleanLog(GE_VERBOSE && TX_VERBOSE, @"Texture: Failed to load image %@", filename);
         FileName = nil;
         exit(1);
     }
@@ -130,7 +130,5 @@ static NSMapTable* m_texturesHolder;
     // Generate mipmaps for the texture.
     glGenerateMipmap(GL_TEXTURE_2D);
 }
-
-
 
 @end

@@ -25,6 +25,10 @@
 		37A064E91B584C150002F5F1 /* GEview.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064E81B584C150002F5F1 /* GEview.m */; };
 		37A064EC1B5857EB0002F5F1 /* GEcontext.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064EB1B5857EB0002F5F1 /* GEcontext.m */; };
 		37F4CD8B1B5EE06D009269BE /* hotwasser_512_512.png in Resources */ = {isa = PBXBuildFile; fileRef = 37F4CD8A1B5EE06D009269BE /* hotwasser_512_512.png */; };
+		37F4CD8E1B5EEFE4009269BE /* GEshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F4CD8D1B5EEFE4009269BE /* GEshader.m */; };
+		37F4CD921B5EF42F009269BE /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37F4CD901B5EF42F009269BE /* texture_shader.fsh */; };
+		37F4CD931B5EF42F009269BE /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37F4CD911B5EF42F009269BE /* texture_shader.vsh */; };
+		37F4CD961B5F007D009269BE /* GEtextureshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F4CD951B5F007D009269BE /* GEtextureshader.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +76,12 @@
 		37A064ED1B5860AE0002F5F1 /* GEcommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEcommon.h; path = Planetthing/GEcommon.h; sourceTree = "<group>"; };
 		37D0EE991B58054100306DC7 /* GMglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GMglobals.h; path = Planetthing/GMglobals.h; sourceTree = "<group>"; };
 		37F4CD8A1B5EE06D009269BE /* hotwasser_512_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotwasser_512_512.png; path = Planetthing/Resources/hotwasser_512_512.png; sourceTree = "<group>"; };
+		37F4CD8C1B5EEFE4009269BE /* GEshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEshader.h; path = Planetthing/GEshader.h; sourceTree = "<group>"; };
+		37F4CD8D1B5EEFE4009269BE /* GEshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEshader.m; path = Planetthing/GEshader.m; sourceTree = "<group>"; };
+		37F4CD901B5EF42F009269BE /* texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.fsh; path = Planetthing/Shaders/texture_shader.fsh; sourceTree = "<group>"; };
+		37F4CD911B5EF42F009269BE /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.vsh; path = Planetthing/Shaders/texture_shader.vsh; sourceTree = "<group>"; };
+		37F4CD941B5F007D009269BE /* GEtextureshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEtextureshader.h; path = Planetthing/GEtextureshader.h; sourceTree = "<group>"; };
+		37F4CD951B5F007D009269BE /* GEtextureshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEtextureshader.m; path = Planetthing/GEtextureshader.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +126,7 @@
 				375F0A2A1B4D9B5500F894C3 /* PlanetthingTests */,
 				375F0A0B1B4D9B5500F894C3 /* Products */,
 				37F4CD891B5EE05F009269BE /* Resources */,
+				37F4CD8F1B5EF3F7009269BE /* Shaders */,
 			);
 			sourceTree = "<group>";
 		};
@@ -208,8 +219,12 @@
 				37A064EB1B5857EB0002F5F1 /* GEcontext.m */,
 				37A064E41B583ED90002F5F1 /* GErenderbox.h */,
 				37A064E51B583ED90002F5F1 /* GErenderbox.m */,
+				37F4CD8C1B5EEFE4009269BE /* GEshader.h */,
+				37F4CD8D1B5EEFE4009269BE /* GEshader.m */,
 				3793C7E01B5D9E8C00741F37 /* GEtexture.h */,
 				3793C7E11B5D9E8C00741F37 /* GEtexture.m */,
+				37F4CD941B5F007D009269BE /* GEtextureshader.h */,
+				37F4CD951B5F007D009269BE /* GEtextureshader.m */,
 				37A064E71B584C150002F5F1 /* GEview.h */,
 				37A064E81B584C150002F5F1 /* GEview.m */,
 			);
@@ -222,6 +237,15 @@
 				37F4CD8A1B5EE06D009269BE /* hotwasser_512_512.png */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		37F4CD8F1B5EF3F7009269BE /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				37F4CD901B5EF42F009269BE /* texture_shader.fsh */,
+				37F4CD911B5EF42F009269BE /* texture_shader.vsh */,
+			);
+			name = Shaders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,9 +337,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37F4CD921B5EF42F009269BE /* texture_shader.fsh in Resources */,
 				375F0A1D1B4D9B5500F894C3 /* Main.storyboard in Resources */,
 				375F0A381B4D9BC500F894C3 /* Images.xcassets in Resources */,
 				37F4CD8B1B5EE06D009269BE /* hotwasser_512_512.png in Resources */,
+				37F4CD931B5EF42F009269BE /* texture_shader.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,8 +367,10 @@
 				37A064EC1B5857EB0002F5F1 /* GEcontext.m in Sources */,
 				3793C7E21B5D9E8C00741F37 /* GEtexture.m in Sources */,
 				375F0A101B4D9B5500F894C3 /* main.m in Sources */,
+				37F4CD8E1B5EEFE4009269BE /* GEshader.m in Sources */,
 				37A064E61B583ED90002F5F1 /* GErenderbox.m in Sources */,
 				37A064E21B582D150002F5F1 /* NSDataAES256.m in Sources */,
+				37F4CD961B5F007D009269BE /* GEtextureshader.m in Sources */,
 				375F0A491B4DE95100F894C3 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

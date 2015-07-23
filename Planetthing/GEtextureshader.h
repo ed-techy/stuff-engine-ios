@@ -1,26 +1,26 @@
-#import "GEcommon.h"
+#import "GEshader.h"
 
-@interface GEContext : NSObject
+@interface GETextureShader : GEShader
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-
-@property GLKView* ContextView;
-@property (readonly) GLint MaxTextureSize;
+@property GLKMatrix4* ModelViewProjectionMatrix;
+@property GLuint TextureID;
+@property GLKVector3 TextureCompression;
+@property GLKVector3 ColorComponent;
+@property float OpasityComponent;
 
 // -------------------------------------------- //
 // ----------------- Singleton ---------------- //
 // -------------------------------------------- //
-#pragma mark Sngleton
 + (instancetype)sharedIntance;
 
 // -------------------------------------------- //
-// ------------- Public Functions ------------- //
+// ---------------- Use Program --------------- //
 // -------------------------------------------- //
-#pragma mark Public Functions
-
-- (void)setBackgroundColor:(GLKVector4)color;
+#pragma mark Use Program
+- (void)useProgram;
 
 @end

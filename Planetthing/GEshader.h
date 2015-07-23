@@ -1,19 +1,17 @@
-#import "GEtexture.h"
-#import "GEtextureshader.h"
+#import "GEcommon.h"
 
-@interface GEView : NSObject
+@interface GEShader : NSObject
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-@property GLKVector4 BackgroundColor;
+@property (readonly)GLuint ProgramID;
 
 // -------------------------------------------- //
-// ------------------ Render ------------------ //
+// -------------- Initialization -------------- //
 // -------------------------------------------- //
-#pragma mark Render
-
-- (void)render;
+#pragma mark Initialization
+- (id)initWithFileName:(NSString*)filename BufferMode:(enum GE_BUFFER_MODE)buffermode;
 
 @end

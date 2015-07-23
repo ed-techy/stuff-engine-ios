@@ -4,6 +4,7 @@
 {
     GMmain* m_GMMain;
     GETexture* texture;
+    GETextureShader* shader;
 }
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -25,6 +26,8 @@
     if (!self.context)
         NSLog(@"Failed to create ES context");
     
+    [EAGLContext setCurrentContext:self.context];
+    
     // Basic draw properties
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
@@ -39,6 +42,7 @@
     m_GMMain = [GMmain sharedIntance];
     
     texture = [GETexture textureFromFileName:@"hotwasser_512_512"];
+    shader = [GETextureShader sharedIntance];
 }
 
 - (void)dealloc

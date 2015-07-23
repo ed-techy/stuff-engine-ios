@@ -2,11 +2,17 @@
 // ------------- VERBOSE SECTIONS ------------- //
 // -------------------------------------------- //
 
-#define IH_VERBOSE false // iOS Helper verbose
+// Game verbose
+#define GAME_VERBOSE true // Global verbose
 #define GM_VERBOSE true // Game Main verbose
 
 // Game Engine verbose
+#define GE_VERBOSE true // Global verbose
+#define IH_VERBOSE true // iOS Helper verbose
 #define RB_VERBOSE true // Render Box verbose
+#define CT_VERBOSE true // Context verbose
+#define TX_VERBOSE true // Texture verbose
+#define SH_VERBOSE true // Shader verbose
 
 // -------------------------------------------- //
 // ----------------- CLEAN LOG ---------------- //
