@@ -1,6 +1,7 @@
 #import "GEtexture.h"
 #import "GEtextureshader.h"
 #import "GEfullscreen.h"
+#import "GEanimatedmodel.h"
 
 @interface GEView : NSObject
 

@@ -5,6 +5,7 @@
     GMmain* m_GMMain;
     GETexture* texture;
     GEFullScreen* fullScreen;
+    GEAnimatedModel* model;
 }
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -44,6 +45,11 @@
     texture = [GETexture textureFromFileName:@"hotwasser_512_512.png"];
     fullScreen = [GEFullScreen sharedIntance];
     fullScreen.TextureID = texture.TextureID;
+    
+    
+    
+    model = [[GEAnimatedModel alloc] init];
+    [model loadModelWithFileName:@"boblampclean"];
 }
 
 - (void)dealloc
