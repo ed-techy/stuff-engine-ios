@@ -1,11 +1,13 @@
-#import "GEtexture.h"
+#import "GEcommon.h"
 
-@interface GEMaterial : NSObject
+@interface GEBound : NSObject
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-@property GETexture* DiffuseTexture;
+
+@property GLKVector3 MaxBound;
+@property GLKVector3 MinBound;
 
 @end

@@ -1,11 +1,14 @@
-#import "GEtexture.h"
+#import "GEcommon.h"
 
-@interface GEMaterial : NSObject
+@interface GEWight : NSObject
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-@property GETexture* DiffuseTexture;
+
+@property int JointID;
+@property GLKVector3 Position;
+@property float Bias;
 
 @end

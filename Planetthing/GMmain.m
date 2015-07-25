@@ -23,7 +23,7 @@
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
         CleanLog(GM_VERBOSE, @"Game Main: Shared instance was allocated for the first time.");
-        sharedIntance = [[GMmain alloc] init];
+        sharedIntance = [GMmain new];
     });
     
     return sharedIntance;

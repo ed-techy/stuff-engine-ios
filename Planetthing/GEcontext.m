@@ -25,7 +25,7 @@
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
         CleanLog(GE_VERBOSE && CT_VERBOSE, @"Context: Shared instance was allocated for the first time.");
-        sharedIntance = [[GEContext alloc] init];
+        sharedIntance = [GEContext new];
     });
     
     return sharedIntance;

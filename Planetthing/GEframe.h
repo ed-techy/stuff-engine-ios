@@ -1,11 +1,13 @@
-#import "GEtexture.h"
+#import "GEbound.h"
 
-@interface GEMaterial : NSObject
+@interface GEFrame : NSObject
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-@property GETexture* DiffuseTexture;
+
+@property NSMutableArray* Joints;
+@property GEBound* Bound;
 
 @end

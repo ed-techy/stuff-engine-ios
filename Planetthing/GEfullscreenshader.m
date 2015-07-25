@@ -26,7 +26,7 @@
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
         CleanLog(GE_VERBOSE && SH_VERBOSE, @"Full Screen Shader: Shared instance was allocated for the first time.");
-        sharedIntance = [[GEFullScreenShader alloc] init];
+        sharedIntance = [GEFullScreenShader new];
     });
     
     return sharedIntance;

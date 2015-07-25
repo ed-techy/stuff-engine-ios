@@ -1,19 +1,8 @@
 #import "GEanimation.h"
 
-@implementation GEJoint
-@end
-
-@implementation GEJointInfo
-@end
-
-@implementation GEBound
-@end
-
 @interface GEAnimation()
 {
-    NSMutableArray* m_jointInfs;
     NSMutableArray* m_frames;
-    NSMutableArray* m_bounds;
 }
 
 - (NSArray*)getWordsFromString:(NSString*)string;
@@ -40,9 +29,32 @@
     unsigned int numberOfJoints = 0;
     unsigned int numberOfAnimatedComponents = 0;
     
-    // Create the arrays for each object type.
-    m_jointInfs = [[NSMutableArray alloc] init];
-    m_bounds = [[NSMutableArray alloc] init];
+    // Temporal data holders
+    //Joints
+    NSMutableArray* jointNames = [NSMutableArray new];
+    struct jointInf
+    {
+        int parentID;
+        int flags;
+        int startData;
+    };
+    struct jointInf* jointInfs = 0;
+    
+    // Bounds
+    struct bound
+    {
+        float maxX, maxY, maxZ;
+        float minX, minY, minZ;
+    };
+    struct bound* bounds = 0;
+    
+    // Frames
+    struct frameData
+    {
+        float* data;
+    };
+    struct frameData* frameDatas = 0;
+    GEFrame* baseFrame = [GEFrame new];
     
     // Do work until reach all the content
     do
@@ -76,6 +88,53 @@
         }
         else if([words[0] isEqual:@"hierarchy"])
         {
+            // Create the temporal data holder.
+            jointInfs = (struct jointInf*)calloc(numberOfJoints, sizeof(struct jointInf));
+            
+            // Fill the data holder with every joint line.
+            for(int i = 0; i < numberOfJoints; i++)
+            {
+                // Joint line.
+                lineIndex++;
+                words = [self getWordsFromString:lines[lineIndex]];
+                
+                // Name.
+                [jointNames addObject:words[0]];
+                
+                // Data.
+                jointInfs[i].parentID = [words[1] intValue];
+                jointInfs[i].flags = [words[2] intValue];
+                jointInfs[i].startData = [words[3] intValue];
+            }
+        }
+        else if([words[0] isEqual:@"bounds"])
+        {
+            // Create the temporal data holders with the number of frames.
+            bounds = (struct bound*)calloc(NumberOfFrames, sizeof(struct bound));
+            frameDatas = (struct frameData*)calloc(NumberOfFrames, sizeof(struct frameData));
+            
+            // Fill the data holder with every bound line.
+            for(int i = 0; i < NumberOfFrames; i++)
+            {
+                // Joint line.
+                lineIndex++;
+                words = [self getWordsFromString:lines[lineIndex]];
+                
+                // New Bound.
+                bounds[i].minX = [words[1] floatValue];
+                bounds[i].minY = [words[2] floatValue];
+                bounds[i].minZ = [words[3] floatValue];
+                bounds[i].maxX = [words[6] floatValue];
+                bounds[i].maxY = [words[7] floatValue];
+                bounds[i].maxZ = [words[8] floatValue];
+            }
+        }
+        else if([words[0] isEqual:@"baseframe"])
+        {
+            // Temporal Position/Orientation.
+            GLKVector3 position;
+            GLKQuaternion orientation;
+            
             // Make a joint object for each joint line.
             for(int i = 0; i < numberOfJoints; i++)
             {
@@ -84,52 +143,138 @@
                 words = [self getWordsFromString:lines[lineIndex]];
                 
                 // New joint.
-                GEJointInfo* currentJoint = [[GEJointInfo alloc] init];
-                currentJoint.Name = [self stringWithOutQuotes:words[0]];
-                currentJoint.ParentID = [words[1] intValue];
-                currentJoint.Flags = [words[2] unsignedIntValue];
-                currentJoint.StartIndex = [words[3] unsignedIntValue];
+                GEJoint* currentJoint = [GEJoint new];
+                
+                // Position data.
+                position.x = [words[1] floatValue];
+                position.y = [words[2] floatValue];
+                position.z = [words[3] floatValue];
+                
+                // Orientation data.
+                orientation.x = [words[6] floatValue];
+                orientation.y = [words[7] floatValue];
+                orientation.z = [words[8] floatValue];
+                orientation.w = [self computeWComponentOfQuaternion:&orientation];
+                
+                currentJoint.Position = position;
+                currentJoint.Orientation = orientation;
                 
                 // Add new joint.
-                [m_jointInfs addObject:currentJoint];
+                [baseFrame.Joints addObject:currentJoint];
             }
         }
-        else if([words[0] isEqual:@"bounds"])
+        else if([words[0] isEqual:@"frame"])
         {
-            // Temporal bound positions.
-            GLKVector3 maxBound, minBound;
+            // Create the data members with number of animated components.
+            unsigned int frameIndex = [words[1] unsignedIntValue];
+            frameDatas[frameIndex].data = (float*)calloc(numberOfAnimatedComponents, sizeof(float));
             
-            // Make a bound object for each bound line.
-            for(int i = 0; i < NumberOfFrames; i++)
+            // Fill the data with all the next data lines.
+            unsigned int dataIndex = 0;
+            unsigned int remainDatas = numberOfAnimatedComponents;
+            do
             {
                 // Joint line.
                 lineIndex++;
                 words = [self getWordsFromString:lines[lineIndex]];
                 
-                // New Bound.
-                GEBound* currentBound = [[GEBound alloc] init];
+                // Every line contains a portion of the total datas.
+                remainDatas -= words.count;
                 
-                // Max bound data
-                maxBound.x = [words[1] floatValue];
-                maxBound.y = [words[2] floatValue];
-                maxBound.z = [words[3] floatValue];
-                currentBound.MaxBound = maxBound;
+                // Get the
+                for(NSString* word in words)
+                    frameDatas[frameIndex].data[dataIndex++] = [word floatValue];
                 
-                // Min bound data
-                minBound.x = [words[6] floatValue];
-                minBound.y = [words[7] floatValue];
-                minBound.z = [words[8] floatValue];
-                currentBound.MinBound = minBound;
-                
-                // Add new bound.
-                [m_bounds addObject:currentBound];
+                if(remainDatas == 0) break;
+                    
             }
+            while (true);
         }
         
         lineIndex++;
         if(lineIndex >= lines.count) break;
     }
     while (true);
+    
+    // Build frames
+    m_frames = [NSMutableArray new];
+    
+    for(int i = 0; i < NumberOfFrames; i++)
+    {
+        // New Frame
+        GEFrame* currentFrame = [GEFrame new];
+        
+        // Fill bound inf.
+        GLKVector3 maxBound = GLKVector3Make(bounds[i].maxX, bounds[i].maxY, bounds[i].maxZ);
+        GLKVector3 minBound = GLKVector3Make(bounds[i].minX, bounds[i].minY, bounds[i].minZ);
+        
+        currentFrame.Bound.MaxBound = maxBound;
+        currentFrame.Bound.MinBound = minBound;
+        
+        // Frame data
+        struct frameData currentFrameData = frameDatas[i];
+        
+        // Calculate every new joint based on the base frame.
+        for ( unsigned int j = 0; j < numberOfJoints; j++ )
+        {
+            // BaseJoint
+            GEJoint* baseJoint = baseFrame.Joints[j];
+            struct jointInf baseJointInf = jointInfs[j];
+            
+            // New joint
+            GEJoint* currentJoint = [GEJoint new];
+            
+            GLKVector3 basePosition = baseJoint.Position;
+            GLKQuaternion baseOrientation = baseJoint.Orientation;
+            
+            // Parenting
+            currentJoint.Parent = baseJointInf.parentID != -1 ? currentFrame.Joints[baseJointInf.parentID] : nil;
+            
+            // Flags that tell what member in position and orientation is been modified.
+            unsigned int o = 0;
+            if(baseJointInf.flags & 1)
+                basePosition.x = currentFrameData.data[baseJointInf.startData + o++];
+            if(baseJointInf.flags & 2)
+                basePosition.y = currentFrameData.data[baseJointInf.startData + o++];
+            if(baseJointInf.flags & 4)
+                basePosition.z = currentFrameData.data[baseJointInf.startData + o++];
+            if(baseJointInf.flags & 8)
+                baseOrientation.x = currentFrameData.data[baseJointInf.startData + o++];
+            if(baseJointInf.flags & 16)
+                baseOrientation.y = currentFrameData.data[baseJointInf.startData + o++];
+            if(baseJointInf.flags & 32)
+                baseOrientation.z = currentFrameData.data[baseJointInf.startData + o++];
+            
+            baseOrientation.w = [self computeWComponentOfQuaternion:&baseOrientation];
+            
+            if(currentJoint.Parent != nil) // Has a parent joint
+            {
+                GLKVector3 rotPosition = GLKQuaternionRotateVector3(currentJoint.Parent.Orientation, currentJoint.Position);
+                
+                currentJoint.Position = GLKVector3Add(currentJoint.Parent.Position, rotPosition);
+                currentJoint.Orientation = GLKQuaternionNormalize(GLKQuaternionMultiply(currentJoint.Parent.Orientation, currentJoint.Orientation));
+            }
+            else
+            {
+                currentJoint.Position = basePosition;
+                currentJoint.Orientation = baseOrientation;
+            }
+            
+            // Push the new joint.
+            [currentFrame.Joints addObject:currentJoint];
+        }
+        
+        // Free the data for this frame since has been procesed.
+        free(frameDatas[i].data);
+        
+        // Push the new frame.
+        [m_frames addObject:currentFrame];
+    }
+    
+    // Clean the temporal data
+    free(jointInfs);
+    free(bounds);
+    free(frameDatas);
 }
 
 - (NSArray*)getWordsFromString:(NSString*)string

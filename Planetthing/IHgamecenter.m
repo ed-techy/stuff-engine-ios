@@ -53,7 +53,7 @@
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
         CleanLog(GE_VERBOSE && IH_VERBOSE, @"GameCenter: Shared instance was allocated for the first time.");
-        sharedIntance = [[IHGameCenter alloc] init];
+        sharedIntance = [IHGameCenter new];
     });
     
     return sharedIntance;
@@ -446,7 +446,7 @@
 
 - (void)loadFriedsData
 {
-    LocalPlayerFriends = [[NSMutableDictionary alloc] init];
+    LocalPlayerFriends = [NSMutableDictionary new];
     
     // Get User fiends
     [LocalPlayer loadFriendsWithCompletionHandler:^(NSArray *friendIDs, NSError *error) {
@@ -467,10 +467,10 @@
 
                     for(GKPlayer* player in players)
                     {
-                        LocalPlayerFriends[player.playerID] = [[NSMutableDictionary alloc] init];
+                        LocalPlayerFriends[player.playerID] = [NSMutableDictionary new];
                         LocalPlayerFriends[player.playerID][@"player_id"] = player.playerID;
                         LocalPlayerFriends[player.playerID][@"display_name"] = player.alias;
-                        LocalPlayerFriends[player.playerID][@"scores"] = [[NSMutableDictionary alloc] init];
+                        LocalPlayerFriends[player.playerID][@"scores"] = [NSMutableDictionary new];
                     }
                     
                     m_syncThreads += GameCenterLeaderBoards.count;
@@ -577,7 +577,7 @@
                 
                 score[@"value"] = scoreValue;
                 score[@"context"] = context;
-                score[@"date"] = [[NSDate alloc] init];
+                score[@"date"] = [NSDate new];
             }
             else
             {
@@ -593,7 +593,7 @@
                 
                 score[@"value"] = scoreValue;
                 score[@"context"] = context;
-                score[@"date"] = [[NSDate alloc] init];
+                score[@"date"] = [NSDate new];
             }
             else
             {

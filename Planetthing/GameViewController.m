@@ -47,13 +47,11 @@
     fullScreen = [GEFullScreen sharedIntance];
     fullScreen.TextureID = texture.TextureID;
     
-    
-    
-    model = [[GEAnimatedModel alloc] init];
+    model = [GEAnimatedModel new];
     //[model loadModelWithFileName:@"Iron Arm/iron_arm"];
-    [model loadModelWithFileName:@"Bob Lamp/bob_lamp_update"];
-    animation = [[GEAnimation alloc] init];
-    [animation loadAnimationWithFileName:@"Bob Lamp/bob_lamp_update"];
+    [model loadModelWithFileName:@"Bob Lamp/bob_lamp.md5mesh"];
+    animation = [GEAnimation new];
+    [animation loadAnimationWithFileName:@"Bob Lamp/bob_lamp"];
 }
 
 - (void)dealloc

@@ -1,11 +1,14 @@
-#import "GEtexture.h"
+#import "GEvertex.h"
 
-@interface GEMaterial : NSObject
+@interface GETriangle :NSObject
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-@property GETexture* DiffuseTexture;
+
+@property GEVertex* Vertex1;
+@property GEVertex* Vertex2;
+@property GEVertex* Vertex3;
 
 @end

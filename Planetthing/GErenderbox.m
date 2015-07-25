@@ -24,7 +24,7 @@
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
         CleanLog(GE_VERBOSE && RB_VERBOSE, @"Render Box: Shared instance was allocated for the first time.");
-        sharedIntance = [[GERenderBox alloc] init];
+        sharedIntance = [GERenderBox new];
     });
     
     return sharedIntance;
@@ -36,7 +36,7 @@
     
     if (self)
     {
-        MainView = [[GEView alloc] init];
+        MainView = [GEView new];
     }
     
     return self;

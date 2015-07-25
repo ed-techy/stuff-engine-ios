@@ -1,9 +1,34 @@
-#import "GEmesh.h"
 #import "GEtextureshader.h"
+#import "GEmesh.h"
+#import "GEanimation.h"
 
 @interface GEAnimatedModel : NSObject
 
+// -------------------------------------------- //
+// ---------------- Properties ---------------- //
+// -------------------------------------------- //
+#pragma mark Properties
+@property NSString* FileName;
+@property bool Ready;
+
+// -------------------------------------------- //
+// ---------- Load - Import - Export ---------- //
+// -------------------------------------------- //
+#pragma mark Load - Import - Export
+
 - (void)loadModelWithFileName:(NSString*)filename;
+
+// -------------------------------------------- //
+// ----------------- Animation ---------------- //
+// -------------------------------------------- //
+#pragma mark Animation
+
+- (void)resetPose;
+
+// -------------------------------------------- //
+// ------------------ Render ------------------ //
+// -------------------------------------------- //
+#pragma mark Render
 - (void)render;
 
 @end

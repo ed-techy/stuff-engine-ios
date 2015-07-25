@@ -30,7 +30,7 @@
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
         CleanLog(GE_VERBOSE && SH_VERBOSE, @"Texture Shader: Shared instance was allocated for the first time.");
-        sharedIntance = [[GETextureShader alloc] init];
+        sharedIntance = [GETextureShader new];
     });
     
     return sharedIntance;

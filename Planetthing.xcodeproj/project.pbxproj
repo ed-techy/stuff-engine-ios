@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		372119B11B63E80D00F1C1B1 /* GEjoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B01B63E80D00F1C1B1 /* GEjoint.m */; };
+		372119B31B63E81800F1C1B1 /* GEbound.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B21B63E81800F1C1B1 /* GEbound.m */; };
+		372119B51B63E82A00F1C1B1 /* GEframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B41B63E82A00F1C1B1 /* GEframe.m */; };
+		372119B71B63E83800F1C1B1 /* GEweight.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B61B63E83800F1C1B1 /* GEweight.m */; };
+		372119BB1B63E85300F1C1B1 /* GEtriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119BA1B63E85300F1C1B1 /* GEtriangle.m */; };
+		372119BD1B63E86800F1C1B1 /* GEvertex.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119BC1B63E86800F1C1B1 /* GEvertex.m */; };
 		375F0A101B4D9B5500F894C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A0F1B4D9B5500F894C3 /* main.m */; };
 		375F0A131B4D9B5500F894C3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A121B4D9B5500F894C3 /* AppDelegate.m */; };
 		375F0A1A1B4D9B5500F894C3 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A191B4D9B5500F894C3 /* GameViewController.m */; };
@@ -52,13 +58,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		372119A61B63E75400F1C1B1 /* GEjoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEjoint.h; path = Planetthing/GEjoint.h; sourceTree = "<group>"; };
+		372119AB1B63E79900F1C1B1 /* GEvertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEvertex.h; path = Planetthing/GEvertex.h; sourceTree = "<group>"; };
+		372119AC1B63E7A300F1C1B1 /* GEtriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEtriangle.h; path = Planetthing/GEtriangle.h; sourceTree = "<group>"; };
+		372119AD1B63E7B900F1C1B1 /* GEframe.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEframe.h; path = Planetthing/GEframe.h; sourceTree = "<group>"; };
+		372119AE1B63E7C200F1C1B1 /* GEbound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEbound.h; path = Planetthing/GEbound.h; sourceTree = "<group>"; };
+		372119AF1B63E7D600F1C1B1 /* GEweight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEweight.h; path = Planetthing/GEweight.h; sourceTree = "<group>"; };
+		372119B01B63E80D00F1C1B1 /* GEjoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEjoint.m; path = Planetthing/GEjoint.m; sourceTree = "<group>"; };
+		372119B21B63E81800F1C1B1 /* GEbound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEbound.m; path = Planetthing/GEbound.m; sourceTree = "<group>"; };
+		372119B41B63E82A00F1C1B1 /* GEframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEframe.m; path = Planetthing/GEframe.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		372119B61B63E83800F1C1B1 /* GEweight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEweight.m; path = Planetthing/GEweight.m; sourceTree = "<group>"; };
+		372119BA1B63E85300F1C1B1 /* GEtriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GEtriangle.m; sourceTree = "<group>"; };
+		372119BC1B63E86800F1C1B1 /* GEvertex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEvertex.m; path = Planetthing/GEvertex.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		375F0A0A1B4D9B5500F894C3 /* Planetthing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Planetthing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		375F0A0E1B4D9B5500F894C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		375F0A0F1B4D9B5500F894C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		375F0A111B4D9B5500F894C3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		375F0A121B4D9B5500F894C3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		375F0A181B4D9B5500F894C3 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		375F0A191B4D9B5500F894C3 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		375F0A191B4D9B5500F894C3 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GameViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		375F0A1C1B4D9B5500F894C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		375F0A271B4D9B5500F894C3 /* PlanetthingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlanetthingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		375F0A2C1B4D9B5500F894C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -67,7 +85,7 @@
 		375F0A391B4D9FF500F894C3 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		375F0A3B1B4D9FFB00F894C3 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		375F0A421B4DA0EC00F894C3 /* IHgamecenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IHgamecenter.h; path = Planetthing/IHgamecenter.h; sourceTree = "<group>"; };
-		375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IHgamecenter.m; path = Planetthing/IHgamecenter.m; sourceTree = "<group>"; };
+		375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = IHgamecenter.m; path = Planetthing/IHgamecenter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		375F0A471B4DE95100F894C3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Planetthing/Reachability.h; sourceTree = "<group>"; };
 		375F0A481B4DE95100F894C3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Planetthing/Reachability.m; sourceTree = "<group>"; };
 		376C221D1B54566E00DC3874 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -76,37 +94,37 @@
 		37976DE91B614C900008AA72 /* GEshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEshader.h; path = Planetthing/GEshader.h; sourceTree = "<group>"; };
 		37976DEA1B614C900008AA72 /* GEshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEshader.m; path = Planetthing/GEshader.m; sourceTree = "<group>"; };
 		37976DEE1B617BFB0008AA72 /* GEanimatedmodel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEanimatedmodel.h; path = Planetthing/GEanimatedmodel.h; sourceTree = "<group>"; };
-		37976DEF1B617C820008AA72 /* GEanimatedmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEanimatedmodel.m; path = Planetthing/GEanimatedmodel.m; sourceTree = "<group>"; };
+		37976DEF1B617C820008AA72 /* GEanimatedmodel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEanimatedmodel.m; path = Planetthing/GEanimatedmodel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37976DF71B618EDE0008AA72 /* hotwasser_512_512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hotwasser_512_512.png; path = Planetthing/Resources/Images/hotwasser_512_512.png; sourceTree = "<group>"; };
 		37976DFA1B61FAF50008AA72 /* GEmaterial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEmaterial.m; path = Planetthing/GEmaterial.m; sourceTree = "<group>"; };
 		37976DFC1B61FB360008AA72 /* GEmaterial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEmaterial.h; path = Planetthing/GEmaterial.h; sourceTree = "<group>"; };
 		37976DFD1B61FB840008AA72 /* GEmesh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEmesh.h; path = Planetthing/GEmesh.h; sourceTree = "<group>"; };
-		37976DFE1B61FBB90008AA72 /* GEmesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEmesh.m; path = Planetthing/GEmesh.m; sourceTree = "<group>"; };
+		37976DFE1B61FBB90008AA72 /* GEmesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEmesh.m; path = Planetthing/GEmesh.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37A064DD1B582A880002F5F1 /* GMmain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GMmain.h; path = Planetthing/GMmain.h; sourceTree = "<group>"; };
-		37A064DE1B582A880002F5F1 /* GMmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GMmain.m; path = Planetthing/GMmain.m; sourceTree = "<group>"; };
+		37A064DE1B582A880002F5F1 /* GMmain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GMmain.m; path = Planetthing/GMmain.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37A064E01B582D150002F5F1 /* NSDataAES256.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDataAES256.h; path = Planetthing/NSDataAES256.h; sourceTree = "<group>"; };
 		37A064E11B582D150002F5F1 /* NSDataAES256.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDataAES256.m; path = Planetthing/NSDataAES256.m; sourceTree = "<group>"; };
 		37A064E41B583ED90002F5F1 /* GErenderbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GErenderbox.h; path = Planetthing/GErenderbox.h; sourceTree = "<group>"; };
-		37A064E51B583ED90002F5F1 /* GErenderbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GErenderbox.m; path = Planetthing/GErenderbox.m; sourceTree = "<group>"; };
+		37A064E51B583ED90002F5F1 /* GErenderbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GErenderbox.m; path = Planetthing/GErenderbox.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37A064E71B584C150002F5F1 /* GEview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEview.h; path = Planetthing/GEview.h; sourceTree = "<group>"; };
 		37A064E81B584C150002F5F1 /* GEview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEview.m; path = Planetthing/GEview.m; sourceTree = "<group>"; };
 		37A064EA1B5857D40002F5F1 /* GEcontext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEcontext.h; path = Planetthing/GEcontext.h; sourceTree = "<group>"; };
-		37A064EB1B5857EB0002F5F1 /* GEcontext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEcontext.m; path = Planetthing/GEcontext.m; sourceTree = "<group>"; };
+		37A064EB1B5857EB0002F5F1 /* GEcontext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEcontext.m; path = Planetthing/GEcontext.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37A064ED1B5860AE0002F5F1 /* GEcommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEcommon.h; path = Planetthing/GEcommon.h; sourceTree = "<group>"; };
 		37A5685B1B631CEC006527F4 /* Iron Arm */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Iron Arm"; path = "Planetthing/Resources/Models/Iron Arm"; sourceTree = "<group>"; };
-		37A5685E1B63217C006527F4 /* GEanimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEanimation.m; path = Planetthing/GEanimation.m; sourceTree = "<group>"; };
+		37A5685E1B63217C006527F4 /* GEanimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEanimation.m; path = Planetthing/GEanimation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37A568601B63218E006527F4 /* GEanimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEanimation.h; path = Planetthing/GEanimation.h; sourceTree = "<group>"; };
 		37ADFA5E1B60C94D002EE66B /* fullscreen_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = fullscreen_shader.fsh; path = Planetthing/Shaders/fullscreen_shader.fsh; sourceTree = "<group>"; };
 		37ADFA5F1B60C94D002EE66B /* fullscreen_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = fullscreen_shader.vsh; path = Planetthing/Shaders/fullscreen_shader.vsh; sourceTree = "<group>"; };
 		37ADFA621B60C95D002EE66B /* GEfullscreenshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEfullscreenshader.h; path = Planetthing/GEfullscreenshader.h; sourceTree = "<group>"; };
-		37ADFA631B60C95D002EE66B /* GEfullscreenshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEfullscreenshader.m; path = Planetthing/GEfullscreenshader.m; sourceTree = "<group>"; };
+		37ADFA631B60C95D002EE66B /* GEfullscreenshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEfullscreenshader.m; path = Planetthing/GEfullscreenshader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37ADFA651B60CBAA002EE66B /* GEfullscreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEfullscreen.h; path = Planetthing/GEfullscreen.h; sourceTree = "<group>"; };
-		37ADFA661B60CCB8002EE66B /* GEfullscreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEfullscreen.m; path = Planetthing/GEfullscreen.m; sourceTree = "<group>"; };
+		37ADFA661B60CCB8002EE66B /* GEfullscreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEfullscreen.m; path = Planetthing/GEfullscreen.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37D0EE991B58054100306DC7 /* GMglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GMglobals.h; path = Planetthing/GMglobals.h; sourceTree = "<group>"; };
 		37F4CD901B5EF42F009269BE /* texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.fsh; path = Planetthing/Shaders/texture_shader.fsh; sourceTree = "<group>"; };
 		37F4CD911B5EF42F009269BE /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.vsh; path = Planetthing/Shaders/texture_shader.vsh; sourceTree = "<group>"; };
 		37F4CD941B5F007D009269BE /* GEtextureshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEtextureshader.h; path = Planetthing/GEtextureshader.h; sourceTree = "<group>"; };
-		37F4CD951B5F007D009269BE /* GEtextureshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEtextureshader.m; path = Planetthing/GEtextureshader.m; sourceTree = "<group>"; };
+		37F4CD951B5F007D009269BE /* GEtextureshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEtextureshader.m; path = Planetthing/GEtextureshader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37F94A681B62CA310065D8D6 /* Bob Lamp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Bob Lamp"; path = "Planetthing/Resources/Models/Bob Lamp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +149,78 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		372119BF1B64006300F1C1B1 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				37A568601B63218E006527F4 /* GEanimation.h */,
+				37A5685E1B63217C006527F4 /* GEanimation.m */,
+				372119AD1B63E7B900F1C1B1 /* GEframe.h */,
+				372119B41B63E82A00F1C1B1 /* GEframe.m */,
+			);
+			name = Animation;
+			sourceTree = "<group>";
+		};
+		372119C01B64009900F1C1B1 /* Sahders */ = {
+			isa = PBXGroup;
+			children = (
+				37ADFA621B60C95D002EE66B /* GEfullscreenshader.h */,
+				37ADFA631B60C95D002EE66B /* GEfullscreenshader.m */,
+				37976DE91B614C900008AA72 /* GEshader.h */,
+				37976DEA1B614C900008AA72 /* GEshader.m */,
+				37F4CD941B5F007D009269BE /* GEtextureshader.h */,
+				37F4CD951B5F007D009269BE /* GEtextureshader.m */,
+			);
+			name = Sahders;
+			sourceTree = "<group>";
+		};
+		372119C11B6400B600F1C1B1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				37976DEE1B617BFB0008AA72 /* GEanimatedmodel.h */,
+				37976DEF1B617C820008AA72 /* GEanimatedmodel.m */,
+				37976DFC1B61FB360008AA72 /* GEmaterial.h */,
+				37976DFA1B61FAF50008AA72 /* GEmaterial.m */,
+				37976DFD1B61FB840008AA72 /* GEmesh.h */,
+				37976DFE1B61FBB90008AA72 /* GEmesh.m */,
+				3793C7E01B5D9E8C00741F37 /* GEtexture.h */,
+				3793C7E11B5D9E8C00741F37 /* GEtexture.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		372119C21B64011E00F1C1B1 /* Render and View */ = {
+			isa = PBXGroup;
+			children = (
+				37A064EA1B5857D40002F5F1 /* GEcontext.h */,
+				37A064EB1B5857EB0002F5F1 /* GEcontext.m */,
+				37ADFA651B60CBAA002EE66B /* GEfullscreen.h */,
+				37ADFA661B60CCB8002EE66B /* GEfullscreen.m */,
+				37A064E41B583ED90002F5F1 /* GErenderbox.h */,
+				37A064E51B583ED90002F5F1 /* GErenderbox.m */,
+				37A064E71B584C150002F5F1 /* GEview.h */,
+				37A064E81B584C150002F5F1 /* GEview.m */,
+			);
+			name = "Render and View";
+			sourceTree = "<group>";
+		};
+		372119C31B64017300F1C1B1 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				372119AE1B63E7C200F1C1B1 /* GEbound.h */,
+				372119B21B63E81800F1C1B1 /* GEbound.m */,
+				37A064ED1B5860AE0002F5F1 /* GEcommon.h */,
+				372119A61B63E75400F1C1B1 /* GEjoint.h */,
+				372119B01B63E80D00F1C1B1 /* GEjoint.m */,
+				372119AC1B63E7A300F1C1B1 /* GEtriangle.h */,
+				372119BA1B63E85300F1C1B1 /* GEtriangle.m */,
+				372119AB1B63E79900F1C1B1 /* GEvertex.h */,
+				372119BC1B63E86800F1C1B1 /* GEvertex.m */,
+				372119AF1B63E7D600F1C1B1 /* GEweight.h */,
+				372119B61B63E83800F1C1B1 /* GEweight.m */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
 		373CF0871B56DEDB002A9CFD /* Game */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,31 +347,11 @@
 		37A064E31B583E680002F5F1 /* GE Classes */ = {
 			isa = PBXGroup;
 			children = (
-				37976DEE1B617BFB0008AA72 /* GEanimatedmodel.h */,
-				37976DEF1B617C820008AA72 /* GEanimatedmodel.m */,
-				37A568601B63218E006527F4 /* GEanimation.h */,
-				37A5685E1B63217C006527F4 /* GEanimation.m */,
-				37A064ED1B5860AE0002F5F1 /* GEcommon.h */,
-				37A064EA1B5857D40002F5F1 /* GEcontext.h */,
-				37A064EB1B5857EB0002F5F1 /* GEcontext.m */,
-				37ADFA651B60CBAA002EE66B /* GEfullscreen.h */,
-				37ADFA661B60CCB8002EE66B /* GEfullscreen.m */,
-				37ADFA621B60C95D002EE66B /* GEfullscreenshader.h */,
-				37ADFA631B60C95D002EE66B /* GEfullscreenshader.m */,
-				37976DFC1B61FB360008AA72 /* GEmaterial.h */,
-				37976DFA1B61FAF50008AA72 /* GEmaterial.m */,
-				37976DFD1B61FB840008AA72 /* GEmesh.h */,
-				37976DFE1B61FBB90008AA72 /* GEmesh.m */,
-				37A064E41B583ED90002F5F1 /* GErenderbox.h */,
-				37A064E51B583ED90002F5F1 /* GErenderbox.m */,
-				37976DE91B614C900008AA72 /* GEshader.h */,
-				37976DEA1B614C900008AA72 /* GEshader.m */,
-				3793C7E01B5D9E8C00741F37 /* GEtexture.h */,
-				3793C7E11B5D9E8C00741F37 /* GEtexture.m */,
-				37F4CD941B5F007D009269BE /* GEtextureshader.h */,
-				37F4CD951B5F007D009269BE /* GEtextureshader.m */,
-				37A064E71B584C150002F5F1 /* GEview.h */,
-				37A064E81B584C150002F5F1 /* GEview.m */,
+				372119BF1B64006300F1C1B1 /* Animation */,
+				372119C11B6400B600F1C1B1 /* Models */,
+				372119C21B64011E00F1C1B1 /* Render and View */,
+				372119C01B64009900F1C1B1 /* Sahders */,
+				372119C31B64017300F1C1B1 /* Support */,
 			);
 			name = "GE Classes";
 			sourceTree = "<group>";
@@ -425,9 +495,13 @@
 				37A064DF1B582A880002F5F1 /* GMmain.m in Sources */,
 				37A064E91B584C150002F5F1 /* GEview.m in Sources */,
 				375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */,
+				372119B11B63E80D00F1C1B1 /* GEjoint.m in Sources */,
+				372119B71B63E83800F1C1B1 /* GEweight.m in Sources */,
 				375F0A1A1B4D9B5500F894C3 /* GameViewController.m in Sources */,
+				372119B31B63E81800F1C1B1 /* GEbound.m in Sources */,
 				37A064EC1B5857EB0002F5F1 /* GEcontext.m in Sources */,
 				37A5685F1B63217C006527F4 /* GEanimation.m in Sources */,
+				372119BB1B63E85300F1C1B1 /* GEtriangle.m in Sources */,
 				3793C7E21B5D9E8C00741F37 /* GEtexture.m in Sources */,
 				37ADFA641B60C95D002EE66B /* GEfullscreenshader.m in Sources */,
 				37976DFB1B61FAF50008AA72 /* GEmaterial.m in Sources */,
@@ -435,7 +509,9 @@
 				37976DFF1B61FBB90008AA72 /* GEmesh.m in Sources */,
 				37ADFA671B60CCB8002EE66B /* GEfullscreen.m in Sources */,
 				37976DEB1B614C900008AA72 /* GEshader.m in Sources */,
+				372119BD1B63E86800F1C1B1 /* GEvertex.m in Sources */,
 				37A064E61B583ED90002F5F1 /* GErenderbox.m in Sources */,
+				372119B51B63E82A00F1C1B1 /* GEframe.m in Sources */,
 				37976DF01B617C820008AA72 /* GEanimatedmodel.m in Sources */,
 				37A064E21B582D150002F5F1 /* NSDataAES256.m in Sources */,
 				37F4CD961B5F007D009269BE /* GEtextureshader.m in Sources */,

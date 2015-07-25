@@ -2,11 +2,13 @@
 
 @interface GEAnimatedModel()
 {
-    NSMutableArray* m_joints;
+    GEFrame* m_bindPose;
     NSMutableArray* m_meshes;
     
     GETextureShader* m_textureShader;
 }
+
+- (bool)loadMD5WithFileName:(NSString*)filename;
 
 - (NSArray*)getWordsFromString:(NSString*)string;
 - (NSString*)stringWithOutQuotes:(NSString*)string;
@@ -15,6 +17,15 @@
 @end
 
 @implementation GEAnimatedModel
+
+@synthesize FileName;
+@synthesize Ready;
+
+
+// ------------------------------------------------------------------------------ //
+// ------------------------------- Initialization ------------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Initialization
 
 - (id)init
 {
@@ -28,7 +39,66 @@
     return self;
 }
 
+// ------------------------------------------------------------------------------ //
+// ---------------------------------- Animation --------------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Animation
+
+- (void)resetPose
+{
+    for(GEMesh* mesh in m_meshes)
+        [mesh matchMeshWithFrame:m_bindPose];
+}
+
+// ------------------------------------------------------------------------------ //
+// ------------------------------------ Render ---------------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Render
+
+- (void)render
+{
+    GLKMatrix4 matrix = GLKMatrix4Multiply(GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45.0f), 320.0f/480.0f, 0.1f, 1000.0f), GLKMatrix4MakeLookAt(0.0f, -150.0f, 90.0f, 0.0f, 0.0f, 30.0f, 0.0f, 0.0f, 1.0f));
+    
+    m_textureShader.ModelViewProjectionMatrix = &matrix;
+    
+    for(GEMesh* mesh in m_meshes)
+    {
+        m_textureShader.TextureID = mesh.Material.DiffuseTexture.TextureID;
+        
+        [m_textureShader useProgram];
+        [mesh render];
+    }
+}
+
+// ------------------------------------------------------------------------------ //
+// --------------------------- Load - Import - Export --------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Load - Import - Export
+
 - (void)loadModelWithFileName:(NSString*)filename
+{
+    NSString* fileType = [filename pathExtension];
+    NSString* filePath = [filename stringByDeletingPathExtension];
+    
+    FileName = filename;
+    
+    // Decide what load method to use.
+    if([fileType isEqualToString:@"md5mesh"])
+        Ready = [self loadMD5WithFileName:filePath];
+    
+    // If the file was loaded duccessfully prepare all the meshes buffers.
+    if(Ready)
+    {
+        CleanLog(GE_VERBOSE && AM_VERBOSE, @"Animated Model: Model \"%@\" loaded successfully.", filename);
+        
+        for(GEMesh* mesh in m_meshes)
+            [mesh generateBuffers];
+        
+        [self resetPose];
+    }
+}
+
+- (bool)loadMD5WithFileName:(NSString*)filename
 {
     NSString *fileContents = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:filename ofType:@"md5mesh"] encoding:NSUTF8StringEncoding error:NULL];
     
@@ -45,8 +115,8 @@
     NSString* filePath = [filename stringByDeletingLastPathComponent];
     
     // Create the arrays for each object type.
-    m_joints = [[NSMutableArray alloc] init];
-    m_meshes = [[NSMutableArray alloc] init];
+    m_bindPose = [GEFrame new];
+    m_meshes = [NSMutableArray new];
     
     // Do work until reach all the content
     do
@@ -80,9 +150,9 @@
                 words = [self getWordsFromString:lines[lineIndex]];
                 
                 // New joint.
-                GEJoint* currentJoint = [[GEJoint alloc] init];
+                GEJoint* currentJoint = [GEJoint new];
                 currentJoint.Name = [self stringWithOutQuotes:words[0]];
-                currentJoint.ParentID = [words[1] intValue];
+                currentJoint.Parent = [words[1] isEqualToString:@"-1"] ? nil : m_bindPose.Joints[[words[1] intValue]];
                 
                 // Position data.
                 position.x = [words[3] floatValue];
@@ -94,18 +164,18 @@
                 orientation.y = [words[9] floatValue];
                 orientation.z = [words[10] floatValue];
                 orientation.w = [self computeWComponentOfQuaternion:&orientation];
-               
+                
                 currentJoint.Position = position;
                 currentJoint.Orientation = orientation;
                 
                 // Add new joint.
-                [m_joints addObject:currentJoint];
+                [m_bindPose.Joints addObject:currentJoint];
             }
         }
         else if([words[0] isEqual:@"mesh"])
         {
             // New Mesh.
-            GEMesh* currentMesh = [[GEMesh alloc] init];
+            GEMesh* currentMesh = [GEMesh new];
             [m_meshes addObject:currentMesh];
             
             // Shader line.
@@ -140,7 +210,7 @@
                 words = [self getWordsFromString:lines[lineIndex]];
                 
                 // New vertex.
-                GEVertex* currentVertex = [[GEVertex alloc] init];
+                GEVertex* currentVertex = [GEVertex new];
                 [currentMesh.Vertices addObject:currentVertex];
                 
                 // Verrtex index;
@@ -169,7 +239,7 @@
                 words = [self getWordsFromString:lines[lineIndex]];
                 
                 // New triangle.
-                GETriangle* currentTrangle = [[GETriangle alloc] init];
+                GETriangle* currentTrangle = [GETriangle new];
                 [currentMesh.Triangles addObject:currentTrangle];
                 
                 // Vertices data.
@@ -194,7 +264,7 @@
                 words = [self getWordsFromString:lines[lineIndex]];
                 
                 // New weight.
-                GEWight* currentWeight = [[GEWight alloc] init];
+                GEWight* currentWeight = [GEWight new];
                 [currentMesh.Weights addObject:currentWeight];
                 
                 // Weight position data.
@@ -204,7 +274,7 @@
                 currentWeight.Position = weightPosition;
                 
                 // Joint inf.
-                currentWeight.Joint = m_joints[[words[2] unsignedIntValue]];
+                currentWeight.JointID = [words[2] unsignedIntValue];
                 
                 // Bias info.
                 currentWeight.Bias = [words[3] floatValue];
@@ -226,11 +296,7 @@
     }
     while (true);
     
-    // Calculate the vertex position for each mesh.
-    for(GEMesh* mesh in m_meshes)
-    {
-        [mesh prepareMesh];
-    }
+    return true;
 }
 
 - (NSArray*)getWordsFromString:(NSString*)string
@@ -249,22 +315,5 @@
     float t = 1.0f - ( quaternion->x * quaternion->x ) - ( quaternion->y * quaternion->y ) - ( quaternion->z * quaternion->z );
     return t < 0.0f ? 0.0f : -sqrtf(t);
 }
-
-- (void)render
-{
-    GLKMatrix4 matrix = GLKMatrix4Multiply(GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45.0f), 320.0f/480.0f, 0.1f, 1000.0f), GLKMatrix4MakeLookAt(0.0f, -15.0f, 5.0f, 0.0f, 0.0f, 5.0f, 0.0f, 0.0f, 1.0f));
-    
-    m_textureShader.ModelViewProjectionMatrix = &matrix;
-    
-    for(GEMesh* mesh in m_meshes)
-    {
-        m_textureShader.TextureID = mesh.Material.DiffuseTexture.TextureID;
-        
-        [m_textureShader useProgram];
-        [mesh render];
-    }
-}
-
-
 
 @end

@@ -1,5 +1,3 @@
-#import "GEtexture.h"
-#import "GEtextureshader.h"
 #import "GEfullscreen.h"
 #import "GEanimatedmodel.h"
 

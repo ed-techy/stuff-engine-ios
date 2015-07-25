@@ -14,6 +14,8 @@
 #define TX_VERBOSE true // Texture verbose
 #define SH_VERBOSE true // Shader verbose
 #define FS_VERBOSE true // Full screen verbose
+#define AM_VERBOSE true // Animated model verbose
+#define AT_VERBOSE true // Animation verbose
 
 // -------------------------------------------- //
 // ----------------- CLEAN LOG ---------------- //
