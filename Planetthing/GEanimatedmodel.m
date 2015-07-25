@@ -4,15 +4,29 @@
 {
     NSMutableArray* m_joints;
     NSMutableArray* m_meshes;
+    
+    GETextureShader* m_textureShader;
 }
 
 - (NSArray*)getWordsFromString:(NSString*)string;
+- (NSString*)stringWithOutQuotes:(NSString*)string;
 - (float)computeWComponentOfQuaternion:(GLKQuaternion*)quaternion;
-- (NSString*)stringWithOutCuouts:(NSString*)string;
 
 @end
 
 @implementation GEAnimatedModel
+
+- (id)init
+{
+    self = [super init];
+    
+    if(self)
+    {
+        m_textureShader = [GETextureShader sharedIntance];
+    }
+    
+    return self;
+}
 
 - (void)loadModelWithFileName:(NSString*)filename
 {
@@ -27,6 +41,9 @@
     int numberOfJoints = 0;
     int numberOfMeshes = 0;
     
+    // Get path
+    NSString* filePath = [filename stringByDeletingLastPathComponent];
+    
     // Create the arrays for each object type.
     m_joints = [[NSMutableArray alloc] init];
     m_meshes = [[NSMutableArray alloc] init];
@@ -36,12 +53,6 @@
     {
         // Words in the line, eliminating the empty ones
         NSArray* words = [self getWordsFromString:lines[lineIndex]];
-        
-        if(!words.count)
-        {
-            lineIndex++;
-            continue;
-        }
         
         if([words[0] isEqual:@"numJoints"]) // Line with the number of joints to read,
         {
@@ -70,7 +81,7 @@
                 
                 // New joint.
                 GEJoint* currentJoint = [[GEJoint alloc] init];
-                currentJoint.Name = [self stringWithOutCuouts:words[0]];
+                currentJoint.Name = [self stringWithOutQuotes:words[0]];
                 currentJoint.ParentID = [words[1] intValue];
                 
                 // Position data.
@@ -102,7 +113,7 @@
             words = [self getWordsFromString:lines[lineIndex]];
             
             // New texture for this mesh material.
-            currentMesh.Material.DiffuseTexture = [[GETexture alloc] initFromFilename:[self stringWithOutCuouts:words[1]]];
+            currentMesh.Material.DiffuseTexture = [[GETexture alloc] initFromFilename:[NSString stringWithFormat:@"%@/%@", filePath, [self stringWithOutQuotes:words[1]]]];
             
             // Number of vertices.
             lineIndex++;
@@ -131,6 +142,9 @@
                 // New vertex.
                 GEVertex* currentVertex = [[GEVertex alloc] init];
                 [currentMesh.Vertices addObject:currentVertex];
+                
+                // Verrtex index;
+                currentVertex.Index = i;
                 
                 // Texture coord data.
                 textureCoord.x = [words[3] floatValue];
@@ -208,11 +222,15 @@
         }
         
         lineIndex++;
-        
         if(lineIndex >= lines.count) break;
     }
     while (true);
     
+    // Calculate the vertex position for each mesh.
+    for(GEMesh* mesh in m_meshes)
+    {
+        [mesh prepareMesh];
+    }
 }
 
 - (NSArray*)getWordsFromString:(NSString*)string
@@ -221,7 +239,7 @@
     return [words filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
 }
 
-- (NSString*)stringWithOutCuouts:(NSString*)string
+- (NSString*)stringWithOutQuotes:(NSString*)string
 {
     return [string substringWithRange:NSMakeRange(1, string.length - 2)];
 }
@@ -230,6 +248,21 @@
 {
     float t = 1.0f - ( quaternion->x * quaternion->x ) - ( quaternion->y * quaternion->y ) - ( quaternion->z * quaternion->z );
     return t < 0.0f ? 0.0f : -sqrtf(t);
+}
+
+- (void)render
+{
+    GLKMatrix4 matrix = GLKMatrix4Multiply(GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45.0f), 320.0f/480.0f, 0.1f, 1000.0f), GLKMatrix4MakeLookAt(0.0f, -15.0f, 5.0f, 0.0f, 0.0f, 5.0f, 0.0f, 0.0f, 1.0f));
+    
+    m_textureShader.ModelViewProjectionMatrix = &matrix;
+    
+    for(GEMesh* mesh in m_meshes)
+    {
+        m_textureShader.TextureID = mesh.Material.DiffuseTexture.TextureID;
+        
+        [m_textureShader useProgram];
+        [mesh render];
+    }
 }
 
 

@@ -30,7 +30,6 @@ enum
     GE_NUM_UNIFORMS
 };
 
-
 // -------------------------------------------- //
 // ------------------- COLORS ----------------- //
 // -------------------------------------------- //
@@ -84,7 +83,7 @@ enum
 #define     color_orchid_4                GLKVector4Make(0.545098039f,  0.278431373f,   0.537254902f,   1.0f)
 #define     color_thistle                 GLKVector4Make(0.847058824f,  0.749019608f,   0.847058824f,   1.0f)
 #define     color_thistle_1               GLKVector4Make(1.0f,          0.882352941f,   1.0f,           1.0f)
-#define     color_thistle_2               GLKVector4Make(0.933333333f, 0.823529412f, 0.933333333f, 1.0f)
+#define     color_thistle_2               GLKVector4Make(0.933333333f,  0.823529412f,   0.933333333f,   1.0f)
 #define     color_thistle_3               GLKVector4Make(0.803921569f, 0.709803922f, 0.803921569f, 1.0f)
 #define     color_thistle_4               GLKVector4Make(0.545098039f, 0.482352941f, 0.545098039f, 1.0f)
 #define     color_plum_1                  GLKVector4Make(1.0f, 0.733333333f, 1.0f, 1.0f)

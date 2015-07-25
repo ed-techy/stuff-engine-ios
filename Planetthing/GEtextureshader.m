@@ -41,10 +41,17 @@
     self = [super initWithFileName:@"texture_shader" BufferMode:GE_BUFFER_MODE_POSITION_TEXTURE];
 	
 	if(self)
-	   [self setUpSahder];
+    {
+        // Default values
+        TextureCompression = GLKVector3Make(1.0f, 1.0f, 1.0f);
+        ColorComponent = GLKVector3Make(1.0f, 1.0f, 1.0f);
+        OpasityComponent = 1.0f;
+        
+        // Set up uniforms.
+        [self setUpSahder];
+    }
 	
 	return self;
-	
 }
 
 // ------------------------------------------------------------------------------ //

@@ -10,7 +10,7 @@
     NSString* m_encryptionKey;
     NSData* m_encryptionKeyData;
     
-    unsigned int m_syncThreads;
+    int m_syncThreads;
     bool m_upToDate;
     bool m_initialSync;
 }
@@ -288,7 +288,7 @@
     
     CleanLog(GE_VERBOSE && IH_VERBOSE, @"GameCenter: Sycing player with GameCenter.");
     
-    m_syncThreads = scores.count + 1;
+    m_syncThreads = (int)scores.count + 1;
     m_upToDate = true;
     
     // Friends
@@ -463,7 +463,7 @@
                 }
                 else
                 {
-                    CleanLog(GE_VERBOSE && IH_VERBOSE, @"GameCenter: The player has %d friends.", players.count);
+                    CleanLog(GE_VERBOSE && IH_VERBOSE, @"GameCenter: The player has %lu friends.", (unsigned long)players.count);
 
                     for(GKPlayer* player in players)
                     {
@@ -529,7 +529,7 @@
     m_localPlayers = dataDic[@"players"];
     m_lastPlayer = dataDic[@"last_player"];
     
-    CleanLog(GE_VERBOSE && IH_VERBOSE, @"GameCenter: %d local players.", m_localPlayers.count);
+    CleanLog(GE_VERBOSE && IH_VERBOSE, @"GameCenter: %lu local players.", (unsigned long)m_localPlayers.count);
     for(NSString* player in  m_localPlayers)
     {
         CleanLog(GE_VERBOSE && IH_VERBOSE, @"            Player: %@", m_localPlayers[player][@"display_name"]);

@@ -1,11 +1,5 @@
 #import "GEmaterial.h"
-
-@interface GEJoint : NSObject
-@property NSString* Name;
-@property int ParentID;
-@property GLKVector3 Position;
-@property GLKQuaternion Orientation;
-@end
+#import "GEanimation.h"
 
 @interface GEWight : NSObject
 @property GLKVector3 Position;
@@ -14,6 +8,7 @@
 @end
 
 @interface GEVertex : NSObject
+@property unsigned int Index;
 @property GLKVector3 Position;
 @property GLKVector3 Normal;
 @property GLKVector2 TextureCoord;
@@ -32,5 +27,8 @@
 @property NSMutableArray* Vertices;
 @property NSMutableArray* Triangles;
 @property NSMutableArray* Weights;
+
+- (void)prepareMesh;
+- (void)render;
 
 @end

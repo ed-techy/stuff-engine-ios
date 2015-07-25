@@ -6,6 +6,7 @@
     GETexture* texture;
     GEFullScreen* fullScreen;
     GEAnimatedModel* model;
+    GEAnimation* animation;
 }
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -49,7 +50,10 @@
     
     
     model = [[GEAnimatedModel alloc] init];
-    [model loadModelWithFileName:@"boblampclean"];
+    //[model loadModelWithFileName:@"Iron Arm/iron_arm"];
+    [model loadModelWithFileName:@"Bob Lamp/bob_lamp_update"];
+    animation = [[GEAnimation alloc] init];
+    [animation loadAnimationWithFileName:@"Bob Lamp/bob_lamp_update"];
 }
 
 - (void)dealloc
@@ -95,7 +99,9 @@
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glBlendEquation(GL_FUNC_ADD);
-    [fullScreen render];
+    glEnable(GL_DEPTH_TEST);
+    
+    [model render];
 }
 
 - (void)viewDidLayoutSubviews
