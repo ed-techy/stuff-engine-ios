@@ -2,14 +2,14 @@
 #import "GEmesh.h"
 #import "GEanimation.h"
 
-@interface GEAnimatedModel : NSObject
+@interface GEAnimatedModel : NSObject <GEAnimationProtocol>
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-@property NSString* FileName;
-@property bool Ready;
+@property (readonly)NSString* FileName;
+@property (readonly)bool Ready;
 
 // -------------------------------------------- //
 // ---------- Load - Import - Export ---------- //
@@ -24,7 +24,6 @@
 #pragma mark Animation
 
 - (void)resetPose;
-- (void)poseByFrame:(GEFrame*)frame;
 
 // -------------------------------------------- //
 // ------------------ Render ------------------ //

@@ -1,12 +1,53 @@
 #import "GEframe.h"
 #import "GEjoint.h"
 
+@class GEAnimatedModel;
+@protocol GEAnimationProtocol;
+
 @interface GEAnimation : NSObject
 
-@property unsigned int NumberOfFrames;
-@property unsigned int FrameRate;
+// -------------------------------------------- //
+// ---------------- Properties ---------------- //
+// -------------------------------------------- //
+#pragma mark Properties
+
+@property (readonly)NSString* FileName;
+@property (readonly)unsigned int NumberOfFrames;
+@property (readonly)unsigned int FrameRate;
 @property (readonly)NSMutableArray* Frames;
+@property (readonly)bool Ready;
+
+@property (readonly)float Duration;
+@property float CurrentTime;
+@property bool Reverse;
+
+// -------------------------------------------- //
+// ------------ Selector Management ----------- //
+// -------------------------------------------- //
+#pragma mark Selector Management
+
+- (void)addModelToAnimate:(GEAnimatedModel<GEAnimationProtocol>*)moidel;
+- (void)removeModel:(GEAnimatedModel*)moidel;
+
+// -------------------------------------------- //
+// ---------- Load - Import - Export ---------- //
+// -------------------------------------------- //
+#pragma mark Load - Import - Export
 
 - (void)loadAnimationWithFileName:(NSString*)filename;
+
+// -------------------------------------------- //
+// -------------- Frame - Playback ------------ //
+// -------------------------------------------- //
+#pragma mark Load - Frame - Playback
+
+- (void)frame:(float)time;
+
+@end
+
+@protocol GEAnimationProtocol <NSObject>
+
+@required
+- (void)poseForFrameDidFinish:(GEFrame*)frame;
 
 @end

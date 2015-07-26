@@ -21,7 +21,6 @@
 @synthesize FileName;
 @synthesize Ready;
 
-
 // ------------------------------------------------------------------------------ //
 // ------------------------------- Initialization ------------------------------- //
 // ------------------------------------------------------------------------------ //
@@ -50,7 +49,7 @@
         [mesh matchMeshWithFrame:m_bindPose];
 }
 
-- (void)poseByFrame:(GEFrame*)frame
+- (void)poseForFrameDidFinish:(GEFrame *)frame
 {
     for(GEMesh* mesh in m_meshes)
         [mesh matchMeshWithFrame:frame];

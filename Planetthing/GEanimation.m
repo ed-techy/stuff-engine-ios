@@ -2,8 +2,11 @@
 
 @interface GEAnimation()
 {
-
+    float m_frameDuration;
+    NSMutableArray* m_selectors;
 }
+
+- (bool)loadMD5WithFileName:(NSString*)filename;
 
 - (NSArray*)getWordsFromString:(NSString*)string;
 - (NSString*)stringWithOutQuotes:(NSString*)string;
@@ -13,11 +16,81 @@
 
 @implementation GEAnimation
 
+@synthesize FileName;
 @synthesize NumberOfFrames;
 @synthesize FrameRate;
 @synthesize Frames;
+@synthesize Ready;
+@synthesize Duration = _Duration;
+@synthesize CurrentTime;
+@synthesize Reverse;
 
-- (void)loadAnimationWithFileName:(NSString*)filename
+// ------------------------------------------------------------------------------ //
+// ------------------------------- Initialization ------------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Initialization
+
+- (id)init
+{
+    self = [super init];
+    
+    if(self)
+    {
+        m_selectors = [NSMutableArray new];
+    }
+    
+    return self;
+}
+
+// ------------------------------------------------------------------------------ //
+// ------------------------------ Frame - Playback ------------------------------ //
+// ------------------------------------------------------------------------------ //
+#pragma mark Frame - Playback
+
+- (void)frame:(float)time
+{
+    
+}
+
+#pragma mark Selector Management
+
+- (void)addModelToAnimate:(GEAnimatedModel<GEAnimationProtocol>*)model
+{
+    [m_selectors addObject:model];
+}
+
+- (void)removeModel:(GEAnimatedModel*)model
+{
+    [m_selectors removeObject:model];
+}
+
+// ------------------------------------------------------------------------------ //
+// --------------------------- Load - Import - Export --------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Load - Import - Export
+
+- (void)loadAnimationWithFileName:(NSString *)filename
+{
+    NSString* fileType = [filename pathExtension];
+    NSString* filePath = [filename stringByDeletingPathExtension];
+    
+    FileName = filename;
+    
+    // Decide what load method to use.
+    if([fileType isEqualToString:@"md5anim"])
+        Ready = [self loadMD5WithFileName:filePath];
+    
+    // The file was loaded successfully
+    if(Ready)
+    {
+        CleanLog(GE_VERBOSE && AT_VERBOSE, @"Animation: Animation \"%@\" loaded successfully.", filename);
+        
+        m_frameDuration = 1.0f / (float)FrameRate;
+        _Duration = m_frameDuration * (float)NumberOfFrames;
+    }
+}
+
+- (bool)loadMD5WithFileName:(NSString*)filename;
 {
     NSString *fileContents = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:filename ofType:@"md5anim"] encoding:NSUTF8StringEncoding error:NULL];
     
@@ -287,6 +360,8 @@
     free(jointInfs);
     free(bounds);
     free(frameDatas);
+    
+    return true;
 }
 
 - (NSArray*)getWordsFromString:(NSString*)string
