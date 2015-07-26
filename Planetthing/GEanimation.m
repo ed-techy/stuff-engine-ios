@@ -4,6 +4,7 @@
 {
     float m_frameDuration;
     NSMutableArray* m_selectors;
+    GEFrame* m_finalFrame;
 }
 
 - (bool)loadMD5WithFileName:(NSString*)filename;
@@ -49,19 +50,56 @@
 
 - (void)frame:(float)time
 {
+    if(NumberOfFrames < 1) return;
     
+    CurrentTime += time * (Reverse ? -1.0f : 1.0f);
+    
+    // Delta time can be huge, find the time in the future with a big delta time.
+    while(CurrentTime > _Duration) CurrentTime -= _Duration;
+    while(CurrentTime < 0.0f) CurrentTime += _Duration;
+    
+    // Figure out which frame we're on.
+    float frameIndex = CurrentTime * FrameRate;
+    
+    int preFrameIndex = (int)floorf(frameIndex);
+    int posFrameIndex = (int)ceilf(frameIndex);
+    preFrameIndex = preFrameIndex % NumberOfFrames;
+    posFrameIndex = posFrameIndex % NumberOfFrames;
+    
+    float interpolation = fmodf(CurrentTime, _Duration) / m_frameDuration;
+    interpolation = interpolation - floorf(interpolation);
+    
+    GEFrame* preFrame = Frames[preFrameIndex];
+    GEFrame* posFrame = Frames[posFrameIndex];
+    
+    for (int i = 0; i < preFrame.Joints.count; i++)
+    {
+        GEJoint* finalJoint = m_finalFrame.Joints[i];
+        GEJoint* preJoint = preFrame.Joints[i];
+        GEJoint* posJoint = posFrame.Joints[i];
+        
+        finalJoint.Position = GLKVector3Lerp(preJoint.Position, posJoint.Position, interpolation);
+        finalJoint.Orientation = GLKQuaternionSlerp(preJoint.Orientation, posJoint.Orientation, interpolation);
+    }
+    
+    for(id<GEAnimationProtocol> animated in m_selectors)
+    {
+        // Uodtae the selector with the new frame
+        if([animated respondsToSelector:@selector(poseForFrameDidFinish:)])
+            [animated poseForFrameDidFinish:m_finalFrame];
+    }
 }
 
 #pragma mark Selector Management
 
-- (void)addModelToAnimate:(GEAnimatedModel<GEAnimationProtocol>*)model
+- (void)addSelector:(id<GEAnimationProtocol>)selector
 {
-    [m_selectors addObject:model];
+    [m_selectors addObject:selector];
 }
 
-- (void)removeModel:(GEAnimatedModel*)model
+- (void)removeSelector:(id)selector
 {
-    [m_selectors removeObject:model];
+    [m_selectors removeObject:selector];
 }
 
 // ------------------------------------------------------------------------------ //
@@ -128,7 +166,7 @@
         float* data;
     };
     struct frameData* frameDatas = 0;
-    GEFrame* baseFrame = [GEFrame new];
+    GEFrame* baseFrame = m_finalFrame = [GEFrame new];
     
     // Do work until reach all the content
     do

@@ -1,7 +1,6 @@
 #import "GEframe.h"
 #import "GEjoint.h"
 
-@class GEAnimatedModel;
 @protocol GEAnimationProtocol;
 
 @interface GEAnimation : NSObject
@@ -26,8 +25,8 @@
 // -------------------------------------------- //
 #pragma mark Selector Management
 
-- (void)addModelToAnimate:(GEAnimatedModel<GEAnimationProtocol>*)moidel;
-- (void)removeModel:(GEAnimatedModel*)moidel;
+- (void)addSelector:(id<GEAnimationProtocol>)moidel;
+- (void)removeSelector:(id)moidel;
 
 // -------------------------------------------- //
 // ---------- Load - Import - Export ---------- //

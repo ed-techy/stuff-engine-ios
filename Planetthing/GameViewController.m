@@ -48,12 +48,12 @@
     fullScreen.TextureID = texture.TextureID;
     
     model = [GEAnimatedModel new];
-    //[model loadModelWithFileName:@"Iron Arm/iron_arm.md5mesh"];
-    [model loadModelWithFileName:@"Bob Lamp/bob_lamp.md5mesh"];
+    [model loadModelWithFileName:@"Iron Arm/iron_arm.md5mesh"];
+    //[model loadModelWithFileName:@"Bob Lamp/bob_lamp.md5mesh"];
     animation = [GEAnimation new];
-    [animation loadAnimationWithFileName:@"Bob Lamp/bob_lamp.md5anim"];
-    //[animation loadAnimationWithFileName:@"Iron Arm/iron_arm"];
-    [animation addModelToAnimate:model];
+    //[animation loadAnimationWithFileName:@"Bob Lamp/bob_lamp.md5anim"];
+    [animation loadAnimationWithFileName:@"Iron Arm/iron_arm.md5anim"];
+    [animation addSelector:model];
 }
 
 - (void)dealloc
@@ -90,6 +90,7 @@
 - (void)update
 {
     [m_GMMain frame:self.timeSinceLastUpdate];
+    [animation frame:self.timeSinceLastUpdate];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
