@@ -11,8 +11,8 @@
 		372119B31B63E81800F1C1B1 /* GEbound.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B21B63E81800F1C1B1 /* GEbound.m */; };
 		372119B51B63E82A00F1C1B1 /* GEframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B41B63E82A00F1C1B1 /* GEframe.m */; };
 		372119B71B63E83800F1C1B1 /* GEweight.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B61B63E83800F1C1B1 /* GEweight.m */; };
-		372119BB1B63E85300F1C1B1 /* GEtriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119BA1B63E85300F1C1B1 /* GEtriangle.m */; };
 		372119BD1B63E86800F1C1B1 /* GEvertex.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119BC1B63E86800F1C1B1 /* GEvertex.m */; };
+		372119C51B644EC400F1C1B1 /* GEtriangle.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119C41B644EC400F1C1B1 /* GEtriangle.m */; };
 		375F0A101B4D9B5500F894C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A0F1B4D9B5500F894C3 /* main.m */; };
 		375F0A131B4D9B5500F894C3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A121B4D9B5500F894C3 /* AppDelegate.m */; };
 		375F0A1A1B4D9B5500F894C3 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A191B4D9B5500F894C3 /* GameViewController.m */; };
@@ -68,8 +68,8 @@
 		372119B21B63E81800F1C1B1 /* GEbound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEbound.m; path = Planetthing/GEbound.m; sourceTree = "<group>"; };
 		372119B41B63E82A00F1C1B1 /* GEframe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEframe.m; path = Planetthing/GEframe.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		372119B61B63E83800F1C1B1 /* GEweight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEweight.m; path = Planetthing/GEweight.m; sourceTree = "<group>"; };
-		372119BA1B63E85300F1C1B1 /* GEtriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GEtriangle.m; sourceTree = "<group>"; };
 		372119BC1B63E86800F1C1B1 /* GEvertex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEvertex.m; path = Planetthing/GEvertex.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		372119C41B644EC400F1C1B1 /* GEtriangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEtriangle.m; path = Planetthing/GEtriangle.m; sourceTree = "<group>"; };
 		375F0A0A1B4D9B5500F894C3 /* Planetthing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Planetthing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		375F0A0E1B4D9B5500F894C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		375F0A0F1B4D9B5500F894C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 				372119A61B63E75400F1C1B1 /* GEjoint.h */,
 				372119B01B63E80D00F1C1B1 /* GEjoint.m */,
 				372119AC1B63E7A300F1C1B1 /* GEtriangle.h */,
-				372119BA1B63E85300F1C1B1 /* GEtriangle.m */,
+				372119C41B644EC400F1C1B1 /* GEtriangle.m */,
 				372119AB1B63E79900F1C1B1 /* GEvertex.h */,
 				372119BC1B63E86800F1C1B1 /* GEvertex.m */,
 				372119AF1B63E7D600F1C1B1 /* GEweight.h */,
@@ -501,7 +501,7 @@
 				372119B31B63E81800F1C1B1 /* GEbound.m in Sources */,
 				37A064EC1B5857EB0002F5F1 /* GEcontext.m in Sources */,
 				37A5685F1B63217C006527F4 /* GEanimation.m in Sources */,
-				372119BB1B63E85300F1C1B1 /* GEtriangle.m in Sources */,
+				372119C51B644EC400F1C1B1 /* GEtriangle.m in Sources */,
 				3793C7E21B5D9E8C00741F37 /* GEtexture.m in Sources */,
 				37ADFA641B60C95D002EE66B /* GEfullscreenshader.m in Sources */,
 				37976DFB1B61FAF50008AA72 /* GEmaterial.m in Sources */,

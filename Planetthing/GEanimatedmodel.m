@@ -50,6 +50,12 @@
         [mesh matchMeshWithFrame:m_bindPose];
 }
 
+- (void)poseByFrame:(GEFrame*)frame
+{
+    for(GEMesh* mesh in m_meshes)
+        [mesh matchMeshWithFrame:frame];
+}
+
 // ------------------------------------------------------------------------------ //
 // ------------------------------------ Render ---------------------------------- //
 // ------------------------------------------------------------------------------ //
@@ -151,18 +157,32 @@
                 
                 // New joint.
                 GEJoint* currentJoint = [GEJoint new];
-                currentJoint.Name = [self stringWithOutQuotes:words[0]];
-                currentJoint.Parent = [words[1] isEqualToString:@"-1"] ? nil : m_bindPose.Joints[[words[1] intValue]];
+                
+                // Extract the name
+                NSString* name = words[0];
+                unsigned int offsetName = 0;
+                do
+                {
+                    if([name characterAtIndex:name.length - 1] == 34)
+                        break;
+                    offsetName++;
+                    name = [NSString stringWithFormat:@"%@ %@", name, words[offsetName]];
+                }
+                while(true);
+                currentJoint.Name = [self stringWithOutQuotes:name];
+                
+                // Parent
+                currentJoint.Parent = [words[1 + offsetName] isEqualToString:@"-1"] ? nil : m_bindPose.Joints[[words[1] intValue]];
                 
                 // Position data.
-                position.x = [words[3] floatValue];
-                position.y = [words[4] floatValue];
-                position.z = [words[5] floatValue];
+                position.x = [words[3 + offsetName] floatValue];
+                position.y = [words[4 + offsetName] floatValue];
+                position.z = [words[5 + offsetName] floatValue];
                 
                 // Orientation data.
-                orientation.x = [words[8] floatValue];
-                orientation.y = [words[9] floatValue];
-                orientation.z = [words[10] floatValue];
+                orientation.x = [words[8 + offsetName] floatValue];
+                orientation.y = [words[9 + offsetName] floatValue];
+                orientation.z = [words[10 + offsetName] floatValue];
                 orientation.w = [self computeWComponentOfQuaternion:&orientation];
                 
                 currentJoint.Position = position;
@@ -302,6 +322,7 @@
 - (NSArray*)getWordsFromString:(NSString*)string
 {
     NSArray *words = [string componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
     return [words filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"length > 0"]];
 }
 

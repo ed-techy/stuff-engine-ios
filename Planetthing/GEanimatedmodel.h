@@ -24,6 +24,7 @@
 #pragma mark Animation
 
 - (void)resetPose;
+- (void)poseByFrame:(GEFrame*)frame;
 
 // -------------------------------------------- //
 // ------------------ Render ------------------ //

@@ -2,7 +2,7 @@
 
 @interface GEAnimation()
 {
-    NSMutableArray* m_frames;
+
 }
 
 - (NSArray*)getWordsFromString:(NSString*)string;
@@ -15,6 +15,7 @@
 
 @synthesize NumberOfFrames;
 @synthesize FrameRate;
+@synthesize Frames;
 
 - (void)loadAnimationWithFileName:(NSString*)filename
 {
@@ -99,12 +100,23 @@
                 words = [self getWordsFromString:lines[lineIndex]];
                 
                 // Name.
-                [jointNames addObject:words[0]];
+                NSString* name = words[0];
+                unsigned int offsetName = 0;
+                do
+                {
+                    if([name characterAtIndex:name.length - 1] == 34)
+                        break;
+                    offsetName++;
+                    name = [NSString stringWithFormat:@"%@ %@", name, words[offsetName]];
+                }
+                while(true);
+                
+                [jointNames addObject:[self stringWithOutQuotes:name]];
                 
                 // Data.
-                jointInfs[i].parentID = [words[1] intValue];
-                jointInfs[i].flags = [words[2] intValue];
-                jointInfs[i].startData = [words[3] intValue];
+                jointInfs[i].parentID = [words[1 + offsetName] intValue];
+                jointInfs[i].flags = [words[2 + offsetName] intValue];
+                jointInfs[i].startData = [words[3 + offsetName] intValue];
             }
         }
         else if([words[0] isEqual:@"bounds"])
@@ -197,7 +209,7 @@
     while (true);
     
     // Build frames
-    m_frames = [NSMutableArray new];
+    Frames = [NSMutableArray new];
     
     for(int i = 0; i < NumberOfFrames; i++)
     {
@@ -249,10 +261,10 @@
             
             if(currentJoint.Parent != nil) // Has a parent joint
             {
-                GLKVector3 rotPosition = GLKQuaternionRotateVector3(currentJoint.Parent.Orientation, currentJoint.Position);
+                GLKVector3 rotPosition = GLKQuaternionRotateVector3(currentJoint.Parent.Orientation, basePosition);
                 
                 currentJoint.Position = GLKVector3Add(currentJoint.Parent.Position, rotPosition);
-                currentJoint.Orientation = GLKQuaternionNormalize(GLKQuaternionMultiply(currentJoint.Parent.Orientation, currentJoint.Orientation));
+                currentJoint.Orientation = GLKQuaternionNormalize(GLKQuaternionMultiply(currentJoint.Parent.Orientation, baseOrientation));
             }
             else
             {
@@ -268,7 +280,7 @@
         free(frameDatas[i].data);
         
         // Push the new frame.
-        [m_frames addObject:currentFrame];
+        [Frames addObject:currentFrame];
     }
     
     // Clean the temporal data
