@@ -3,10 +3,6 @@
 @interface GameViewController()
 {
     GMmain* m_GMMain;
-    GETexture* texture;
-    GEFullScreen* fullScreen;
-    GEAnimatedModel* model;
-    GEAnimation* animation;
 }
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -42,16 +38,6 @@
     //[IHGameCenter sharedIntance].ViewDelegate = self;
     
     m_GMMain = [GMmain sharedIntance];
-    
-    texture = [GETexture textureFromFileName:@"hotwasser_512_512.png"];
-    fullScreen = [GEFullScreen sharedIntance];
-    fullScreen.TextureID = texture.TextureID;
-    
-    model = [GEAnimatedModel new];
-    [model loadModelWithFileName:@"Bob Lamp/bob_lamp.md5mesh"];
-    animation = [GEAnimation new];
-    [animation loadAnimationWithFileName:@"Bob Lamp/bob_lamp.md5anim"];
-    [animation addSelector:model];
 }
 
 - (void)dealloc
@@ -88,19 +74,11 @@
 - (void)update
 {
     [m_GMMain frame:self.timeSinceLastUpdate];
-    [animation frame:self.timeSinceLastUpdate];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
     [m_GMMain render];
-    
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-    glBlendEquation(GL_FUNC_ADD);
-    glEnable(GL_DEPTH_TEST);
-    
-    [model render];
 }
 
 - (void)viewDidLayoutSubviews

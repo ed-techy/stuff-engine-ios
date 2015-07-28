@@ -25,6 +25,9 @@
 
 @synthesize FileName;
 @synthesize Ready;
+@synthesize RenderBoundingBox;
+@synthesize Enabled;
+@synthesize Visible;
 
 // ------------------------------------------------------------------------------ //
 // ------------------------------- Initialization ------------------------------- //
@@ -44,6 +47,10 @@
         // Bounding box.
         m_bindBound = [GEBound new];
         m_boundingBox = [GEBoundingbox sharedIntance];
+        
+        // Ebanled and Visible by default.
+        Enabled = true;
+        Visible = true;
     }
     
     return self;
@@ -64,6 +71,9 @@
 
 - (void)poseForFrameDidFinish:(GEFrame *)frame
 {
+    // If it is not enabled for interactions not update the frame pose
+    if(!Enabled) return;
+    
     // Get the bound from the frame.
     m_currentBound = frame.Bound;
     
@@ -79,6 +89,9 @@
 
 - (void)render
 {
+    // If it's not supouse to be visible don't render at all.
+    if(!Visible) return;
+    
     GLKMatrix4 matrix = GLKMatrix4Multiply(GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45.0f), 320.0f/480.0f, 0.1f, 1000.0f), GLKMatrix4MakeLookAt(0.0f, -120.0f, 90.0f, 0.0f, 0.0f, 30.0f, 0.0f, 0.0f, 1.0f));
     
     // Normal Pass
@@ -92,17 +105,20 @@
     }
     
     // Draw bounding box
-    m_boundingBox.Bound = m_currentBound;
-    
-    glLineWidth(2.0f);
-    
-    // Ware frame pass.
-    m_colorShader.ModelViewProjectionMatrix = &matrix;
-    m_colorShader.ColorComponent = color_gray_60;
-    
-    [m_colorShader useProgram];
-    
-    [m_boundingBox render];
+    if(RenderBoundingBox)
+    {
+        m_boundingBox.Bound = m_currentBound;
+        
+        glLineWidth(2.0f);
+        
+        // Ware frame pass.
+        m_colorShader.ModelViewProjectionMatrix = &matrix;
+        m_colorShader.ColorComponent = color_gray_60;
+        
+        [m_colorShader useProgram];
+        
+        [m_boundingBox render];
+    }
 }
 
 // ------------------------------------------------------------------------------ //

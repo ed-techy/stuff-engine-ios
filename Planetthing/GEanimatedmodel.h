@@ -12,6 +12,9 @@
 #pragma mark Properties
 @property (readonly)NSString* FileName;
 @property (readonly)bool Ready;
+@property bool RenderBoundingBox;
+@property bool Visible;
+@property bool Enabled;
 
 // -------------------------------------------- //
 // ---------- Load - Import - Export ---------- //
