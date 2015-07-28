@@ -66,8 +66,7 @@
 	// Set the Projection View Model Matrix to the shader.
 	glUniformMatrix4fv(m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, ModelViewProjectionMatrix->m);
 	
-	// The color what we want to tint the image and the opasity.
-	//glUniform4fv(m_uniforms[GE_UNIFORM_COLOR], 1, GLKVector4Make(color.r, color.g, color.b, 1.0f).v);
+	// Opasity component.
 	glUniform1f(m_uniforms[GE_UNIFORM_OPASITY], OpasityComponent);
 	
 	// Texture compression
@@ -84,9 +83,8 @@
 	// Get uniform locations.
 	m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(m_programID, "modelViewProjectionMatrix");
 	m_uniforms[GE_UNIFORM_TEXTURE] = glGetUniformLocation(m_programID, "textureSampler");
-	//m_uniforms[GE_UNIFORM_COLOR] = glGetUniformLocation(m_programID, "ColorOut");
 	m_uniforms[GE_UNIFORM_TEXTURE_COMPRESSION] = glGetUniformLocation(m_programID, "textureCompression");
-	m_uniforms[GE_UNIFORM_OPASITY] = glGetUniformLocation(m_programID, "opasityCompound");
+	m_uniforms[GE_UNIFORM_OPASITY] = glGetUniformLocation(m_programID, "opasityComponent");
 }
 
 @end

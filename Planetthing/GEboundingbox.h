@@ -1,33 +1,24 @@
-#import "GEmaterial.h"
-#import "GEtriangle.h"
-#import "GEjoint.h"
-#import "GEframe.h"
+#import "GEbound.h"
 
-@interface GEMesh : NSObject
+@interface GEBoundingbox : NSObject
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-
-@property GEMaterial* Material;
-@property NSMutableArray* Vertices;
-@property NSMutableArray* Triangles;
-@property NSMutableArray* Weights;
+@property GEBound* Bound;
 
 // -------------------------------------------- //
-// -------- Generate - Compute Vertices ------- //
+// ----------------- Singleton ---------------- //
 // -------------------------------------------- //
-#pragma mark Generate - Compute Vertices
-
-- (void)generateBuffers;
-- (void)matchMeshWithFrame:(GEFrame*)frame;
+#pragma mark Singleton
++ (instancetype)sharedIntance;
 
 // -------------------------------------------- //
 // ------------------ Render ------------------ //
 // -------------------------------------------- //
 #pragma mark Render
 
-- (void)render:(GLenum)mode;
+- (void)render;
 
 @end

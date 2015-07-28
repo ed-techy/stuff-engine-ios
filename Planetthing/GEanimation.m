@@ -66,8 +66,7 @@
     preFrameIndex = preFrameIndex % NumberOfFrames;
     posFrameIndex = posFrameIndex % NumberOfFrames;
     
-    float interpolation = fmodf(CurrentTime, _Duration) / m_frameDuration;
-    interpolation = interpolation - floorf(interpolation);
+    float interpolation = frameIndex - floorf(frameIndex);
     
     GEFrame* preFrame = Frames[preFrameIndex];
     GEFrame* posFrame = Frames[posFrameIndex];
@@ -81,6 +80,10 @@
         finalJoint.Position = GLKVector3Lerp(preJoint.Position, posJoint.Position, interpolation);
         finalJoint.Orientation = GLKQuaternionSlerp(preJoint.Orientation, posJoint.Orientation, interpolation);
     }
+    
+    // Interplate bounds.
+    m_finalFrame.Bound.MaxBound = GLKVector3Lerp(preFrame.Bound.MaxBound, posFrame.Bound.MaxBound, interpolation);
+    m_finalFrame.Bound.MinBound = GLKVector3Lerp(preFrame.Bound.MinBound, posFrame.Bound.MinBound, interpolation);
     
     for(id<GEAnimationProtocol> animated in m_selectors)
     {

@@ -1,6 +1,8 @@
 #import "GEtextureshader.h"
+#import "GEcolorshader.h"
 #import "GEmesh.h"
 #import "GEanimation.h"
+#import "GEboundingbox.h"
 
 @interface GEAnimatedModel : NSObject <GEAnimationProtocol>
 

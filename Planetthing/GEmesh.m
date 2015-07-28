@@ -40,6 +40,23 @@
 }
 
 // ------------------------------------------------------------------------------ //
+// ----------------------------------- Render ----------------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Render
+
+- (void)render:(GLenum)mode
+{
+    glBindVertexArrayOES(m_vertexArrayID);
+    
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glDisableVertexAttribArray(GLKVertexAttribNormal);
+    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferID);
+    glDrawElements(mode, (GLsizei)Triangles.count * 3, GL_UNSIGNED_INT, NULL);
+}
+
+// ------------------------------------------------------------------------------ //
 // ------------------------- Generate - Compute Vertices ------------------------ //
 // ------------------------------------------------------------------------------ //
 #pragma mark Generate - Compute Vertices
@@ -149,23 +166,6 @@
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindVertexArrayOES(0);
-}
-
-// ------------------------------------------------------------------------------ //
-// ----------------------------------- Render ----------------------------------- //
-// ------------------------------------------------------------------------------ //
-#pragma mark Render
-
-- (void)render
-{
-    glBindVertexArrayOES(m_vertexArrayID);
-    
-    glEnableVertexAttribArray(GLKVertexAttribPosition);
-    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glDisableVertexAttribArray(GLKVertexAttribNormal);
-    
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferID);
-    glDrawElements(GL_TRIANGLES, (GLsizei)Triangles.count * 3, GL_UNSIGNED_INT, NULL);
 }
 
 @end

@@ -12,6 +12,7 @@
 @implementation GEView
 
 @synthesize BackgroundColor;
+@synthesize Opasity;
 
 // ------------------------------------------------------------------------------ //
 // -------------------------- Initialization and Set up ------------------------- //
@@ -26,6 +27,9 @@
     {
         // Get the context
         m_context = [GEContext sharedIntance];
+        
+        // Opaque background.
+        Opasity = 1.0f;
     }
     
     return self;
@@ -38,7 +42,7 @@
 
 - (void)render
 {
-    [m_context setBackgroundColor:BackgroundColor];
+    [m_context setBackgroundColor:GLKVector4MakeWithVector3(BackgroundColor, Opasity)];
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 

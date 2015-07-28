@@ -7,7 +7,8 @@
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-@property GLKVector4 BackgroundColor;
+@property GLKVector3 BackgroundColor;
+@property float Opasity;
 
 // -------------------------------------------- //
 // ------------------ Render ------------------ //

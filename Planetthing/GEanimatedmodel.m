@@ -6,6 +6,11 @@
     NSMutableArray* m_meshes;
     
     GETextureShader* m_textureShader;
+    GEColorShader* m_colorShader;
+    GEBoundingbox* m_boundingBox;
+    
+    GEBound* m_currentBound;
+    GEBound* m_bindBound;
 }
 
 - (bool)loadMD5WithFileName:(NSString*)filename;
@@ -32,7 +37,13 @@
     
     if(self)
     {
+        // Get the shaders.
         m_textureShader = [GETextureShader sharedIntance];
+        m_colorShader = [GEColorShader sharedIntance];
+        
+        // Bounding box.
+        m_bindBound = [GEBound new];
+        m_boundingBox = [GEBoundingbox sharedIntance];
     }
     
     return self;
@@ -45,12 +56,18 @@
 
 - (void)resetPose
 {
+    // Bind pose and bounds.
+    m_currentBound = m_bindBound;
     for(GEMesh* mesh in m_meshes)
         [mesh matchMeshWithFrame:m_bindPose];
 }
 
 - (void)poseForFrameDidFinish:(GEFrame *)frame
 {
+    // Get the bound from the frame.
+    m_currentBound = frame.Bound;
+    
+    // Updtae every mesh.
     for(GEMesh* mesh in m_meshes)
         [mesh matchMeshWithFrame:frame];
 }
@@ -64,15 +81,28 @@
 {
     GLKMatrix4 matrix = GLKMatrix4Multiply(GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45.0f), 320.0f/480.0f, 0.1f, 1000.0f), GLKMatrix4MakeLookAt(0.0f, -120.0f, 90.0f, 0.0f, 0.0f, 30.0f, 0.0f, 0.0f, 1.0f));
     
+    // Normal Pass
     m_textureShader.ModelViewProjectionMatrix = &matrix;
-    
     for(GEMesh* mesh in m_meshes)
     {
         m_textureShader.TextureID = mesh.Material.DiffuseTexture.TextureID;
         
         [m_textureShader useProgram];
-        [mesh render];
+        [mesh render:GL_TRIANGLES];
     }
+    
+    // Draw bounding box
+    m_boundingBox.Bound = m_currentBound;
+    
+    glLineWidth(2.0f);
+    
+    // Ware frame pass.
+    m_colorShader.ModelViewProjectionMatrix = &matrix;
+    m_colorShader.ColorComponent = color_gray_60;
+    
+    [m_colorShader useProgram];
+    
+    [m_boundingBox render];
 }
 
 // ------------------------------------------------------------------------------ //
