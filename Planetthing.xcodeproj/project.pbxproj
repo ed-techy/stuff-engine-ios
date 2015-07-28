@@ -35,7 +35,6 @@
 		37A064E61B583ED90002F5F1 /* GErenderbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064E51B583ED90002F5F1 /* GErenderbox.m */; };
 		37A064E91B584C150002F5F1 /* GEview.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064E81B584C150002F5F1 /* GEview.m */; };
 		37A064EC1B5857EB0002F5F1 /* GEcontext.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A064EB1B5857EB0002F5F1 /* GEcontext.m */; };
-		37A5685C1B631CEC006527F4 /* Iron Arm in Resources */ = {isa = PBXBuildFile; fileRef = 37A5685B1B631CEC006527F4 /* Iron Arm */; };
 		37A5685F1B63217C006527F4 /* GEanimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A5685E1B63217C006527F4 /* GEanimation.m */; };
 		37ADFA601B60C94D002EE66B /* fullscreen_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37ADFA5E1B60C94D002EE66B /* fullscreen_shader.fsh */; };
 		37ADFA611B60C94D002EE66B /* fullscreen_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37ADFA5F1B60C94D002EE66B /* fullscreen_shader.vsh */; };
@@ -111,7 +110,6 @@
 		37A064EA1B5857D40002F5F1 /* GEcontext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEcontext.h; path = Planetthing/GEcontext.h; sourceTree = "<group>"; };
 		37A064EB1B5857EB0002F5F1 /* GEcontext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEcontext.m; path = Planetthing/GEcontext.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37A064ED1B5860AE0002F5F1 /* GEcommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEcommon.h; path = Planetthing/GEcommon.h; sourceTree = "<group>"; };
-		37A5685B1B631CEC006527F4 /* Iron Arm */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Iron Arm"; path = "Planetthing/Resources/Models/Iron Arm"; sourceTree = "<group>"; };
 		37A5685E1B63217C006527F4 /* GEanimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEanimation.m; path = Planetthing/GEanimation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37A568601B63218E006527F4 /* GEanimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEanimation.h; path = Planetthing/GEanimation.h; sourceTree = "<group>"; };
 		37ADFA5E1B60C94D002EE66B /* fullscreen_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = fullscreen_shader.fsh; path = Planetthing/Shaders/fullscreen_shader.fsh; sourceTree = "<group>"; };
@@ -339,7 +337,6 @@
 			isa = PBXGroup;
 			children = (
 				37F94A681B62CA310065D8D6 /* Bob Lamp */,
-				37A5685B1B631CEC006527F4 /* Iron Arm */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -469,7 +466,6 @@
 				375F0A1D1B4D9B5500F894C3 /* Main.storyboard in Resources */,
 				37976DF81B618EDE0008AA72 /* hotwasser_512_512.png in Resources */,
 				375F0A381B4D9BC500F894C3 /* Images.xcassets in Resources */,
-				37A5685C1B631CEC006527F4 /* Iron Arm in Resources */,
 				37ADFA601B60C94D002EE66B /* fullscreen_shader.fsh in Resources */,
 				37F94A691B62CA310065D8D6 /* Bob Lamp in Resources */,
 				37ADFA611B60C94D002EE66B /* fullscreen_shader.vsh in Resources */,
