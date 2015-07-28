@@ -48,11 +48,9 @@
     fullScreen.TextureID = texture.TextureID;
     
     model = [GEAnimatedModel new];
-    [model loadModelWithFileName:@"Iron Arm/iron_arm.md5mesh"];
-    //[model loadModelWithFileName:@"Bob Lamp/bob_lamp.md5mesh"];
+    [model loadModelWithFileName:@"Bob Lamp/bob_lamp.md5mesh"];
     animation = [GEAnimation new];
-    //[animation loadAnimationWithFileName:@"Bob Lamp/bob_lamp.md5anim"];
-    [animation loadAnimationWithFileName:@"Iron Arm/iron_arm.md5anim"];
+    [animation loadAnimationWithFileName:@"Bob Lamp/bob_lamp.md5anim"];
     [animation addSelector:model];
 }
 
