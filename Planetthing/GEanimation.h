@@ -1,9 +1,10 @@
 #import "GEframe.h"
 #import "GEjoint.h"
+#import "GEupdatecaller.h"
 
 @protocol GEAnimationProtocol;
 
-@interface GEAnimation : NSObject
+@interface GEAnimation : NSObject <GEUpdateProtocol>
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
@@ -17,16 +18,18 @@
 @property (readonly)bool Ready;
 
 @property (readonly)float Duration;
+@property (readonly)bool Playing;
 @property float CurrentTime;
 @property bool Reverse;
+@property float PlaybackSpeed;
 
 // -------------------------------------------- //
 // ------------ Selector Management ----------- //
 // -------------------------------------------- //
 #pragma mark Selector Management
 
-- (void)addSelector:(id<GEAnimationProtocol>)moidel;
-- (void)removeSelector:(id)moidel;
+- (void)addSelector:(id<GEAnimationProtocol>)selector;
+- (void)removeSelector:(id)selector;
 
 // -------------------------------------------- //
 // ---------- Load - Import - Export ---------- //
@@ -36,11 +39,13 @@
 - (void)loadAnimationWithFileName:(NSString*)filename;
 
 // -------------------------------------------- //
-// -------------- Frame - Playback ------------ //
+// ------------------ Playback ---------------- //
 // -------------------------------------------- //
-#pragma mark Load - Frame - Playback
+#pragma mark Playback
 
-- (void)frame:(float)time;
+- (void)Play;
+- (void)Stop;
+- (void)Pause;
 
 @end
 

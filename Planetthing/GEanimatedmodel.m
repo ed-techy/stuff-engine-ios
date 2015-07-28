@@ -94,6 +94,12 @@
     
     GLKMatrix4 matrix = GLKMatrix4Multiply(GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45.0f), 320.0f/480.0f, 0.1f, 1000.0f), GLKMatrix4MakeLookAt(0.0f, -120.0f, 90.0f, 0.0f, 0.0f, 30.0f, 0.0f, 0.0f, 1.0f));
     
+    // Our textures for iOS are always premultiplied so we have to ose one minus source alpha to one.
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendEquation(GL_FUNC_ADD);
+    glEnable(GL_DEPTH_TEST);
+    
     // Normal Pass
     m_textureShader.ModelViewProjectionMatrix = &matrix;
     for(GEMesh* mesh in m_meshes)

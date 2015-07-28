@@ -8,10 +8,11 @@
 }
 
 - (bool)loadMD5WithFileName:(NSString*)filename;
-
 - (NSArray*)getWordsFromString:(NSString*)string;
 - (NSString*)stringWithOutQuotes:(NSString*)string;
 - (float)computeWComponentOfQuaternion:(GLKQuaternion*)quaternion;
+
+- (void)callSelectors;
 
 @end
 
@@ -23,8 +24,10 @@
 @synthesize Frames;
 @synthesize Ready;
 @synthesize Duration = _Duration;
+@synthesize Playing;
 @synthesize CurrentTime;
 @synthesize Reverse;
+@synthesize PlaybackSpeed;
 
 // ------------------------------------------------------------------------------ //
 // ------------------------------- Initialization ------------------------------- //
@@ -38,18 +41,45 @@
     if(self)
     {
         m_selectors = [NSMutableArray new];
+        
+        // Add me to updater
+        [[GEUpdateCaller sharedIntance] addSelector:self];
     }
     
     return self;
 }
 
 // ------------------------------------------------------------------------------ //
-// ------------------------------ Frame - Playback ------------------------------ //
+// ----------------------------------- Playback --------------------------------- //
 // ------------------------------------------------------------------------------ //
-#pragma mark Frame - Playback
+#pragma mark Playback
 
-- (void)frame:(float)time
+- (void)Play
 {
+    Playing = true;
+}
+
+- (void)Stop
+{
+    Playing = false;
+    CurrentTime = 0;
+    m_finalFrame = Frames[0];
+    [self callSelectors];
+}
+
+- (void)Pause
+{
+    Playing = false;
+}
+
+// ------------------------------------------------------------------------------ //
+// ------------------------------------ Update ---------------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Update
+
+- (void)update:(float)time
+{
+    if(!Playing) return;
     if(NumberOfFrames < 1) return;
     
     CurrentTime += time * (Reverse ? -1.0f : 1.0f);
@@ -81,10 +111,15 @@
         finalJoint.Orientation = GLKQuaternionSlerp(preJoint.Orientation, posJoint.Orientation, interpolation);
     }
     
-    // Interplate bounds.
+    // Interpolate bounds.
     m_finalFrame.Bound.MaxBound = GLKVector3Lerp(preFrame.Bound.MaxBound, posFrame.Bound.MaxBound, interpolation);
     m_finalFrame.Bound.MinBound = GLKVector3Lerp(preFrame.Bound.MinBound, posFrame.Bound.MinBound, interpolation);
     
+    [self callSelectors];
+}
+
+- (void)callSelectors
+{
     for(id<GEAnimationProtocol> animated in m_selectors)
     {
         // Uodtae the selector with the new frame
@@ -93,6 +128,9 @@
     }
 }
 
+// ------------------------------------------------------------------------------ //
+// ----------------------------- Selector Management ---------------------------- //
+// ------------------------------------------------------------------------------ //
 #pragma mark Selector Management
 
 - (void)addSelector:(id<GEAnimationProtocol>)selector

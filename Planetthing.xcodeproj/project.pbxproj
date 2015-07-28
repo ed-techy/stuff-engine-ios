@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		370AFC301B681BC4003B190C /* GElayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 370AFC2F1B681BC4003B190C /* GElayer.m */; };
+		370AFC331B6836E8003B190C /* GEupdatecaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 370AFC321B6836E8003B190C /* GEupdatecaller.m */; };
 		372119B11B63E80D00F1C1B1 /* GEjoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B01B63E80D00F1C1B1 /* GEjoint.m */; };
 		372119B31B63E81800F1C1B1 /* GEbound.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B21B63E81800F1C1B1 /* GEbound.m */; };
 		372119B51B63E82A00F1C1B1 /* GEframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B41B63E82A00F1C1B1 /* GEframe.m */; };
@@ -64,6 +65,8 @@
 /* Begin PBXFileReference section */
 		370AFC2E1B681BC4003B190C /* GElayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GElayer.h; path = Planetthing/GElayer.h; sourceTree = "<group>"; };
 		370AFC2F1B681BC4003B190C /* GElayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GElayer.m; path = Planetthing/GElayer.m; sourceTree = "<group>"; };
+		370AFC311B6836CC003B190C /* GEupdatecaller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEupdatecaller.h; path = Planetthing/GEupdatecaller.h; sourceTree = "<group>"; };
+		370AFC321B6836E8003B190C /* GEupdatecaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEupdatecaller.m; path = Planetthing/GEupdatecaller.m; sourceTree = "<group>"; };
 		372119A61B63E75400F1C1B1 /* GEjoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEjoint.h; path = Planetthing/GEjoint.h; sourceTree = "<group>"; };
 		372119AB1B63E79900F1C1B1 /* GEvertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEvertex.h; path = Planetthing/GEvertex.h; sourceTree = "<group>"; };
 		372119AC1B63E7A300F1C1B1 /* GEtriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEtriangle.h; path = Planetthing/GEtriangle.h; sourceTree = "<group>"; };
@@ -216,6 +219,8 @@
 				37A064E51B583ED90002F5F1 /* GErenderbox.m */,
 				37A064E71B584C150002F5F1 /* GEview.h */,
 				37A064E81B584C150002F5F1 /* GEview.m */,
+				370AFC311B6836CC003B190C /* GEupdatecaller.h */,
+				370AFC321B6836E8003B190C /* GEupdatecaller.m */,
 			);
 			name = "Render and View";
 			sourceTree = "<group>";
@@ -512,6 +517,7 @@
 			files = (
 				375F0A131B4D9B5500F894C3 /* AppDelegate.m in Sources */,
 				37A064DF1B582A880002F5F1 /* GMmain.m in Sources */,
+				370AFC331B6836E8003B190C /* GEupdatecaller.m in Sources */,
 				37A064E91B584C150002F5F1 /* GEview.m in Sources */,
 				375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */,
 				372119B11B63E80D00F1C1B1 /* GEjoint.m in Sources */,

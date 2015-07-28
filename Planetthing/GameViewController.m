@@ -2,6 +2,7 @@
 
 @interface GameViewController()
 {
+    GEUpdateCaller* m_updateCaller;
     GMmain* m_GMMain;
 }
 @property (strong, nonatomic) EAGLContext *context;
@@ -38,6 +39,7 @@
     //[IHGameCenter sharedIntance].ViewDelegate = self;
     
     m_GMMain = [GMmain sharedIntance];
+    m_updateCaller = [GEUpdateCaller sharedIntance];
 }
 
 - (void)dealloc
@@ -67,13 +69,17 @@
 }
 
 // ------------------------------------------------------------------------------ //
-// --------------------------- Frame - Render - Layout -------------------------- //
+// -------------------------- Update - Render - Layout -------------------------- //
 // ------------------------------------------------------------------------------ //
-#pragma mark Frame - Render - Layout
+#pragma mark Update - Render - Layout
 
 - (void)update
 {
-    [m_GMMain frame:self.timeSinceLastUpdate];
+    [m_updateCaller preUpdate];
+    
+    [m_updateCaller update:self.timeSinceLastUpdate];
+    
+    [m_updateCaller posUpdate];
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
