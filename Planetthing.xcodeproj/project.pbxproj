@@ -40,6 +40,10 @@
 		37ADFA611B60C94D002EE66B /* fullscreen_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37ADFA5F1B60C94D002EE66B /* fullscreen_shader.vsh */; };
 		37ADFA641B60C95D002EE66B /* GEfullscreenshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37ADFA631B60C95D002EE66B /* GEfullscreenshader.m */; };
 		37ADFA671B60CCB8002EE66B /* GEfullscreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 37ADFA661B60CCB8002EE66B /* GEfullscreen.m */; };
+		37C16B951B67316200C2BD2F /* color_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37C16B931B67316200C2BD2F /* color_shader.fsh */; };
+		37C16B961B67316200C2BD2F /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37C16B941B67316200C2BD2F /* color_shader.vsh */; };
+		37C16B991B67339600C2BD2F /* GEcolorshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C16B981B67339600C2BD2F /* GEcolorshader.m */; };
+		37C16B9D1B67419E00C2BD2F /* GEboundingbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C16B9C1B67419E00C2BD2F /* GEboundingbox.m */; };
 		37F4CD921B5EF42F009269BE /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37F4CD901B5EF42F009269BE /* texture_shader.fsh */; };
 		37F4CD931B5EF42F009269BE /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37F4CD911B5EF42F009269BE /* texture_shader.vsh */; };
 		37F4CD961B5F007D009269BE /* GEtextureshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F4CD951B5F007D009269BE /* GEtextureshader.m */; };
@@ -118,6 +122,12 @@
 		37ADFA631B60C95D002EE66B /* GEfullscreenshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEfullscreenshader.m; path = Planetthing/GEfullscreenshader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		37ADFA651B60CBAA002EE66B /* GEfullscreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEfullscreen.h; path = Planetthing/GEfullscreen.h; sourceTree = "<group>"; };
 		37ADFA661B60CCB8002EE66B /* GEfullscreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GEfullscreen.m; path = Planetthing/GEfullscreen.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		37C16B931B67316200C2BD2F /* color_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_shader.fsh; path = Planetthing/Shaders/color_shader.fsh; sourceTree = "<group>"; };
+		37C16B941B67316200C2BD2F /* color_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = color_shader.vsh; path = Planetthing/Shaders/color_shader.vsh; sourceTree = "<group>"; };
+		37C16B971B67338200C2BD2F /* GEcolorshader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEcolorshader.h; path = Planetthing/GEcolorshader.h; sourceTree = "<group>"; };
+		37C16B981B67339600C2BD2F /* GEcolorshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEcolorshader.m; path = Planetthing/GEcolorshader.m; sourceTree = "<group>"; };
+		37C16B9B1B67418C00C2BD2F /* GEboundingbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEboundingbox.h; path = Planetthing/GEboundingbox.h; sourceTree = "<group>"; };
+		37C16B9C1B67419E00C2BD2F /* GEboundingbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEboundingbox.m; path = Planetthing/GEboundingbox.m; sourceTree = "<group>"; };
 		37D0EE991B58054100306DC7 /* GMglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GMglobals.h; path = Planetthing/GMglobals.h; sourceTree = "<group>"; };
 		37F4CD901B5EF42F009269BE /* texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.fsh; path = Planetthing/Shaders/texture_shader.fsh; sourceTree = "<group>"; };
 		37F4CD911B5EF42F009269BE /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.vsh; path = Planetthing/Shaders/texture_shader.vsh; sourceTree = "<group>"; };
@@ -167,6 +177,8 @@
 				37976DEA1B614C900008AA72 /* GEshader.m */,
 				37F4CD941B5F007D009269BE /* GEtextureshader.h */,
 				37F4CD951B5F007D009269BE /* GEtextureshader.m */,
+				37C16B971B67338200C2BD2F /* GEcolorshader.h */,
+				37C16B981B67339600C2BD2F /* GEcolorshader.m */,
 			);
 			name = Sahders;
 			sourceTree = "<group>";
@@ -182,6 +194,8 @@
 				37976DFE1B61FBB90008AA72 /* GEmesh.m */,
 				3793C7E01B5D9E8C00741F37 /* GEtexture.h */,
 				3793C7E11B5D9E8C00741F37 /* GEtexture.m */,
+				37C16B9B1B67418C00C2BD2F /* GEboundingbox.h */,
+				37C16B9C1B67419E00C2BD2F /* GEboundingbox.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -365,6 +379,8 @@
 		37F4CD8F1B5EF3F7009269BE /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				37C16B931B67316200C2BD2F /* color_shader.fsh */,
+				37C16B941B67316200C2BD2F /* color_shader.vsh */,
 				37ADFA5E1B60C94D002EE66B /* fullscreen_shader.fsh */,
 				37ADFA5F1B60C94D002EE66B /* fullscreen_shader.vsh */,
 				37F4CD901B5EF42F009269BE /* texture_shader.fsh */,
@@ -462,9 +478,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37C16B951B67316200C2BD2F /* color_shader.fsh in Resources */,
 				37F4CD921B5EF42F009269BE /* texture_shader.fsh in Resources */,
 				375F0A1D1B4D9B5500F894C3 /* Main.storyboard in Resources */,
 				37976DF81B618EDE0008AA72 /* hotwasser_512_512.png in Resources */,
+				37C16B961B67316200C2BD2F /* color_shader.vsh in Resources */,
 				375F0A381B4D9BC500F894C3 /* Images.xcassets in Resources */,
 				37ADFA601B60C94D002EE66B /* fullscreen_shader.fsh in Resources */,
 				37F94A691B62CA310065D8D6 /* Bob Lamp in Resources */,
@@ -492,6 +510,7 @@
 				37A064E91B584C150002F5F1 /* GEview.m in Sources */,
 				375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */,
 				372119B11B63E80D00F1C1B1 /* GEjoint.m in Sources */,
+				37C16B9D1B67419E00C2BD2F /* GEboundingbox.m in Sources */,
 				372119B71B63E83800F1C1B1 /* GEweight.m in Sources */,
 				375F0A1A1B4D9B5500F894C3 /* GameViewController.m in Sources */,
 				372119B31B63E81800F1C1B1 /* GEbound.m in Sources */,
@@ -503,6 +522,7 @@
 				37976DFB1B61FAF50008AA72 /* GEmaterial.m in Sources */,
 				375F0A101B4D9B5500F894C3 /* main.m in Sources */,
 				37976DFF1B61FBB90008AA72 /* GEmesh.m in Sources */,
+				37C16B991B67339600C2BD2F /* GEcolorshader.m in Sources */,
 				37ADFA671B60CCB8002EE66B /* GEfullscreen.m in Sources */,
 				37976DEB1B614C900008AA72 /* GEshader.m in Sources */,
 				372119BD1B63E86800F1C1B1 /* GEvertex.m in Sources */,
