@@ -2,7 +2,8 @@
 
 @interface GEUpdateCaller()
 {
-    NSMutableArray* m_selectors;
+    NSMutableArray* m_updateableSelectors;
+    NSMutableArray* m_renderableSelectors;
 }
 
 @end
@@ -34,7 +35,8 @@
     
     if(self)
     {
-        m_selectors = [NSMutableArray new];
+        m_updateableSelectors = [NSMutableArray new];
+        m_renderableSelectors = [NSMutableArray new];
     }
     
     return self;
@@ -45,14 +47,20 @@
 // ------------------------------------------------------------------------------ //
 #pragma mark Selector Management
 
-- (void)addSelector:(id<GEUpdateProtocol>)selector
+- (void)addUpdateableSelector:(id<GEUpdateProtocol>)selector
 {
-    [m_selectors addObject:selector];
+    [m_updateableSelectors addObject:selector];
+}
+
+- (void)addRenderableSelector:(id<GERenderProtocol>)selector
+{
+    [m_renderableSelectors addObject:selector];
 }
 
 - (void)removeSelector:(id)selector
 {
-    [m_selectors removeObject:selector];
+    [m_updateableSelectors removeObject:selector];
+    [m_renderableSelectors removeObject:selector];
 }
 
 // ------------------------------------------------------------------------------ //
@@ -62,8 +70,8 @@
 
 - (void)update:(float)time
 {
-    // Update each seector in the list
-    for(id object in m_selectors)
+    // Update each selector in the list.
+    for(id object in m_updateableSelectors)
     {
         if([object respondsToSelector:@selector(update:)])
             [object update:time];
@@ -72,14 +80,47 @@
 
 - (void)preUpdate
 {
-    
+    // Pre Update each selector in the list.
+    for(id object in m_updateableSelectors)
+    {
+        if([object respondsToSelector:@selector(preUpdate)])
+            [object preUpdate];
+    }
 }
 
 - (void)posUpdate
 {
-    
+    // Pos Update each selector in the list.
+    for(id object in m_updateableSelectors)
+    {
+        if([object respondsToSelector:@selector(posUpdate)])
+            [object posUpdate];
+    }
 }
+
+// ------------------------------------------------------------------------------ //
+// ------------------------------- Render - Layout ------------------------------ //
+// ------------------------------------------------------------------------------ //
+#pragma mark Render - Layout
+
+- (void)render
+{
+    // Render each selector in the list.
+    for(id object in m_renderableSelectors)
+    {
+        if([object respondsToSelector:@selector(render)])
+            [object render];
+    }
+}
+
+- (void)layoutForWidth:(float)width AndHeight:(float)height
+{
+    // Layout each selector in the list.
+    for(id object in m_renderableSelectors)
+    {
+        if([object respondsToSelector:@selector(layoutForWidth:AndHeight:)])
+            [object layoutForWidth:width AndHeight:height];
+    }
+}
+
 @end
-
-
-

@@ -1,6 +1,7 @@
 #import "GEcommon.h"
 
 @protocol GEUpdateProtocol;
+@protocol GERenderProtocol;
 
 @interface GEUpdateCaller : NSObject
 
@@ -21,7 +22,8 @@
 // -------------------------------------------- //
 #pragma mark Selector Management
 
-- (void)addSelector:(id<GEUpdateProtocol>)selector;
+- (void)addUpdateableSelector:(id<GEUpdateProtocol>)selector;
+- (void)addRenderableSelector:(id<GERenderProtocol>)selector;
 - (void)removeSelector:(id)selector;
 
 // -------------------------------------------- //
@@ -33,16 +35,29 @@
 - (void)preUpdate;
 - (void)posUpdate;
 
+// -------------------------------------------- //
+// ------------- Render - Layout -------------- //
+// -------------------------------------------- //
+#pragma mark Render - Layout
+- (void)render;
+- (void)layoutForWidth:(float)width AndHeight:(float)height;
+
 @end
 
 
 @protocol GEUpdateProtocol <NSObject>
 
-@required
-- (void)update:(float)time;
-
 @optional
+- (void)update:(float)time;
 - (void)preUpdate;
 - (void)posUpdate;
+
+@end
+
+@protocol GERenderProtocol <NSObject>
+
+@optional
+- (void)render;
+- (void)layoutForWidth:(float)width AndHeight:(float)height;
 
 @end

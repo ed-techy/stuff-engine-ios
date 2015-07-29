@@ -12,11 +12,10 @@
 @property (readonly)unsigned int NumberOfObjects;
 
 // -------------------------------------------- //
-// -------------- Frame - Render -------------- //
+// ------------------ Render ------------------ //
 // -------------------------------------------- //
-#pragma mark Frame - Render
+#pragma mark Render
 
-- (void)frame:(float)time;
 - (void)render;
 
 // -------------------------------------------- //

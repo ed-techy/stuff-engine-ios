@@ -35,23 +35,13 @@
 }
 
 // ------------------------------------------------------------------------------ //
-// ------------------------------- Frame - Render ------------------------------- //
+// ------------------------------------ Render ---------------------------------- //
 // ------------------------------------------------------------------------------ //
-#pragma mark Frame - Render
-
-- (void)frame:(float)time
-{
-    // Frame in every object of this layer.
-    for(id object in m_objects)
-    {
-        if([object respondsToSelector:@selector(frame:)])
-           [object frame:time];
-    }
-}
+#pragma mark Render
 
 - (void)render
 {
-    // Render in every object of this layer.
+    // Render every object of this layer.
     for(id object in m_objects)
     {
         if([object respondsToSelector:@selector(render)])

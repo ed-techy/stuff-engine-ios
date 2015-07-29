@@ -29,6 +29,9 @@
         // Get the context
         m_context = [GEContext sharedIntance];
         
+        // Layers
+        Layers = [NSMutableDictionary new];
+        
         // Opaque background.
         Opasity = 1.0f;
     }
@@ -45,6 +48,12 @@
 {
     [m_context setBackgroundColor:GLKVector4MakeWithVector3(BackgroundColor, Opasity)];
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    
+    for(NSString* layer in Layers)
+    {
+        [Layers[layer] render];
+    }
 }
 
 // ------------------------------------------------------------------------------ //
@@ -59,7 +68,7 @@
     GELayer* newLayer = [GELayer new];
     newLayer.Name = name;
     
-    [Layers setObject:newLayer forKeyedSubscript:name];
+    [Layers setObject:newLayer forKey:name];
     
     return newLayer;
 }
@@ -68,7 +77,7 @@
 {
     GELayer* currentLayer = [Layers objectForKey:layer.Name];
     if(currentLayer == nil)
-        [Layers setObject:layer forKeyedSubscript:layer.Name];
+        [Layers setObject:layer forKey:layer.Name];
 }
 
 - (GELayer*)getLayerWithName:(NSString*)name

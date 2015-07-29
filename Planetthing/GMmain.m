@@ -2,8 +2,11 @@
 
 @interface GMmain()
 {
-    GERenderBox* m_renderBox;
+    GEView* m_testView;
+    GELayer* m_testLayer;
 }
+
+- (void)setUp;
 
 @end
 
@@ -35,33 +38,75 @@
     
     if (self)
     {
-        m_renderBox = [GERenderBox sharedIntance];
-        m_renderBox.MainView.BackgroundColor = color_banana;
+        // Resgister as updatable and renderable.
+        [[GEUpdateCaller sharedIntance] addUpdateableSelector:self];
+        [[GEUpdateCaller sharedIntance] addRenderableSelector:self];
+        
+        // Initial setup.
+        [self setUp];
     }
     
     return self;
 }
 
-
 // ------------------------------------------------------------------------------ //
-// -------------------------- Frame - Render - Layout --------------------------- //
+// ------------------------------------ Setup ----------------------------------- //
 // ------------------------------------------------------------------------------ //
-#pragma mark Frame - Render - Layout
+#pragma mark Setup
 
-- (void)frame:(float)time
+- (void)setUp
 {
-    [m_renderBox frame:time];
+    m_testView = [GEView new];
+    m_testView.BackgroundColor = color_banana;
+    
+    m_testLayer = [m_testView addLayerWithName:@"TestLayer"];
+    
+    GEAnimatedModel* model = [GEAnimatedModel new];
+    [model loadModelWithFileName:@"Bob Lamp/bob_lamp.md5mesh"];
+    model.RenderBoundingBox = true;
+    GEAnimation* animation = [GEAnimation new];
+    [animation loadAnimationWithFileName:@"Bob Lamp/bob_lamp.md5anim"];
+    [animation addSelector:model];
+    
+    [animation Play];
+    
+    [m_testLayer addObject:model];
 }
 
-- (void)render
+
+// ------------------------------------------------------------------------------ //
+// ------------------------------------ Update ---------------------------------- //
+// ------------------------------------------------------------------------------ //
+#pragma mark Update
+
+- (void)preUpdate
 {
-    [m_renderBox render];
     
 }
 
-- (void)layoutForWidth:(NSNumber*)width andHeight:(NSNumber*)height
+- (void)update:(float)time
 {
-    [m_renderBox layoutForWidth:width andHeight:height];
+    
+}
+
+- (void)posUpdate
+{
+    
+}
+
+// ------------------------------------------------------------------------------ //
+// ------------------------------- Render - Layout ------------------------------ //
+// ------------------------------------------------------------------------------ //
+#pragma mark Render - Layout
+
+- (void)render
+{
+    [m_testView render];
+}
+
+- (void)layoutForWidth:(float)width AndHeight:(float)height
+{
+    
 }
 
 @end

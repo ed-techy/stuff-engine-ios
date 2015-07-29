@@ -3,7 +3,6 @@
 @interface GameViewController()
 {
     GEUpdateCaller* m_updateCaller;
-    GMmain* m_GMMain;
 }
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -35,11 +34,11 @@
     // Initialize Context Mannager
     [GEContext sharedIntance].ContextView = view;
     
-    // Initialize Game Center features.
-    //[IHGameCenter sharedIntance].ViewDelegate = self;
-    
-    m_GMMain = [GMmain sharedIntance];
+    // Initialize the updater
     m_updateCaller = [GEUpdateCaller sharedIntance];
+    
+    // Initalize the Game
+    [GMmain sharedIntance];
 }
 
 - (void)dealloc
@@ -84,12 +83,12 @@
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
-    [m_GMMain render];
+    [m_updateCaller render];
 }
 
 - (void)viewDidLayoutSubviews
 {
-    [m_GMMain layoutForWidth:@(self.view.bounds.size.width * 2) andHeight:@(self.view.bounds.size.height * 2)];
+    [m_updateCaller layoutForWidth:self.view.bounds.size.width * 2.0f AndHeight:self.view.bounds.size.height * 2.0f];
 }
 
 // ------------------------------------------------------------------------------ //

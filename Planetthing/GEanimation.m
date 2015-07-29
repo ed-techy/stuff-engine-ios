@@ -43,7 +43,7 @@
         m_selectors = [NSMutableArray new];
         
         // Add me to updater
-        [[GEUpdateCaller sharedIntance] addSelector:self];
+        [[GEUpdateCaller sharedIntance] addUpdateableSelector:self];
     }
     
     return self;
