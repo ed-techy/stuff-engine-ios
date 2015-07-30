@@ -1,6 +1,7 @@
 #import "GEfullscreen.h"
 #import "GEanimatedmodel.h"
 #import "GElayer.h"
+#import "GEfbo.h"
 
 @interface GEView : NSObject
 

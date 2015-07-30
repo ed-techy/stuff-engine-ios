@@ -29,7 +29,7 @@
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
         CleanLog(GE_VERBOSE && FS_VERBOSE, @"Full Screen: Shared instance was allocated for the first time.");
-        sharedIntance = [GEFullScreen new];
+        sharedIntance = [GEFullScreen sharedIntance];
     });
     
     return sharedIntance;

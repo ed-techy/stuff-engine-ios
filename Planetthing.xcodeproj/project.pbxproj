@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		370AFC301B681BC4003B190C /* GElayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 370AFC2F1B681BC4003B190C /* GElayer.m */; };
 		370AFC331B6836E8003B190C /* GEupdatecaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 370AFC321B6836E8003B190C /* GEupdatecaller.m */; };
+		370AFC371B686182003B190C /* GEfbo.m in Sources */ = {isa = PBXBuildFile; fileRef = 370AFC361B686182003B190C /* GEfbo.m */; };
 		372119B11B63E80D00F1C1B1 /* GEjoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B01B63E80D00F1C1B1 /* GEjoint.m */; };
 		372119B31B63E81800F1C1B1 /* GEbound.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B21B63E81800F1C1B1 /* GEbound.m */; };
 		372119B51B63E82A00F1C1B1 /* GEframe.m in Sources */ = {isa = PBXBuildFile; fileRef = 372119B41B63E82A00F1C1B1 /* GEframe.m */; };
@@ -26,6 +27,8 @@
 		375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */; };
 		375F0A491B4DE95100F894C3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A481B4DE95100F894C3 /* Reachability.m */; };
 		376C221E1B54566E00DC3874 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376C221D1B54566E00DC3874 /* MediaPlayer.framework */; };
+		37745A4B1B69962F002DFF83 /* blinn_phong.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37745A491B69962F002DFF83 /* blinn_phong.fsh */; };
+		37745A4C1B69962F002DFF83 /* blinn_phong.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37745A4A1B69962F002DFF83 /* blinn_phong.vsh */; };
 		3793C7E21B5D9E8C00741F37 /* GEtexture.m in Sources */ = {isa = PBXBuildFile; fileRef = 3793C7E11B5D9E8C00741F37 /* GEtexture.m */; };
 		37976DEB1B614C900008AA72 /* GEshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37976DEA1B614C900008AA72 /* GEshader.m */; };
 		37976DF01B617C820008AA72 /* GEanimatedmodel.m in Sources */ = {isa = PBXBuildFile; fileRef = 37976DEF1B617C820008AA72 /* GEanimatedmodel.m */; };
@@ -66,6 +69,8 @@
 		370AFC2F1B681BC4003B190C /* GElayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GElayer.m; path = Planetthing/GElayer.m; sourceTree = "<group>"; };
 		370AFC311B6836CC003B190C /* GEupdatecaller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEupdatecaller.h; path = Planetthing/GEupdatecaller.h; sourceTree = "<group>"; };
 		370AFC321B6836E8003B190C /* GEupdatecaller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEupdatecaller.m; path = Planetthing/GEupdatecaller.m; sourceTree = "<group>"; };
+		370AFC341B68616C003B190C /* GEfbo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEfbo.h; path = Planetthing/GEfbo.h; sourceTree = "<group>"; };
+		370AFC361B686182003B190C /* GEfbo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEfbo.m; path = Planetthing/GEfbo.m; sourceTree = "<group>"; };
 		372119A61B63E75400F1C1B1 /* GEjoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEjoint.h; path = Planetthing/GEjoint.h; sourceTree = "<group>"; };
 		372119AB1B63E79900F1C1B1 /* GEvertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEvertex.h; path = Planetthing/GEvertex.h; sourceTree = "<group>"; };
 		372119AC1B63E7A300F1C1B1 /* GEtriangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEtriangle.h; path = Planetthing/GEtriangle.h; sourceTree = "<group>"; };
@@ -97,6 +102,8 @@
 		375F0A471B4DE95100F894C3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Planetthing/Reachability.h; sourceTree = "<group>"; };
 		375F0A481B4DE95100F894C3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Planetthing/Reachability.m; sourceTree = "<group>"; };
 		376C221D1B54566E00DC3874 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		37745A491B69962F002DFF83 /* blinn_phong.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blinn_phong.fsh; path = Planetthing/Shaders/blinn_phong.fsh; sourceTree = "<group>"; };
+		37745A4A1B69962F002DFF83 /* blinn_phong.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blinn_phong.vsh; path = Planetthing/Shaders/blinn_phong.vsh; sourceTree = "<group>"; };
 		3793C7E01B5D9E8C00741F37 /* GEtexture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEtexture.h; path = Planetthing/GEtexture.h; sourceTree = "<group>"; };
 		3793C7E11B5D9E8C00741F37 /* GEtexture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEtexture.m; path = Planetthing/GEtexture.m; sourceTree = "<group>"; };
 		37976DE91B614C900008AA72 /* GEshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEshader.h; path = Planetthing/GEshader.h; sourceTree = "<group>"; };
@@ -216,6 +223,8 @@
 				370AFC321B6836E8003B190C /* GEupdatecaller.m */,
 				37A064E71B584C150002F5F1 /* GEview.h */,
 				37A064E81B584C150002F5F1 /* GEview.m */,
+				370AFC341B68616C003B190C /* GEfbo.h */,
+				370AFC361B686182003B190C /* GEfbo.m */,
 			);
 			name = "Render and View";
 			sourceTree = "<group>";
@@ -384,6 +393,8 @@
 		37F4CD8F1B5EF3F7009269BE /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				37745A491B69962F002DFF83 /* blinn_phong.fsh */,
+				37745A4A1B69962F002DFF83 /* blinn_phong.vsh */,
 				37C16B931B67316200C2BD2F /* color_shader.fsh */,
 				37C16B941B67316200C2BD2F /* color_shader.vsh */,
 				37ADFA5E1B60C94D002EE66B /* fullscreen_shader.fsh */,
@@ -487,6 +498,8 @@
 				37F4CD921B5EF42F009269BE /* texture_shader.fsh in Resources */,
 				375F0A1D1B4D9B5500F894C3 /* Main.storyboard in Resources */,
 				37976DF81B618EDE0008AA72 /* hotwasser_512_512.png in Resources */,
+				37745A4C1B69962F002DFF83 /* blinn_phong.vsh in Resources */,
+				37745A4B1B69962F002DFF83 /* blinn_phong.fsh in Resources */,
 				37C16B961B67316200C2BD2F /* color_shader.vsh in Resources */,
 				375F0A381B4D9BC500F894C3 /* Images.xcassets in Resources */,
 				37ADFA601B60C94D002EE66B /* fullscreen_shader.fsh in Resources */,
@@ -513,6 +526,7 @@
 				375F0A131B4D9B5500F894C3 /* AppDelegate.m in Sources */,
 				37A064DF1B582A880002F5F1 /* GMmain.m in Sources */,
 				370AFC331B6836E8003B190C /* GEupdatecaller.m in Sources */,
+				370AFC371B686182003B190C /* GEfbo.m in Sources */,
 				37A064E91B584C150002F5F1 /* GEview.m in Sources */,
 				375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */,
 				372119B11B63E80D00F1C1B1 /* GEjoint.m in Sources */,
@@ -663,8 +677,13 @@
 				COMPRESS_PNG_FILES = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = Planetthing/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/omard/Desktop/Develop/freetype2-ios",
+					"$(PROJECT_DIR)/Planetthing/FreeType",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -680,8 +699,13 @@
 				COMPRESS_PNG_FILES = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
 				INFOPLIST_FILE = Planetthing/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/omard/Desktop/Develop/freetype2-ios",
+					"$(PROJECT_DIR)/Planetthing/FreeType",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

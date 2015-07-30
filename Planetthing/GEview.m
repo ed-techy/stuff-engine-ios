@@ -3,8 +3,9 @@
 @interface GEView()
 {
     GEContext* m_context;
+    GEFBO* m_fbo;
     
-    
+    GEFullScreen* m_fullScreen;
 }
 
 @end
@@ -34,6 +35,13 @@
         
         // Opaque background.
         Opasity = 1.0f;
+        
+        // FBO
+        m_fbo = [GEFBO new];
+        [m_fbo geberateForWidth:640 andHeight:960];
+        
+        // Full Screen
+        m_fullScreen = [GEFullScreen new];
     }
     
     return self;
@@ -46,6 +54,8 @@
 
 - (void)render
 {
+    glBindFramebuffer(GL_FRAMEBUFFER, m_fbo.FrameBufferID);
+    
     [m_context setBackgroundColor:GLKVector4MakeWithVector3(BackgroundColor, Opasity)];
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
@@ -54,6 +64,13 @@
     {
         [Layers[layer] render];
     }
+    
+    
+    [m_context.ContextView bindDrawable];
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    m_fullScreen.TextureID = m_fbo.TextureID;
+    [m_fullScreen render];
 }
 
 // ------------------------------------------------------------------------------ //

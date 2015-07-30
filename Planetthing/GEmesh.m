@@ -50,7 +50,7 @@
     
     glEnableVertexAttribArray(GLKVertexAttribPosition);
     glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
-    glDisableVertexAttribArray(GLKVertexAttribNormal);
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
     
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_indexBufferID);
     glDrawElements(mode, (GLsizei)Triangles.count * 3, GL_UNSIGNED_INT, NULL);
@@ -101,6 +101,12 @@
     for(GEVertex* vertex in Vertices)
     {
         GLKVector3 normal = GLKVector3Normalize(vertex.Normal);
+        
+        m_vertexBuffer[i * 8 + 5] = normal.x;
+        m_vertexBuffer[i * 8 + 6] = normal.y;
+        m_vertexBuffer[i * 8 + 7] = normal.z;
+        
+        i++;
 
         vertex.Normal = GLKVector3Make(0.0f, 0.0f, 0.0f);
         
@@ -109,10 +115,6 @@
             GEJoint* joint = frame.Joints[weight.JointID];
             vertex.Normal = GLKVector3Add(vertex.Normal, GLKVector3MultiplyScalar(GLKQuaternionRotateVector3(GLKQuaternionInvert(joint.Orientation), normal) , weight.Bias));
         }
-        
-        m_vertexBuffer[i * 8 + 5] = vertex.Normal.x;
-        m_vertexBuffer[i * 8 + 6] = vertex.Normal.y;
-        m_vertexBuffer[i * 8 + 7] = vertex.Normal.z;
     }
     
     // Bind the vertex buffer and refill it with data.

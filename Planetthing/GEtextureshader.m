@@ -38,7 +38,7 @@
 
 - (id)init
 {
-    self = [super initWithFileName:@"texture_shader" BufferMode:GE_BUFFER_MODE_POSITION_TEXTURE];
+    self = [super initWithFileName:@"blinn_phong" BufferMode:GE_BUFFER_MODE_ALL];
 	
 	if(self)
     {
