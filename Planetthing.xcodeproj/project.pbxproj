@@ -26,6 +26,8 @@
 		375F0A3C1B4D9FFB00F894C3 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375F0A3B1B4D9FFB00F894C3 /* StoreKit.framework */; };
 		375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */; };
 		375F0A491B4DE95100F894C3 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 375F0A481B4DE95100F894C3 /* Reachability.m */; };
+		37635E871B6AAC73003F2B28 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37635E861B6AAC73003F2B28 /* libfreetype.a */; };
+		37635E8C1B6ADE4D003F2B28 /* arial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 37635E8B1B6ADD54003F2B28 /* arial.ttf */; };
 		376C221E1B54566E00DC3874 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376C221D1B54566E00DC3874 /* MediaPlayer.framework */; };
 		37745A4B1B69962F002DFF83 /* blinn_phong.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37745A491B69962F002DFF83 /* blinn_phong.fsh */; };
 		37745A4C1B69962F002DFF83 /* blinn_phong.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37745A4A1B69962F002DFF83 /* blinn_phong.vsh */; };
@@ -101,6 +103,8 @@
 		375F0A431B4DA0EC00F894C3 /* IHgamecenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = IHgamecenter.m; path = Planetthing/IHgamecenter.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		375F0A471B4DE95100F894C3 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Planetthing/Reachability.h; sourceTree = "<group>"; };
 		375F0A481B4DE95100F894C3 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Planetthing/Reachability.m; sourceTree = "<group>"; };
+		37635E861B6AAC73003F2B28 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../Develop/freetype-2.5.5/lib/libfreetype.a"; sourceTree = "<group>"; };
+		37635E8B1B6ADD54003F2B28 /* arial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = arial.ttf; path = Planetthing/Resources/Fonts/arial.ttf; sourceTree = "<group>"; };
 		376C221D1B54566E00DC3874 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		37745A491B69962F002DFF83 /* blinn_phong.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blinn_phong.fsh; path = Planetthing/Shaders/blinn_phong.fsh; sourceTree = "<group>"; };
 		37745A4A1B69962F002DFF83 /* blinn_phong.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = blinn_phong.vsh; path = Planetthing/Shaders/blinn_phong.vsh; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 				376C221E1B54566E00DC3874 /* MediaPlayer.framework in Frameworks */,
 				375F0A3A1B4D9FF500F894C3 /* GameKit.framework in Frameworks */,
 				375F0A3C1B4D9FFB00F894C3 /* StoreKit.framework in Frameworks */,
+				37635E871B6AAC73003F2B28 /* libfreetype.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +329,7 @@
 		375F0A3D1B4DA01D00F894C3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				37635E861B6AAC73003F2B28 /* libfreetype.a */,
 				376C221D1B54566E00DC3874 /* MediaPlayer.framework */,
 				375F0A3B1B4D9FFB00F894C3 /* StoreKit.framework */,
 				375F0A391B4D9FF500F894C3 /* GameKit.framework */,
@@ -351,6 +357,14 @@
 				375F0A481B4DE95100F894C3 /* Reachability.m */,
 			);
 			name = Dependecies;
+			sourceTree = "<group>";
+		};
+		37635E881B6AB4F6003F2B28 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				37635E8B1B6ADD54003F2B28 /* arial.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		37976DF11B618E940008AA72 /* Images */ = {
@@ -384,6 +398,7 @@
 		37F4CD891B5EE05F009269BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				37635E881B6AB4F6003F2B28 /* Fonts */,
 				37976DF21B618EA40008AA72 /* Models */,
 				37976DF11B618E940008AA72 /* Images */,
 			);
@@ -506,6 +521,7 @@
 				37F94A691B62CA310065D8D6 /* Bob Lamp in Resources */,
 				37ADFA611B60C94D002EE66B /* fullscreen_shader.vsh in Resources */,
 				37F4CD931B5EF42F009269BE /* texture_shader.vsh in Resources */,
+				37635E8C1B6ADE4D003F2B28 /* arial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -676,14 +692,19 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/Users/omard/Desktop/Develop/freetype-2.5.5/include",
+				);
 				INFOPLIST_FILE = Planetthing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/omard/Desktop/Develop/freetype2-ios",
-					"$(PROJECT_DIR)/Planetthing/FreeType",
+					"/Users/omard/Desktop/Develop/freetype-2.5.5/lib",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};
@@ -698,14 +719,19 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/Users/omard/Desktop/Develop/freetype-2.5.5/include",
+				);
 				INFOPLIST_FILE = Planetthing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/omard/Desktop/Develop/freetype2-ios",
-					"$(PROJECT_DIR)/Planetthing/FreeType",
+					"/Users/omard/Desktop/Develop/freetype-2.5.5/lib",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

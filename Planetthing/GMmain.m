@@ -4,6 +4,7 @@
 {
     GEView* m_testView;
     GELayer* m_testLayer;
+    IHGameCenter* m_gameCenter;
 }
 
 - (void)setUp;
@@ -41,6 +42,9 @@
         // Resgister as updatable and renderable.
         [[GEUpdateCaller sharedIntance] addUpdateableSelector:self];
         [[GEUpdateCaller sharedIntance] addRenderableSelector:self];
+        
+        // Game Center
+        // m_gameCenter = [IHGameCenter sharedIntance];
         
         // Initial setup.
         [self setUp];

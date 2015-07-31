@@ -9,8 +9,6 @@
 
 @property (readonly)GLuint FrameBufferID;
 @property (readonly)GLuint TextureID;
-@property (readonly)GLuint Texture2ID;
-@property (readonly)GLuint Texture3ID;
 @property (readonly)GLsizei Width;
 @property (readonly)GLsizei Height;
 

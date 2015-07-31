@@ -3,6 +3,9 @@
 #import "GElayer.h"
 #import "GEfbo.h"
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 @interface GEView : NSObject
 
 // -------------------------------------------- //
