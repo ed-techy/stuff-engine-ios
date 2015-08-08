@@ -80,8 +80,8 @@
         vertex.Normal = GLKVector3Make(0.0f, 0.0f, 0.0f);
         
         m_vertexBuffer[i * 8] = finalPosition.x;
-        m_vertexBuffer[i * 8 + 1] = finalPosition.y;
-        m_vertexBuffer[i * 8 + 2] = finalPosition.z;
+        m_vertexBuffer[i * 8 + 1] = finalPosition.z;
+        m_vertexBuffer[i * 8 + 2] = -finalPosition.y;
         m_vertexBuffer[i * 8 + 3] = vertex.TextureCoord.x;
         m_vertexBuffer[i * 8 + 4] = vertex.TextureCoord.y;
         
@@ -103,8 +103,8 @@
         GLKVector3 normal = GLKVector3Normalize(vertex.Normal);
         
         m_vertexBuffer[i * 8 + 5] = normal.x;
-        m_vertexBuffer[i * 8 + 6] = normal.y;
-        m_vertexBuffer[i * 8 + 7] = normal.z;
+        m_vertexBuffer[i * 8 + 6] = normal.z;
+        m_vertexBuffer[i * 8 + 7] = -normal.y;
         
         i++;
 

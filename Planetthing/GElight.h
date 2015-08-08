@@ -1,18 +1,17 @@
-#import "GEtexture.h"
+#import "GEcommon.h"
 
-@interface GEMaterial : NSObject
+@interface GELight : NSObject
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
-@property GLKVector2 TextureCompression;
-@property GETexture* DiffuseMap;
-@property GETexture* SpecularMap;
-@property GLKVector3 AmbientColor;
+@property enum GE_LIGHT_TYPE LightType;
+@property GLKVector3 Position;
+@property GLKVector3 Direction;
+@property float CutOff;
 @property GLKVector3 DiffuseColor;
+@property GLKVector3 AmbientColor;
 @property GLKVector3 SpecularColor;
-@property float Shininess;
-@property float Opasity;
-
+@property float Intensity;
 @end

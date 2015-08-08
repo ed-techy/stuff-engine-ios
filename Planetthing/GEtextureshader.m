@@ -12,10 +12,7 @@
 @implementation GETextureShader
 
 @synthesize ModelViewProjectionMatrix;
-@synthesize TextureID;
-@synthesize TextureCompression;
-@synthesize ColorComponent;
-@synthesize OpasityComponent;
+@synthesize Material;
 
 // ------------------------------------------------------------------------------ //
 // ----------------------------------  Singleton -------------------------------- //
@@ -38,15 +35,10 @@
 
 - (id)init
 {
-    self = [super initWithFileName:@"blinn_phong" BufferMode:GE_BUFFER_MODE_ALL];
+    self = [super initWithFileName:@"texture_shader" BufferMode:GE_BUFFER_MODE_POSITION_TEXTURE];
 	
 	if(self)
     {
-        // Default values
-        TextureCompression = GLKVector3Make(1.0f, 1.0f, 1.0f);
-        ColorComponent = GLKVector3Make(1.0f, 1.0f, 1.0f);
-        OpasityComponent = 1.0f;
-        
         // Set up uniforms.
         [self setUpSahder];
     }
@@ -66,25 +58,21 @@
 	// Set the Projection View Model Matrix to the shader.
 	glUniformMatrix4fv(m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, ModelViewProjectionMatrix->m);
 	
-	// Opasity component.
-	glUniform1f(m_uniforms[GE_UNIFORM_OPASITY], OpasityComponent);
+	// Material texture compression.
+	glUniform2fv(m_uniforms[GE_UNIFORM_MATERIAL_TEXTURE_COMPRESSION], 1, Material.TextureCompression.v);
 	
-	// Texture compression
-	glUniform2f(m_uniforms[GE_UNIFORM_TEXTURE_COMPRESSION], TextureCompression.x, TextureCompression.y);
-	
-	// Set one texture to render and the current texture to render.
+	// Material diffuce texture.
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, TextureID);
-	glUniform1i(m_uniforms[GE_UNIFORM_TEXTURE], 0);
+	glBindTexture(GL_TEXTURE_2D, Material.DiffuseMap.TextureID);
+	glUniform1i(m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP], 0);
 }
 
 - (void)setUpSahder
 {
 	// Get uniform locations.
 	m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(m_programID, "modelViewProjectionMatrix");
-	m_uniforms[GE_UNIFORM_TEXTURE] = glGetUniformLocation(m_programID, "textureSampler");
-	m_uniforms[GE_UNIFORM_TEXTURE_COMPRESSION] = glGetUniformLocation(m_programID, "textureCompression");
-	m_uniforms[GE_UNIFORM_OPASITY] = glGetUniformLocation(m_programID, "opasityComponent");
+    m_uniforms[GE_UNIFORM_MATERIAL_TEXTURE_COMPRESSION] = glGetUniformLocation(m_programID, "materialTextureCompression");
+    m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP] = glGetUniformLocation(m_programID, "materialDifficeMapSampler");
 }
 
 @end

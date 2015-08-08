@@ -63,6 +63,19 @@
     m_testView = [GEView new];
     m_testView.BackgroundColor = color_banana;
     
+    GELight* light = [GELight new];
+    light.LightType = GE_LIGHT_POINT;
+    light.Position = GLKVector3Make(-30.0f, 60.0f, 10.0f);
+    light.Intensity = 1.0f;
+    
+    GELight* light2 = [GELight new];
+    light2.LightType = GE_LIGHT_POINT;
+    light2.Position = GLKVector3Make(30.0f, 60.0f, 10.0f);
+    light2.Intensity = 1.0f;
+    
+    [m_testView addLight:light];
+    //[m_testView addLight:light2];
+    
     m_testLayer = [m_testView addLayerWithName:@"TestLayer"];
     
     GEAnimatedModel* model = [GEAnimatedModel new];

@@ -13,11 +13,16 @@
 
 
 // -------------------------------------------- //
-// ----------- Unique Testure Sytem ----------- //
+// ----------- Unique Texture Sytem ----------- //
 // -------------------------------------------- //
-#pragma mark Unique Testure Sytem
+#pragma mark Unique Texture Sytem
 
-+ (instancetype)textureFromFileName:(NSString*)filename;
-- (id)initFromFilename:(NSString*)filename;
++ (instancetype)textureWithFileName:(NSString*)filename;
+
+// -------------------------------------------- //
+// ------------------- Load ------------------- //
+// -------------------------------------------- //
+#pragma mark Load
+- (void)loadTextureWithFileName:(NSString*)filename;
 
 @end

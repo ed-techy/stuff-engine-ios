@@ -50,13 +50,13 @@
     // Set one texture to render and the current texture to render.
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, TextureID);
-    glUniform1i(uniforms[GE_UNIFORM_TEXTURE], 0);
+    glUniform1i(uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP], 0);
 }
 
 - (void)setUpSahder
 {
     // Get uniform locations.
-    uniforms[GE_UNIFORM_TEXTURE] = glGetUniformLocation(m_programID, "textureSampler");
+    uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP] = glGetUniformLocation(m_programID, "textureSampler");
 }
 
 @end

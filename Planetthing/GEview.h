@@ -2,9 +2,7 @@
 #import "GEanimatedmodel.h"
 #import "GElayer.h"
 #import "GEfbo.h"
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
+#import "GEfont.h"
 
 @interface GEView : NSObject
 
@@ -26,6 +24,14 @@
 - (GELayer*)getLayerWithName:(NSString*)name;
 - (void)removeLayerWithName:(NSString*)name;
 - (void)removeLayer:(GELayer*)layer;
+
+// -------------------------------------------- //
+// ------------------ Lights ------------------ //
+// -------------------------------------------- //
+#pragma mark Lights
+- (void)addLight:(GELight*)light;
+- (void)removeLight:(GELight*)light;
+- (void)cleanLights;
 
 // -------------------------------------------- //
 // ------------------ Render ------------------ //

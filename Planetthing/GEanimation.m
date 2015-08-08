@@ -286,11 +286,11 @@
                 
                 // New Bound.
                 bounds[i].minX = [words[1] floatValue];
-                bounds[i].minY = [words[2] floatValue];
-                bounds[i].minZ = [words[3] floatValue];
+                bounds[i].minZ = -[words[2] floatValue];
+                bounds[i].minY = [words[3] floatValue];
                 bounds[i].maxX = [words[6] floatValue];
-                bounds[i].maxY = [words[7] floatValue];
-                bounds[i].maxZ = [words[8] floatValue];
+                bounds[i].maxZ = -[words[7] floatValue];
+                bounds[i].maxY = [words[8] floatValue];
             }
         }
         else if([words[0] isEqual:@"baseframe"])

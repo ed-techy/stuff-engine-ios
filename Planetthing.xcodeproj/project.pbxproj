@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		370049BD1B72C38100394ECE /* Maggic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 370049BC1B72C32C00394ECE /* Maggic.ttf */; };
 		370AFC301B681BC4003B190C /* GElayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 370AFC2F1B681BC4003B190C /* GElayer.m */; };
 		370AFC331B6836E8003B190C /* GEupdatecaller.m in Sources */ = {isa = PBXBuildFile; fileRef = 370AFC321B6836E8003B190C /* GEupdatecaller.m */; };
 		370AFC371B686182003B190C /* GEfbo.m in Sources */ = {isa = PBXBuildFile; fileRef = 370AFC361B686182003B190C /* GEfbo.m */; };
@@ -50,6 +51,9 @@
 		37C16B961B67316200C2BD2F /* color_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37C16B941B67316200C2BD2F /* color_shader.vsh */; };
 		37C16B991B67339600C2BD2F /* GEcolorshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C16B981B67339600C2BD2F /* GEcolorshader.m */; };
 		37C16B9D1B67419E00C2BD2F /* GEboundingbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C16B9C1B67419E00C2BD2F /* GEboundingbox.m */; };
+		37CBFE0B1B73CD2500167399 /* Gefont.m in Sources */ = {isa = PBXBuildFile; fileRef = 37CBFE0A1B73CD2500167399 /* Gefont.m */; };
+		37CC92661B75341700B106D1 /* GElight.m in Sources */ = {isa = PBXBuildFile; fileRef = 37CC92651B75341700B106D1 /* GElight.m */; };
+		37CC926D1B75372E00B106D1 /* GEblinnphongshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37CC926C1B75372E00B106D1 /* GEblinnphongshader.m */; };
 		37F4CD921B5EF42F009269BE /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37F4CD901B5EF42F009269BE /* texture_shader.fsh */; };
 		37F4CD931B5EF42F009269BE /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37F4CD911B5EF42F009269BE /* texture_shader.vsh */; };
 		37F4CD961B5F007D009269BE /* GEtextureshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F4CD951B5F007D009269BE /* GEtextureshader.m */; };
@@ -67,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		370049BC1B72C32C00394ECE /* Maggic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Maggic.ttf; path = Planetthing/Resources/Fonts/Maggic.ttf; sourceTree = "<group>"; };
 		370AFC2E1B681BC4003B190C /* GElayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GElayer.h; path = Planetthing/GElayer.h; sourceTree = "<group>"; };
 		370AFC2F1B681BC4003B190C /* GElayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GElayer.m; path = Planetthing/GElayer.m; sourceTree = "<group>"; };
 		370AFC311B6836CC003B190C /* GEupdatecaller.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEupdatecaller.h; path = Planetthing/GEupdatecaller.h; sourceTree = "<group>"; };
@@ -142,6 +147,12 @@
 		37C16B981B67339600C2BD2F /* GEcolorshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEcolorshader.m; path = Planetthing/GEcolorshader.m; sourceTree = "<group>"; };
 		37C16B9B1B67418C00C2BD2F /* GEboundingbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEboundingbox.h; path = Planetthing/GEboundingbox.h; sourceTree = "<group>"; };
 		37C16B9C1B67419E00C2BD2F /* GEboundingbox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEboundingbox.m; path = Planetthing/GEboundingbox.m; sourceTree = "<group>"; };
+		37CBFE091B73CD1B00167399 /* GEfont.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GEfont.h; path = Planetthing/GEfont.h; sourceTree = "<group>"; };
+		37CBFE0A1B73CD2500167399 /* Gefont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Gefont.m; path = Planetthing/Gefont.m; sourceTree = "<group>"; };
+		37CC92641B75340700B106D1 /* GElight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GElight.h; path = Planetthing/GElight.h; sourceTree = "<group>"; };
+		37CC92651B75341700B106D1 /* GElight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GElight.m; path = Planetthing/GElight.m; sourceTree = "<group>"; };
+		37CC926B1B75372E00B106D1 /* GEblinnphongshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEblinnphongshader.h; path = Planetthing/GEblinnphongshader.h; sourceTree = "<group>"; };
+		37CC926C1B75372E00B106D1 /* GEblinnphongshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEblinnphongshader.m; path = Planetthing/GEblinnphongshader.m; sourceTree = "<group>"; };
 		37D0EE991B58054100306DC7 /* GMglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GMglobals.h; path = Planetthing/GMglobals.h; sourceTree = "<group>"; };
 		37F4CD901B5EF42F009269BE /* texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.fsh; path = Planetthing/Shaders/texture_shader.fsh; sourceTree = "<group>"; };
 		37F4CD911B5EF42F009269BE /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.vsh; path = Planetthing/Shaders/texture_shader.vsh; sourceTree = "<group>"; };
@@ -186,19 +197,21 @@
 		372119C01B64009900F1C1B1 /* Sahders */ = {
 			isa = PBXGroup;
 			children = (
+				37CC926B1B75372E00B106D1 /* GEblinnphongshader.h */,
+				37CC926C1B75372E00B106D1 /* GEblinnphongshader.m */,
+				37C16B971B67338200C2BD2F /* GEcolorshader.h */,
+				37C16B981B67339600C2BD2F /* GEcolorshader.m */,
 				37ADFA621B60C95D002EE66B /* GEfullscreenshader.h */,
 				37ADFA631B60C95D002EE66B /* GEfullscreenshader.m */,
 				37976DE91B614C900008AA72 /* GEshader.h */,
 				37976DEA1B614C900008AA72 /* GEshader.m */,
 				37F4CD941B5F007D009269BE /* GEtextureshader.h */,
 				37F4CD951B5F007D009269BE /* GEtextureshader.m */,
-				37C16B971B67338200C2BD2F /* GEcolorshader.h */,
-				37C16B981B67339600C2BD2F /* GEcolorshader.m */,
 			);
 			name = Sahders;
 			sourceTree = "<group>";
 		};
-		372119C11B6400B600F1C1B1 /* Models */ = {
+		372119C11B6400B600F1C1B1 /* Objects */ = {
 			isa = PBXGroup;
 			children = (
 				37976DEE1B617BFB0008AA72 /* GEanimatedmodel.h */,
@@ -211,11 +224,13 @@
 				3793C7E11B5D9E8C00741F37 /* GEtexture.m */,
 				37C16B9B1B67418C00C2BD2F /* GEboundingbox.h */,
 				37C16B9C1B67419E00C2BD2F /* GEboundingbox.m */,
+				37CC92641B75340700B106D1 /* GElight.h */,
+				37CC92651B75341700B106D1 /* GElight.m */,
 			);
-			name = Models;
+			name = Objects;
 			sourceTree = "<group>";
 		};
-		372119C21B64011E00F1C1B1 /* Render and View */ = {
+		372119C21B64011E00F1C1B1 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				37A064EA1B5857D40002F5F1 /* GEcontext.h */,
@@ -231,7 +246,7 @@
 				370AFC341B68616C003B190C /* GEfbo.h */,
 				370AFC361B686182003B190C /* GEfbo.m */,
 			);
-			name = "Render and View";
+			name = View;
 			sourceTree = "<group>";
 		};
 		372119C31B64017300F1C1B1 /* Support */ = {
@@ -363,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				37635E8B1B6ADD54003F2B28 /* arial.ttf */,
+				370049BC1B72C32C00394ECE /* Maggic.ttf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -387,12 +403,22 @@
 			isa = PBXGroup;
 			children = (
 				372119BF1B64006300F1C1B1 /* Animation */,
-				372119C11B6400B600F1C1B1 /* Models */,
-				372119C21B64011E00F1C1B1 /* Render and View */,
+				372119C11B6400B600F1C1B1 /* Objects */,
 				372119C01B64009900F1C1B1 /* Sahders */,
 				372119C31B64017300F1C1B1 /* Support */,
+				37CBFE081B73CCFC00167399 /* Text */,
+				372119C21B64011E00F1C1B1 /* View */,
 			);
 			name = "GE Classes";
+			sourceTree = "<group>";
+		};
+		37CBFE081B73CCFC00167399 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				37CBFE091B73CD1B00167399 /* GEfont.h */,
+				37CBFE0A1B73CD2500167399 /* Gefont.m */,
+			);
+			name = Text;
 			sourceTree = "<group>";
 		};
 		37F4CD891B5EE05F009269BE /* Resources */ = {
@@ -522,6 +548,7 @@
 				37ADFA611B60C94D002EE66B /* fullscreen_shader.vsh in Resources */,
 				37F4CD931B5EF42F009269BE /* texture_shader.vsh in Resources */,
 				37635E8C1B6ADE4D003F2B28 /* arial.ttf in Resources */,
+				370049BD1B72C38100394ECE /* Maggic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,11 +567,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				375F0A131B4D9B5500F894C3 /* AppDelegate.m in Sources */,
+				37CC926D1B75372E00B106D1 /* GEblinnphongshader.m in Sources */,
 				37A064DF1B582A880002F5F1 /* GMmain.m in Sources */,
 				370AFC331B6836E8003B190C /* GEupdatecaller.m in Sources */,
 				370AFC371B686182003B190C /* GEfbo.m in Sources */,
 				37A064E91B584C150002F5F1 /* GEview.m in Sources */,
 				375F0A441B4DA0EC00F894C3 /* IHgamecenter.m in Sources */,
+				37CC92661B75341700B106D1 /* GElight.m in Sources */,
 				372119B11B63E80D00F1C1B1 /* GEjoint.m in Sources */,
 				37C16B9D1B67419E00C2BD2F /* GEboundingbox.m in Sources */,
 				372119B71B63E83800F1C1B1 /* GEweight.m in Sources */,
@@ -553,6 +582,7 @@
 				37A064EC1B5857EB0002F5F1 /* GEcontext.m in Sources */,
 				37A5685F1B63217C006527F4 /* GEanimation.m in Sources */,
 				372119C51B644EC400F1C1B1 /* GEtriangle.m in Sources */,
+				37CBFE0B1B73CD2500167399 /* Gefont.m in Sources */,
 				3793C7E21B5D9E8C00741F37 /* GEtexture.m in Sources */,
 				370AFC301B681BC4003B190C /* GElayer.m in Sources */,
 				37ADFA641B60C95D002EE66B /* GEfullscreenshader.m in Sources */,

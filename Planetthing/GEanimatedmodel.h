@@ -1,4 +1,5 @@
 #import "GEtextureshader.h"
+#import "GEblinnphongshader.h"
 #import "GEcolorshader.h"
 #import "GEmesh.h"
 #import "GEanimation.h"

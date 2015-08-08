@@ -1,4 +1,6 @@
 #import "GEcommon.h"
+#import "GEmaterial.h"
+#import "GElight.h"
 
 @interface GEShader : NSObject
 {

@@ -12,8 +12,7 @@
 @implementation GEColorShader
 
 @synthesize ModelViewProjectionMatrix;
-@synthesize ColorComponent;
-@synthesize OpasityComponent;
+@synthesize Material;
 
 // ------------------------------------------------------------------------------ //
 // ----------------------------------  Singleton -------------------------------- //
@@ -40,10 +39,6 @@
     
     if(self)
     {
-        // Default values
-        ColorComponent = GLKVector3Make(1.0f, 1.0f, 1.0f);
-        OpasityComponent = 1.0f;
-        
         // Set up uniforms.
         [self setUpSahder];
     }
@@ -63,19 +58,18 @@
     // Set the Projection View Model Matrix to the shader.
     glUniformMatrix4fv(m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, ModelViewProjectionMatrix->m);
     
-    // The color and opasity.
-    glUniform4fv(m_uniforms[GE_UNIFORM_COLOR], 1, GLKVector4Make(ColorComponent.r, ColorComponent.g, ColorComponent.b, OpasityComponent).v);
+    // Material color and opasity.
+    glUniform4fv(m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_COLOR], 1, GLKVector4MakeWithVector3(Material.DiffuseColor, Material.Opasity).v);
     
-    // Set one texture to render and the current texture to render.
+    // No texture
     glActiveTexture(0);
-    glUniform1i(m_uniforms[GE_UNIFORM_TEXTURE], 0);
 }
 
 - (void)setUpSahder
 {
     // Get uniform locations.
     m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(m_programID, "modelViewProjectionMatrix");
-    m_uniforms[GE_UNIFORM_COLOR] = glGetUniformLocation(m_programID, "colorComponent");
+    m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_COLOR] = glGetUniformLocation(m_programID, "colorComponent");
 }
 
 @end

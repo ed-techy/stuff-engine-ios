@@ -5,7 +5,7 @@
     
 }
 
-- (char*)loadImageFromFileName:(NSString*)filename;
+- (char*)loadImageWithFileName:(NSString*)filename;
 - (void)generateTextureFromPixels:(char*)rawPixels;
 
 @end
@@ -24,7 +24,7 @@
 
 static NSMapTable* m_texturesHolder;
 
-+ (instancetype)textureFromFileName:(NSString*)filename
++ (instancetype)textureWithFileName:(NSString*)filename
 {
     // Create the textures holder
    if(m_texturesHolder == nil)
@@ -34,7 +34,8 @@ static NSMapTable* m_texturesHolder;
     GETexture* texture = [m_texturesHolder objectForKey:filename];
     if(texture == nil)
     {
-        texture = [[GETexture alloc] initFromFilename:filename];
+        texture = [GETexture new];
+        [texture loadTextureWithFileName:filename];
         [m_texturesHolder setObject:texture forKey:filename];
     }
     
@@ -50,27 +51,18 @@ static NSMapTable* m_texturesHolder;
         m_texturesHolder = nil;
 }
 
-- (id)initFromFilename:(NSString*)filename
+- (void)loadTextureWithFileName:(NSString *)filename
 {
-    self = [super init];
+    // Load the image form file
+    char* rawPixels = [self loadImageWithFileName:filename];
     
-    if(self)
-    {
-        TextureID = 0;
-        Width = 0;
-        Height = 0;
-        
-        // Load the image form file
-        char* rawPixels = [self loadImageFromFileName:filename];
-        
-        // Generate the openGL reference in the video card
-        [self generateTextureFromPixels:rawPixels];
-        
-        // Don't keep the pixels in RAM
-        free(rawPixels);
-    }
+    if(!rawPixels) return;
+
+    // Generate the openGL reference in the video card
+    [self generateTextureFromPixels:rawPixels];
     
-    return self;
+    // Don't keep the pixels in RAM
+    free(rawPixels);
 }
 
 // ------------------------------------------------------------------------------ //
@@ -78,7 +70,7 @@ static NSMapTable* m_texturesHolder;
 // ------------------------------------------------------------------------------ //
 #pragma mark Load Image - Texture
 
-- (char*)loadImageFromFileName:(NSString*)filename
+- (char*)loadImageWithFileName:(NSString*)filename
 {
     // Load the image.
     CGImageRef spriteImage = [UIImage imageNamed:filename].CGImage;
@@ -86,7 +78,7 @@ static NSMapTable* m_texturesHolder;
     {
         CleanLog(GE_VERBOSE && TX_VERBOSE, @"Texture: Failed to load image %@", filename);
         FileName = nil;
-        exit(1);
+        return 0;
     }
     
     FileName = filename;

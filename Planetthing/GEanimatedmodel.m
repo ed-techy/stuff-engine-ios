@@ -5,12 +5,14 @@
     GEFrame* m_bindPose;
     NSMutableArray* m_meshes;
     
+    GEBlinnPhongShader* m_blinnPhongShader;
     GETextureShader* m_textureShader;
     GEColorShader* m_colorShader;
     GEBoundingbox* m_boundingBox;
     
     GEBound* m_currentBound;
     GEBound* m_bindBound;
+    GEMaterial* m_boundingBoxMaterial;
 }
 
 - (bool)loadMD5WithFileName:(NSString*)filename;
@@ -41,12 +43,15 @@
     if(self)
     {
         // Get the shaders.
+        m_blinnPhongShader = [GEBlinnPhongShader sharedIntance];
         m_textureShader = [GETextureShader sharedIntance];
         m_colorShader = [GEColorShader sharedIntance];
         
         // Bounding box.
         m_bindBound = [GEBound new];
         m_boundingBox = [GEBoundingbox sharedIntance];
+        m_boundingBoxMaterial = [GEMaterial new];
+        m_boundingBoxMaterial.DiffuseColor = color_gray_37;
         
         // Ebanled and Visible by default.
         Enabled = true;
@@ -71,7 +76,7 @@
 
 - (void)poseForFrameDidFinish:(GEFrame *)frame
 {
-    // If it is not enabled for interactions not update the frame pose
+    // If it is not enabled for animations not update the frame pose
     if(!Enabled) return;
     
     // Get the bound from the frame.
@@ -92,7 +97,7 @@
     // If it's not supouse to be visible don't render at all.
     if(!Visible) return;
     
-    GLKMatrix4 matrix = GLKMatrix4Multiply(GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45.0f), 320.0f/480.0f, 0.1f, 1000.0f), GLKMatrix4MakeLookAt(0.0f, -120.0f, 90.0f, 0.0f, 0.0f, 30.0f, 0.0f, 0.0f, 1.0f));
+    GLKMatrix4 matrix = GLKMatrix4Multiply(GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45.0f), 320.0f/480.0f, 0.1f, 1000.0f), GLKMatrix4MakeLookAt(0.0f, 90.0f, 120.0f, 0.0f, 30.0f, 0.0f, 0.0f, 1.0f, 0.0f));
     
     // Our textures for iOS are always premultiplied so we have to ose one minus source alpha to one.
     glEnable(GL_BLEND);
@@ -101,12 +106,12 @@
     glEnable(GL_DEPTH_TEST);
     
     // Normal Pass
-    m_textureShader.ModelViewProjectionMatrix = &matrix;
+    m_blinnPhongShader.ModelViewProjectionMatrix = &matrix;
     for(GEMesh* mesh in m_meshes)
     {
-        m_textureShader.TextureID = mesh.Material.DiffuseTexture.TextureID;
+        m_blinnPhongShader.Material = mesh.Material;
         
-        [m_textureShader useProgram];
+        [m_blinnPhongShader useProgram];
         [mesh render:GL_TRIANGLES];
     }
     
@@ -119,7 +124,7 @@
         
         // Ware frame pass.
         m_colorShader.ModelViewProjectionMatrix = &matrix;
-        m_colorShader.ColorComponent = color_gray_60;
+        m_colorShader.Material = m_boundingBoxMaterial;
         
         [m_colorShader useProgram];
         
@@ -253,8 +258,15 @@
             lineIndex++;
             words = [self getWordsFromString:lines[lineIndex]];
             
+            NSString* texturePath = [self stringWithOutQuotes:words[1]];
+            
             // New texture for this mesh material.
-            currentMesh.Material.DiffuseTexture = [[GETexture alloc] initFromFilename:[NSString stringWithFormat:@"%@/%@", filePath, [self stringWithOutQuotes:words[1]]]];
+            currentMesh.Material.DiffuseMap = [GETexture textureWithFileName:[NSString stringWithFormat:@"%@/%@", filePath, texturePath]];
+            
+            // Specular map if exist the texture file
+            texturePath = [[[texturePath stringByDeletingPathExtension] stringByAppendingString:@"_specular"] stringByAppendingPathExtension:[texturePath pathExtension]];
+            
+            currentMesh.Material.SpecularMap = [GETexture textureWithFileName:[NSString stringWithFormat:@"%@/%@", filePath, texturePath]];
             
             // Number of vertices.
             lineIndex++;

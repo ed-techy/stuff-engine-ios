@@ -1,13 +1,16 @@
 #import "GEshader.h"
 
-@interface GEColorShader : GEShader
+@interface GEBlinnPhongShader : GEShader
 
 // -------------------------------------------- //
 // ---------------- Properties ---------------- //
 // -------------------------------------------- //
 #pragma mark Properties
 @property GLKMatrix4* ModelViewProjectionMatrix;
+@property NSMutableArray* Lights;
 @property GEMaterial* Material;
+@property bool DiffuceMapEnabled;
+@property bool SpecularMapEnabled;
 
 // -------------------------------------------- //
 // ----------------- Singleton ---------------- //

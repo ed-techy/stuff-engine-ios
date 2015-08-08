@@ -16,6 +16,7 @@
 #define FS_VERBOSE true // Full screen verbose
 #define AM_VERBOSE true // Animated model verbose
 #define AT_VERBOSE true // Animation verbose
+#define FN_VERBOSE true // Font verbose
 
 // -------------------------------------------- //
 // ----------------- CLEAN LOG ---------------- //

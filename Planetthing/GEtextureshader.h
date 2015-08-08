@@ -7,10 +7,7 @@
 // -------------------------------------------- //
 #pragma mark Properties
 @property GLKMatrix4* ModelViewProjectionMatrix;
-@property GLuint TextureID;
-@property GLKVector3 TextureCompression;
-@property GLKVector3 ColorComponent;
-@property float OpasityComponent;
+@property GEMaterial* Material;
 
 // -------------------------------------------- //
 // ----------------- Singleton ---------------- //
