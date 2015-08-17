@@ -2,7 +2,7 @@
 
 @interface GEFBO()
 {
-    //GLuint m_renderBufferForDepth;
+
 }
 
 @end
@@ -13,6 +13,7 @@
 @synthesize Width;
 @synthesize Height;
 @synthesize TextureID;
+@synthesize DepthTextureID;
 
 - (id)init
 {
@@ -32,14 +33,15 @@
     Width = width;
     Height = height;
     
-    // Generate the depth render buffer.
-    //glGenRenderbuffers(1, &m_renderBufferForDepth);
+    // Depth texture.
+    glGenTextures(1, &DepthTextureID);
+    glBindTexture(GL_TEXTURE_2D, DepthTextureID);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
-    // Bind that render buffer.
-    //glBindRenderbuffer(GL_RENDERBUFFER, m_renderBufferForDepth);
-    
-    // Allocate the data for depth storage.
-    //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, Width, Height);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT,  Width, Height, 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_INT, NULL);
     
     // Generate the frame buffer.
     glGenFramebuffers(1, &FrameBufferID);
@@ -47,27 +49,13 @@
     // Bind that frame buffer.
     glBindFramebuffer(GL_FRAMEBUFFER, FrameBufferID);
     
-    // Generate an ID for the texture.
-    glGenTextures(1, &TextureID);
-    
-    // Bind the texture as a 2D texture.
-    glBindTexture(GL_TEXTURE_2D, TextureID);
-    
-    // Use linear filetring
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    
-    // Clamp
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,  Width, Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-    
     //Attach 2D texture to this FBO
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, TextureID, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, DepthTextureID, 0);
     
-    // Attach depth buffer to FBO
-    //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, m_renderBufferForDepth);
+    // Check for completness.
+    GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    if(status != GL_FRAMEBUFFER_COMPLETE)
+        NSLog(@"The Framebuffer was not completed.");
 }
 
 

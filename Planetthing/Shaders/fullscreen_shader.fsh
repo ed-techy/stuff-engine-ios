@@ -4,5 +4,6 @@ varying lowp vec2 finalTextureCoord;
 
 void main()
 {
-    gl_FragColor = vec4(1.0, 1.0, 1.0, texture2D(textureSampler, finalTextureCoord).a);
+    highp float depthValue = texture2D(textureSampler, finalTextureCoord).r;
+    gl_FragColor = vec4(vec3(depthValue), 1.0);
 }

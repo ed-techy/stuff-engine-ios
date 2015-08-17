@@ -46,6 +46,13 @@
     return self;
 }
 
+- (void)setUpSahder
+{
+    // Get uniform locations.
+    m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(m_programID, "modelViewProjectionMatrix");
+    m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_COLOR] = glGetUniformLocation(m_programID, "colorComponent");
+}
+
 // ------------------------------------------------------------------------------ //
 // ---------------------------------- Use Program ------------------------------- //
 // ------------------------------------------------------------------------------ //
@@ -63,13 +70,6 @@
     
     // No texture
     glActiveTexture(0);
-}
-
-- (void)setUpSahder
-{
-    // Get uniform locations.
-    m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(m_programID, "modelViewProjectionMatrix");
-    m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_COLOR] = glGetUniformLocation(m_programID, "colorComponent");
 }
 
 @end

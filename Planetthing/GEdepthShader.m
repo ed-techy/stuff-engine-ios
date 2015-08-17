@@ -1,17 +1,17 @@
-#import "GEfullscreenshader.h"
+#import "GEdepthShader.h"
 
-@interface GEFullScreenShader()
+@interface GEDepthShader()
 {
-    GLint uniforms[GE_NUM_UNIFORMS];
+    GLint m_uniforms[GE_NUM_UNIFORMS];
 }
 
 - (void)setUpSahder;
 
 @end
 
-@implementation GEFullScreenShader
+@implementation GEDepthShader
 
-@synthesize TextureID;
+@synthesize ModelViewProjectionMatrix;
 
 // ------------------------------------------------------------------------------ //
 // ----------------------------------  Singleton -------------------------------- //
@@ -20,13 +20,13 @@
 
 + (instancetype)sharedIntance
 {
-    static GEFullScreenShader* sharedIntance;
+    static GEDepthShader* sharedIntance;
     static dispatch_once_t onceToken;
     
     // Know if the shared instance was already allocated.
     dispatch_once(&onceToken, ^{
-        CleanLog(GE_VERBOSE && SH_VERBOSE, @"Full Screen Shader: Shared instance was allocated for the first time.");
-        sharedIntance = [GEFullScreenShader new];
+        CleanLog(GE_VERBOSE && SH_VERBOSE, @"Depth Shader: Shared instance was allocated for the first time.");
+        sharedIntance = [GEDepthShader new];
     });
     
     return sharedIntance;
@@ -34,19 +34,21 @@
 
 - (id)init
 {
-    self = [super initWithFileName:@"fullscreen_shader" BufferMode:GE_BUFFER_MODE_POSITION_TEXTURE];
+    self = [super initWithFileName:@"depth_shader" BufferMode:GE_BUFFER_MODE_POSITION];
     
     if(self)
+    {
+        // Set up uniforms.
         [self setUpSahder];
+    }
     
     return self;
-    
 }
 
 - (void)setUpSahder
 {
     // Get uniform locations.
-    uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP] = glGetUniformLocation(m_programID, "textureSampler");
+    m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(m_programID, "modelViewProjectionMatrix");
 }
 
 // ------------------------------------------------------------------------------ //
@@ -58,10 +60,11 @@
 {
     glUseProgram(m_programID);
     
-    // Set one texture to render and the current texture to render.
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, TextureID);
-    glUniform1i(uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP], 0);
+    // Set the Projection View Model Matrix to the shader.
+    glUniformMatrix4fv(m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, ModelViewProjectionMatrix->m);
+    
+    // No texture
+    glActiveTexture(0);
 }
 
 @end

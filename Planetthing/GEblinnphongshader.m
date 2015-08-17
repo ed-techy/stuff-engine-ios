@@ -4,6 +4,8 @@
 {
 	GLint m_uniforms[GE_NUM_UNIFORMS];
     GLint m_lightUniforms[10][GE_NUM_LIGHT_UNIFORMS];
+    
+    unsigned int m_textureNum;
 }
 
 - (void)setUpSahder;
@@ -54,6 +56,40 @@
 	return self;
 }
 
+- (void)setUpSahder
+{
+    // Get uniform locations.
+    m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(m_programID, "modelViewProjectionMatrix");
+    m_uniforms[GE_UNIFORM_MATERIAL_TEXTURE_COMPRESSION] = glGetUniformLocation(m_programID, "materialTextureCompression");
+    m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP] = glGetUniformLocation(m_programID, "materialDiffuceMapSampler");
+    m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP_ENABLED] = glGetUniformLocation(m_programID, "materialDiffuceMapEnabled");
+    m_uniforms[GE_UNIFORM_MATERIAL_SPECULAR_MAP] = glGetUniformLocation(m_programID, "materialSpecularMapSampler");
+    m_uniforms[GE_UNIFORM_MATERIAL_SPECULAR_MAP_ENABLED] = glGetUniformLocation(m_programID, "materialSpecularMapEnabled");
+    m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_COLOR] = glGetUniformLocation(m_programID, "materialDiffuceColor");
+    m_uniforms[GE_UNIFORM_MATERIAL_AMBIENT_COLOR] = glGetUniformLocation(m_programID, "materialAmbientColor");
+    m_uniforms[GE_UNIFORM_MATERIAL_SPECULAR_COLOR] = glGetUniformLocation(m_programID, "materialSpecularColor");
+    m_uniforms[GE_UNIFORM_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "materialShininess");
+    m_uniforms[GE_UNIFORM_MATERIAL_OPASITY] = glGetUniformLocation(m_programID, "materialOpasity");
+    
+    // Uniform locations for all possible 10 lights.
+    m_uniforms[GE_UNIFORM_NUMBER_OF_VERTEX_LIGHTS] = glGetUniformLocation(m_programID, "numberOfVertexLights");
+    m_uniforms[GE_UNIFORM_NUMBER_OF_FRAGMENT_LIGHTS] = glGetUniformLocation(m_programID, "numberOfFragmentLights");
+    for(int i = 0; i < 10; i++)
+    {
+        m_lightUniforms[i][GE_UNIFORM_LIGHT_TYPE] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].type"] UTF8String]);
+        m_lightUniforms[i][GE_UNIFORM_LIGHT_POSITION] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].position"] UTF8String]);
+        m_lightUniforms[i][GE_UNIFORM_LIGHT_DIRECTION] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].direction"] UTF8String]);
+        m_lightUniforms[i][GE_UNIFORM_LIGHT_CUTOFF] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].cutOff"] UTF8String]);
+        m_lightUniforms[i][GE_UNIFORM_LIGHT_DIFFUSE_COLOR] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].diffuseColor"] UTF8String]);
+        m_lightUniforms[i][GE_UNIFORM_LIGHT_AMBIENT_COLOR] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].ambientColor"] UTF8String]);
+        m_lightUniforms[i][GE_UNIFORM_LIGHT_SPECULAR_COLOR] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].specularColor"] UTF8String]);
+        m_lightUniforms[i][GE_UNIFORM_LIGHT_SHADOW_MAP] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].shadowMapSampler"] UTF8String]);
+        m_lightUniforms[i][GE_UNIFORM_LIGHT_SHADOWS_ENABLED] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].shadowsEnabled"] UTF8String]);
+        m_lightUniforms[i][GE_UNIFORM_LIGHT_SHADOW_MAP_TEXTEL_SIZE] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].shadowMapTextelSize"] UTF8String]);
+        m_lightUniforms[i][GE_UNIFORM_LIGHT_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lightModelViewProjectionMatrices[", [@(i) stringValue], @"]"] UTF8String]);
+    }
+}
+
 // ------------------------------------------------------------------------------ //
 // ---------------------------------- Use Program ------------------------------- //
 // ------------------------------------------------------------------------------ //
@@ -67,7 +103,7 @@
     glActiveTexture(0);
 	
     // Number of textures;
-    unsigned int textureNum = 0;
+    m_textureNum = 0;
     
 	// Set the Projection View Model Matrix to the shader.
 	glUniformMatrix4fv(m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, ModelViewProjectionMatrix->m);
@@ -87,9 +123,9 @@
     if(diffuceEnabled)
     {
         // Material diffuce texture.
-        glActiveTexture(GL_TEXTURE0 + textureNum++);
+        glActiveTexture(GL_TEXTURE0 + m_textureNum);
         glBindTexture(GL_TEXTURE_2D, Material.DiffuseMap.TextureID);
-        glUniform1i(m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP], 0);
+        glUniform1i(m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP], m_textureNum++);
     }
     else
     {
@@ -103,9 +139,9 @@
     if(specularEnabled)
     {
         // Material specular texture.
-        glActiveTexture(GL_TEXTURE0 + textureNum++);
+        glActiveTexture(GL_TEXTURE0 + m_textureNum);
         glBindTexture(GL_TEXTURE_2D, Material.SpecularMap.TextureID);
-        glUniform1i(m_uniforms[GE_UNIFORM_MATERIAL_SPECULAR_MAP], 1);
+        glUniform1i(m_uniforms[GE_UNIFORM_MATERIAL_SPECULAR_MAP], m_textureNum++);
     }
     else
     {
@@ -114,49 +150,28 @@
     }
     
     // Lights.
-    glUniform1i(m_uniforms[GE_UNIFORM_NUMBER_OF_LIGHTS], Lights.count);
+    glUniform1i(m_uniforms[GE_UNIFORM_NUMBER_OF_VERTEX_LIGHTS], (GLint)Lights.count);
+    glUniform1i(m_uniforms[GE_UNIFORM_NUMBER_OF_FRAGMENT_LIGHTS], (GLint)Lights.count);
     [Lights enumerateObjectsUsingBlock:^(GELight* light, NSUInteger index, BOOL *stop)
      {
          glUniform1i(m_lightUniforms[index][GE_UNIFORM_LIGHT_TYPE], light.LightType);
          glUniform3fv(m_lightUniforms[index][GE_UNIFORM_LIGHT_POSITION], 1, light.Position.v);
-         glUniform3fv(m_lightUniforms[index][GE_UNIFORM_LIGHT_DIRECTION], 1, light.Direction.v);
+         glUniform3fv(m_lightUniforms[index][GE_UNIFORM_LIGHT_DIRECTION], 1, GLKVector3Subtract(light.Position, light.Direction).v);
          glUniform1f(m_lightUniforms[index][GE_UNIFORM_LIGHT_CUTOFF], light.CutOff);
-         glUniform3fv(m_lightUniforms[index][GE_UNIFORM_LIGHT_DIFFUSE_COLOR], 1, light.DiffuseColor.v);
-         glUniform3fv(m_lightUniforms[index][GE_UNIFORM_LIGHT_AMBIENT_COLOR], 1, light.AmbientColor.v);
+         glUniform3fv(m_lightUniforms[index][GE_UNIFORM_LIGHT_DIFFUSE_COLOR], 1, GLKVector3MultiplyScalar(light.DiffuseColor, light.Intensity).v);
+         glUniform3fv(m_lightUniforms[index][GE_UNIFORM_LIGHT_AMBIENT_COLOR], 1, GLKVector3MultiplyScalar(light.AmbientColor, light.Ambient).v);
          glUniform3fv(m_lightUniforms[index][GE_UNIFORM_LIGHT_SPECULAR_COLOR], 1, light.SpecularColor.v);
-         glUniform1f(m_lightUniforms[index][GE_UNIFORM_LIGHT_INTENSITY], light.Intensity);
+         glUniform1i(m_lightUniforms[index][GE_UNIFORM_LIGHT_SHADOWS_ENABLED], light.CastShadows);
+         glUniform1f(m_lightUniforms[index][GE_UNIFORM_LIGHT_SHADOW_MAP_TEXTEL_SIZE], 1.0f / (float)light.ShadowMapSize);
+         
+         glUniformMatrix4fv(m_lightUniforms[index][GE_UNIFORM_LIGHT_MODELVIEWPROJECTION_MATRIX], 1, 0, light.LightModelViewProjectionMatrix.m);
+         
+         // Shadow map for this light.
+         glActiveTexture(GL_TEXTURE0 + m_textureNum);
+         glBindTexture(GL_TEXTURE_2D, light.ShadowMapFBO.DepthTextureID);
+         glUniform1i(m_lightUniforms[index][GE_UNIFORM_LIGHT_SHADOW_MAP], m_textureNum++);
      }];
 	
-}
-
-- (void)setUpSahder
-{
-	// Get uniform locations.
-	m_uniforms[GE_UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(m_programID, "modelViewProjectionMatrix");
-	m_uniforms[GE_UNIFORM_MATERIAL_TEXTURE_COMPRESSION] = glGetUniformLocation(m_programID, "materialTextureCompression");
-    m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP] = glGetUniformLocation(m_programID, "materialDiffuceMapSampler");
-    m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_MAP_ENABLED] = glGetUniformLocation(m_programID, "materialDiffuceMapEnabled");
-    m_uniforms[GE_UNIFORM_MATERIAL_SPECULAR_MAP] = glGetUniformLocation(m_programID, "materialSpecularMapSampler");
-    m_uniforms[GE_UNIFORM_MATERIAL_SPECULAR_MAP_ENABLED] = glGetUniformLocation(m_programID, "materialSpecularMapEnabled");
-    m_uniforms[GE_UNIFORM_MATERIAL_DIFFUSE_COLOR] = glGetUniformLocation(m_programID, "materialDiffuceColor");
-    m_uniforms[GE_UNIFORM_MATERIAL_AMBIENT_COLOR] = glGetUniformLocation(m_programID, "materialAmbientColor");
-    m_uniforms[GE_UNIFORM_MATERIAL_SPECULAR_COLOR] = glGetUniformLocation(m_programID, "materialSpecularColor");
-    m_uniforms[GE_UNIFORM_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "materialShininess");
-	m_uniforms[GE_UNIFORM_MATERIAL_OPASITY] = glGetUniformLocation(m_programID, "materialOpasity");
-    
-    // Uniform locations for all possible 10 lights.
-    m_uniforms[GE_UNIFORM_NUMBER_OF_LIGHTS] = glGetUniformLocation(m_programID, "numberOfLights");
-    for(int i = 0; i < 10; i++)
-    {
-        m_lightUniforms[i][GE_UNIFORM_LIGHT_TYPE] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].type"] UTF8String]);
-        m_lightUniforms[i][GE_UNIFORM_LIGHT_POSITION] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].position"] UTF8String]);
-        m_lightUniforms[i][GE_UNIFORM_LIGHT_DIRECTION] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].direction"] UTF8String]);
-        m_lightUniforms[i][GE_UNIFORM_LIGHT_CUTOFF] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].cutOff"] UTF8String]);
-        m_lightUniforms[i][GE_UNIFORM_LIGHT_DIFFUSE_COLOR] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].diffuseColor"] UTF8String]);
-        m_lightUniforms[i][GE_UNIFORM_LIGHT_AMBIENT_COLOR] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].ambientColor"] UTF8String]);
-        m_lightUniforms[i][GE_UNIFORM_LIGHT_SPECULAR_COLOR] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].specularColor"] UTF8String]);
-        m_lightUniforms[i][GE_UNIFORM_LIGHT_INTENSITY] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].intensity"] UTF8String]);
-    }
 }
 
 @end

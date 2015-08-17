@@ -54,6 +54,9 @@
 		37CBFE0B1B73CD2500167399 /* Gefont.m in Sources */ = {isa = PBXBuildFile; fileRef = 37CBFE0A1B73CD2500167399 /* Gefont.m */; };
 		37CC92661B75341700B106D1 /* GElight.m in Sources */ = {isa = PBXBuildFile; fileRef = 37CC92651B75341700B106D1 /* GElight.m */; };
 		37CC926D1B75372E00B106D1 /* GEblinnphongshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37CC926C1B75372E00B106D1 /* GEblinnphongshader.m */; };
+		37CC92701B75B8C500B106D1 /* depth_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37CC926E1B75B8C500B106D1 /* depth_shader.fsh */; };
+		37CC92711B75B8C500B106D1 /* depth_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37CC926F1B75B8C500B106D1 /* depth_shader.vsh */; };
+		37CC92741B75B91200B106D1 /* GEdepthShader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37CC92731B75B91200B106D1 /* GEdepthShader.m */; };
 		37F4CD921B5EF42F009269BE /* texture_shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 37F4CD901B5EF42F009269BE /* texture_shader.fsh */; };
 		37F4CD931B5EF42F009269BE /* texture_shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 37F4CD911B5EF42F009269BE /* texture_shader.vsh */; };
 		37F4CD961B5F007D009269BE /* GEtextureshader.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F4CD951B5F007D009269BE /* GEtextureshader.m */; };
@@ -153,6 +156,10 @@
 		37CC92651B75341700B106D1 /* GElight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GElight.m; path = Planetthing/GElight.m; sourceTree = "<group>"; };
 		37CC926B1B75372E00B106D1 /* GEblinnphongshader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEblinnphongshader.h; path = Planetthing/GEblinnphongshader.h; sourceTree = "<group>"; };
 		37CC926C1B75372E00B106D1 /* GEblinnphongshader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEblinnphongshader.m; path = Planetthing/GEblinnphongshader.m; sourceTree = "<group>"; };
+		37CC926E1B75B8C500B106D1 /* depth_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = depth_shader.fsh; path = Planetthing/Shaders/depth_shader.fsh; sourceTree = "<group>"; };
+		37CC926F1B75B8C500B106D1 /* depth_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = depth_shader.vsh; path = Planetthing/Shaders/depth_shader.vsh; sourceTree = "<group>"; };
+		37CC92721B75B91200B106D1 /* GEdepthShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GEdepthShader.h; path = Planetthing/GEdepthShader.h; sourceTree = "<group>"; };
+		37CC92731B75B91200B106D1 /* GEdepthShader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GEdepthShader.m; path = Planetthing/GEdepthShader.m; sourceTree = "<group>"; };
 		37D0EE991B58054100306DC7 /* GMglobals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GMglobals.h; path = Planetthing/GMglobals.h; sourceTree = "<group>"; };
 		37F4CD901B5EF42F009269BE /* texture_shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.fsh; path = Planetthing/Shaders/texture_shader.fsh; sourceTree = "<group>"; };
 		37F4CD911B5EF42F009269BE /* texture_shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = texture_shader.vsh; path = Planetthing/Shaders/texture_shader.vsh; sourceTree = "<group>"; };
@@ -201,6 +208,8 @@
 				37CC926C1B75372E00B106D1 /* GEblinnphongshader.m */,
 				37C16B971B67338200C2BD2F /* GEcolorshader.h */,
 				37C16B981B67339600C2BD2F /* GEcolorshader.m */,
+				37CC92721B75B91200B106D1 /* GEdepthShader.h */,
+				37CC92731B75B91200B106D1 /* GEdepthShader.m */,
 				37ADFA621B60C95D002EE66B /* GEfullscreenshader.h */,
 				37ADFA631B60C95D002EE66B /* GEfullscreenshader.m */,
 				37976DE91B614C900008AA72 /* GEshader.h */,
@@ -434,6 +443,8 @@
 		37F4CD8F1B5EF3F7009269BE /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				37CC926E1B75B8C500B106D1 /* depth_shader.fsh */,
+				37CC926F1B75B8C500B106D1 /* depth_shader.vsh */,
 				37745A491B69962F002DFF83 /* blinn_phong.fsh */,
 				37745A4A1B69962F002DFF83 /* blinn_phong.vsh */,
 				37C16B931B67316200C2BD2F /* color_shader.fsh */,
@@ -541,9 +552,11 @@
 				37976DF81B618EDE0008AA72 /* hotwasser_512_512.png in Resources */,
 				37745A4C1B69962F002DFF83 /* blinn_phong.vsh in Resources */,
 				37745A4B1B69962F002DFF83 /* blinn_phong.fsh in Resources */,
+				37CC92701B75B8C500B106D1 /* depth_shader.fsh in Resources */,
 				37C16B961B67316200C2BD2F /* color_shader.vsh in Resources */,
 				375F0A381B4D9BC500F894C3 /* Images.xcassets in Resources */,
 				37ADFA601B60C94D002EE66B /* fullscreen_shader.fsh in Resources */,
+				37CC92711B75B8C500B106D1 /* depth_shader.vsh in Resources */,
 				37F94A691B62CA310065D8D6 /* Bob Lamp in Resources */,
 				37ADFA611B60C94D002EE66B /* fullscreen_shader.vsh in Resources */,
 				37F4CD931B5EF42F009269BE /* texture_shader.vsh in Resources */,
@@ -592,6 +605,7 @@
 				37C16B991B67339600C2BD2F /* GEcolorshader.m in Sources */,
 				37ADFA671B60CCB8002EE66B /* GEfullscreen.m in Sources */,
 				37976DEB1B614C900008AA72 /* GEshader.m in Sources */,
+				37CC92741B75B91200B106D1 /* GEdepthShader.m in Sources */,
 				372119BD1B63E86800F1C1B1 /* GEvertex.m in Sources */,
 				372119B51B63E82A00F1C1B1 /* GEframe.m in Sources */,
 				37976DF01B617C820008AA72 /* GEanimatedmodel.m in Sources */,

@@ -49,6 +49,16 @@
     }
 }
 
+- (void)renderDepth
+{
+    // Render every depth object of this layer.
+    for(id object in m_objects)
+    {
+        if([object respondsToSelector:@selector(renderDepth)])
+            [object renderDepth];
+    }
+}
+
 // ------------------------------------------------------------------------------ //
 // ---------------------------- Add - Remove objects ---------------------------- //
 // ------------------------------------------------------------------------------ //

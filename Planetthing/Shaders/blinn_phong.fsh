@@ -22,75 +22,138 @@ struct Light
     highp vec3 ambientColor;
     highp vec3 specularColor;
     highp float intensity;
+    sampler2D shadowMapSampler;
+    bool shadowsEnabled;
+    highp float shadowMapTextelSize;
 };
 
-uniform Light lights[10];
-uniform int numberOfLights;
+uniform Light lights[8];
+uniform int numberOfFragmentLights;
 
-highp vec3 pointLight(int lightIndex, highp vec3 surficeColor)
+varying highp vec3 finalPositionLightSpaceCoord[8];
+uniform int lightShadowMapTexelSize[8];
+
+void main()
 {
-    // Light color.
-    surficeColor *= lights[lightIndex].diffuseColor * lights[lightIndex].intensity;
+    // Final color combining lights and shadows.
+    lowp vec3 finalColor = vec3(0.0);
+    lowp vec3 perLightColor;
     
-    // Ambient color from surfice and material.
-    highp vec3 ambient = materialAmbientColor * surficeColor * lights[lightIndex].ambientColor * lights[lightIndex].intensity;
+    // Material properties.
+    lowp vec3 surficeColor;
+    lowp float surfaceOpasity;
+    lowp vec3 surfaceSpecular;
     
-    // Diffuse color base light position (how much the surfice is facing the light).
-    highp vec3 lightDir = normalize(lights[lightIndex].position - finalPositionCoord);
-    highp vec3 normal = normalize(finalNormalCoord);
-    highp float diff = max(dot(lightDir, normal), 0.0);
-    highp vec3 diffuse = diff * surficeColor;
+    // Light calculations.
+    highp vec3 normal;
+    highp vec3 viewDir;
+    highp vec3 lightDir;
+    highp float lightFace = 0.0;
+    lowp vec3 diffuse = vec3(0.0);
+    lowp vec3 ambient = vec3(0.0);
+    lowp vec3 specular = vec3(0.0);
+    highp float spec;
+    highp vec3 reflectDir;
+    mediump float shadow;
+    highp float normalDir;
+    
+    
+    // Surfice color from sampling the diffuse texture or taking the diffuce color.
+    if(materialDiffuceMapEnabled)
+    {
+        surficeColor = texture2D(materialDiffuceMapSampler, finalTextureCoord).rgb;
+        surfaceOpasity = texture2D(materialDiffuceMapSampler, finalTextureCoord).a;
+    }
+    else
+        surficeColor = materialDiffuceColor;
     
     // Specular surface factor.
-    highp vec3 surfaceSpecular;
     if(materialSpecularMapEnabled)
         surfaceSpecular = texture2D(materialSpecularMapSampler, finalTextureCoord).rgb;
     else
         surfaceSpecular = materialSpecularColor;
     
-    // Specular color base camera and light positions.
-    highp vec3 viewDir = normalize(vec3(0.0, 90.0, 120.0) - finalPositionCoord);
-    highp float spec = 0.0;
+    // Normal vector for this fragment.
+    normal = normalize(finalNormalCoord);
     
-    // Use blinn or just phong
-    if(false)
+    // View vector for this fragment.
+    viewDir = normalize(vec3(0.0, 90.0, 120.0) - finalPositionCoord);
+    
+    // Calculate the contribution of every light.
+    for(int i = 0; i < numberOfFragmentLights; i++)
     {
-        highp vec3 halfwayDir = normalize(lightDir + viewDir);
-        spec = pow(max(dot(normal, halfwayDir), 0.0), materialShininess);
-    }
-    else
-    {
-        highp vec3 reflectDir = reflect(-lightDir, normal);
-        spec = pow(max(dot(viewDir, reflectDir), 0.0), materialShininess);
-    }
-    highp vec3 specular = lights[lightIndex].specularColor * surfaceSpecular * spec;
-    
-    // Attenuation
-    highp float distanceToLight = length(lightDir);
-    highp float attenuation = 1.0 / (1.0 + 0.35 * distanceToLight + 0.44 * (distanceToLight * distanceToLight));
-    
-    // return all components added.
-    return (ambient + diffuse + specular) * attenuation;
-}
-
-void main()
-{
-    // Surfice color from sampling the diffuse texture or taking the diffuce color.
-    highp vec3 surficeColor;
-    if(materialDiffuceMapEnabled)
-        surficeColor = texture2D(materialDiffuceMapSampler, finalTextureCoord).rgb;
-    else
-        surficeColor = materialDiffuceColor;
-
-    highp vec3 finalColor = vec3(0.0);
-    
-    for(int i = 0; i < numberOfLights; i++)
-    {
-        if(lights[i].type == 1)
+        // Calculate the light to surfice direction.
+        if(lights[i].type == 0) // Directional light.
+            lightDir = normalize(lights[i].position);
+        else
+            lightDir = normalize(lights[i].position - finalPositionCoord);
+        
+        // Ambient contribution of this light.
+        ambient += lights[i].ambientColor;
+        
+        // Normal light direction vector.
+        normalDir = dot(normal, lightDir);
+        
+        shadow = 0.0;
+        
+        // Shadow calculations.
+        if(lights[i].shadowsEnabled)
         {
-            finalColor += pointLight(i, surficeColor);
+            // Keep the shadow at 0.0 when outside the far_plane region of the light's frustum.
+            if(finalPositionLightSpaceCoord[i].z > 1.0)
+                shadow = 0.0;
+            else
+            {
+                // Get depth of current fragment from light's perspective.
+                lowp float currentDepth = finalPositionLightSpaceCoord[i].z;
+                
+                // Check whether current frag pos is in shadow.
+                lowp float bias = max(0.05 * (1.0 - normalDir), 0.005);
+                
+                for(int x = -0; x <= 0; x++)
+                {
+                    for(int y = -0; y <= 0; y++)
+                    {
+                        lowp float pcfDepth = texture2D(lights[i].shadowMapSampler, finalPositionLightSpaceCoord[i].xy + vec2(x, y) * lights[i].shadowMapTextelSize).r;
+                        shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
+                    }
+                }
+                shadow /= 1.0;
+            }
         }
+        
+        // How much the fragment is facing the light
+        lightFace += max(normalDir, 0.0);
+        
+        // Spot Light.
+        if(lights[i].type == 2)
+        {
+            highp float theta = dot(lightDir, normalize(lights[i].position));
+            if(theta < lights[i].cutOff)
+                continue;
+        }
+        
+        // This light can be not calculated.
+        if(lightFace == 0.0)
+            continue;
+        
+        // Diffuce contribution base color light and facing.
+        diffuse += lights[i].diffuseColor * lightFace * (1.0 - shadow);
+        
+        // Specular color base camera and light positions.
+        highp vec3 halfwayDir = normalize(lightDir + viewDir);
+        reflectDir = reflect(-lightDir, normal);
+        specular += lights[i].specularColor * pow(max(dot(normal, halfwayDir), 0.0), materialShininess);;
     }
     
-    gl_FragColor = vec4(finalColor, 1.0);
+    // Final ambient color.
+    ambient *= materialAmbientColor * surficeColor;
+    
+    // Final diffuce color.
+    diffuse *= surficeColor;
+    
+    // Final specular color.
+    specular *= surfaceSpecular;
+    
+    gl_FragColor = vec4(ambient + diffuse + specular, surfaceOpasity);
 }

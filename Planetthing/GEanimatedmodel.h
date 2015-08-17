@@ -1,5 +1,6 @@
 #import "GEtextureshader.h"
 #import "GEblinnphongshader.h"
+#import "GEdepthShader.h"
 #import "GEcolorshader.h"
 #import "GEmesh.h"
 #import "GEanimation.h"
@@ -36,5 +37,6 @@
 // -------------------------------------------- //
 #pragma mark Render
 - (void)render;
+- (void)renderDepth;
 
 @end

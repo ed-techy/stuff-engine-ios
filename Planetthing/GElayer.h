@@ -17,6 +17,7 @@
 #pragma mark Render
 
 - (void)render;
+- (void)renderDepth;
 
 // -------------------------------------------- //
 // ----------- Add - Remove objects ----------- //

@@ -1,4 +1,5 @@
 #import "GEcommon.h"
+#import "GEfbo.h"
 
 @interface GELight : NSObject
 
@@ -14,4 +15,9 @@
 @property GLKVector3 AmbientColor;
 @property GLKVector3 SpecularColor;
 @property float Intensity;
+@property float Ambient;
+@property bool CastShadows;
+@property GLKMatrix4 LightModelViewProjectionMatrix;
+@property (readonly)GEFBO* ShadowMapFBO;
+@property GLint ShadowMapSize;
 @end

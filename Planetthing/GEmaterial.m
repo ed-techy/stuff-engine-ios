@@ -29,7 +29,7 @@
         
         AmbientColor = GLKVector3Make(0.92f, 0.97f, 1.0f);
         SpecularColor = GLKVector3Make(0.01, 0.05f, 0.1f);
-        Shininess = 1.0f;
+        Shininess = 8.0f;
         Opasity = 1.0f;
     }
     

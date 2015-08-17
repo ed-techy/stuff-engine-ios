@@ -7,6 +7,7 @@
     
     GEBlinnPhongShader* m_blinnPhongShader;
     GETextureShader* m_textureShader;
+    GEDepthShader* m_depthShader;
     GEColorShader* m_colorShader;
     GEBoundingbox* m_boundingBox;
     
@@ -46,6 +47,7 @@
         m_blinnPhongShader = [GEBlinnPhongShader sharedIntance];
         m_textureShader = [GETextureShader sharedIntance];
         m_colorShader = [GEColorShader sharedIntance];
+        m_depthShader = [GEDepthShader sharedIntance];
         
         // Bounding box.
         m_bindBound = [GEBound new];
@@ -97,16 +99,13 @@
     // If it's not supouse to be visible don't render at all.
     if(!Visible) return;
     
-    GLKMatrix4 matrix = GLKMatrix4Multiply(GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45.0f), 320.0f/480.0f, 0.1f, 1000.0f), GLKMatrix4MakeLookAt(0.0f, 90.0f, 120.0f, 0.0f, 30.0f, 0.0f, 0.0f, 1.0f, 0.0f));
-    
     // Our textures for iOS are always premultiplied so we have to ose one minus source alpha to one.
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     glBlendEquation(GL_FUNC_ADD);
     glEnable(GL_DEPTH_TEST);
     
-    // Normal Pass
-    m_blinnPhongShader.ModelViewProjectionMatrix = &matrix;
+    // Draw each mesh.
     for(GEMesh* mesh in m_meshes)
     {
         m_blinnPhongShader.Material = mesh.Material;
@@ -123,12 +122,28 @@
         glLineWidth(2.0f);
         
         // Ware frame pass.
-        m_colorShader.ModelViewProjectionMatrix = &matrix;
         m_colorShader.Material = m_boundingBoxMaterial;
         
         [m_colorShader useProgram];
         
         [m_boundingBox render];
+    }
+}
+
+- (void)renderDepth
+{
+    // If it's not supouse to be visible don't render at all.
+    if(!Visible) return;
+
+    // Disable blend.
+    glDisable(GL_BLEND);
+    glEnable(GL_DEPTH_TEST);
+    
+    // Draw each mesh.
+    for(GEMesh* mesh in m_meshes)
+    {
+        [m_depthShader useProgram];
+        [mesh render:GL_TRIANGLES];
     }
 }
 
