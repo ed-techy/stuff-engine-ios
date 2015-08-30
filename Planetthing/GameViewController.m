@@ -37,6 +37,9 @@
     // Initialize the updater
     m_updateCaller = [GEUpdateCaller sharedIntance];
     
+    // Game Center delegate
+    [IHGameCenter sharedIntance].ViewDelegate = self;
+    
     // Initalize the Game
     [GMmain sharedIntance];
 }

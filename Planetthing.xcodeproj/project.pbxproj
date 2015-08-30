@@ -225,14 +225,6 @@
 			children = (
 				37976DEE1B617BFB0008AA72 /* GEanimatedmodel.h */,
 				37976DEF1B617C820008AA72 /* GEanimatedmodel.m */,
-				37976DFC1B61FB360008AA72 /* GEmaterial.h */,
-				37976DFA1B61FAF50008AA72 /* GEmaterial.m */,
-				37976DFD1B61FB840008AA72 /* GEmesh.h */,
-				37976DFE1B61FBB90008AA72 /* GEmesh.m */,
-				3793C7E01B5D9E8C00741F37 /* GEtexture.h */,
-				3793C7E11B5D9E8C00741F37 /* GEtexture.m */,
-				37C16B9B1B67418C00C2BD2F /* GEboundingbox.h */,
-				37C16B9C1B67419E00C2BD2F /* GEboundingbox.m */,
 				37CC92641B75340700B106D1 /* GElight.h */,
 				37CC92651B75341700B106D1 /* GElight.m */,
 			);
@@ -242,14 +234,10 @@
 		372119C21B64011E00F1C1B1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				37A064EA1B5857D40002F5F1 /* GEcontext.h */,
-				37A064EB1B5857EB0002F5F1 /* GEcontext.m */,
 				37ADFA651B60CBAA002EE66B /* GEfullscreen.h */,
 				37ADFA661B60CCB8002EE66B /* GEfullscreen.m */,
 				370AFC2E1B681BC4003B190C /* GElayer.h */,
 				370AFC2F1B681BC4003B190C /* GElayer.m */,
-				370AFC311B6836CC003B190C /* GEupdatecaller.h */,
-				370AFC321B6836E8003B190C /* GEupdatecaller.m */,
 				37A064E71B584C150002F5F1 /* GEview.h */,
 				37A064E81B584C150002F5F1 /* GEview.m */,
 				370AFC341B68616C003B190C /* GEfbo.h */,
@@ -261,17 +249,11 @@
 		372119C31B64017300F1C1B1 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				372119AE1B63E7C200F1C1B1 /* GEbound.h */,
-				372119B21B63E81800F1C1B1 /* GEbound.m */,
+				37A064EA1B5857D40002F5F1 /* GEcontext.h */,
+				37A064EB1B5857EB0002F5F1 /* GEcontext.m */,
+				370AFC311B6836CC003B190C /* GEupdatecaller.h */,
+				370AFC321B6836E8003B190C /* GEupdatecaller.m */,
 				37A064ED1B5860AE0002F5F1 /* GEcommon.h */,
-				372119A61B63E75400F1C1B1 /* GEjoint.h */,
-				372119B01B63E80D00F1C1B1 /* GEjoint.m */,
-				372119AC1B63E7A300F1C1B1 /* GEtriangle.h */,
-				372119C41B644EC400F1C1B1 /* GEtriangle.m */,
-				372119AB1B63E79900F1C1B1 /* GEvertex.h */,
-				372119BC1B63E86800F1C1B1 /* GEvertex.m */,
-				372119AF1B63E7D600F1C1B1 /* GEweight.h */,
-				372119B61B63E83800F1C1B1 /* GEweight.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -413,6 +395,7 @@
 			children = (
 				372119BF1B64006300F1C1B1 /* Animation */,
 				372119C11B6400B600F1C1B1 /* Objects */,
+				37DDF4441B93C93F002FE810 /* Objects Support */,
 				372119C01B64009900F1C1B1 /* Sahders */,
 				372119C31B64017300F1C1B1 /* Support */,
 				37CBFE081B73CCFC00167399 /* Text */,
@@ -428,6 +411,31 @@
 				37CBFE0A1B73CD2500167399 /* Gefont.m */,
 			);
 			name = Text;
+			sourceTree = "<group>";
+		};
+		37DDF4441B93C93F002FE810 /* Objects Support */ = {
+			isa = PBXGroup;
+			children = (
+				372119AE1B63E7C200F1C1B1 /* GEbound.h */,
+				372119B21B63E81800F1C1B1 /* GEbound.m */,
+				37C16B9B1B67418C00C2BD2F /* GEboundingbox.h */,
+				37C16B9C1B67419E00C2BD2F /* GEboundingbox.m */,
+				372119A61B63E75400F1C1B1 /* GEjoint.h */,
+				372119B01B63E80D00F1C1B1 /* GEjoint.m */,
+				37976DFC1B61FB360008AA72 /* GEmaterial.h */,
+				37976DFA1B61FAF50008AA72 /* GEmaterial.m */,
+				37976DFD1B61FB840008AA72 /* GEmesh.h */,
+				37976DFE1B61FBB90008AA72 /* GEmesh.m */,
+				3793C7E01B5D9E8C00741F37 /* GEtexture.h */,
+				3793C7E11B5D9E8C00741F37 /* GEtexture.m */,
+				372119AC1B63E7A300F1C1B1 /* GEtriangle.h */,
+				372119C41B644EC400F1C1B1 /* GEtriangle.m */,
+				372119AB1B63E79900F1C1B1 /* GEvertex.h */,
+				372119BC1B63E86800F1C1B1 /* GEvertex.m */,
+				372119AF1B63E7D600F1C1B1 /* GEweight.h */,
+				372119B61B63E83800F1C1B1 /* GEweight.m */,
+			);
+			name = "Objects Support";
 			sourceTree = "<group>";
 		};
 		37F4CD891B5EE05F009269BE /* Resources */ = {

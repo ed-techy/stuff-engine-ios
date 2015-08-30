@@ -44,7 +44,7 @@
         [[GEUpdateCaller sharedIntance] addRenderableSelector:self];
         
         // Game Center
-        // m_gameCenter = [IHGameCenter sharedIntance];
+        m_gameCenter = [IHGameCenter sharedIntance];
         
         // Initial setup.
         [self setUp];
