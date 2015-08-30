@@ -67,17 +67,18 @@
     //light.LightType = GE_LIGHT_SPOT;
     light.Position = GLKVector3Make(-100.0f, 60.0f, 10.0f);
     //light.Direction = GLKVector3Make(0.0f, 30.0f, 0.0f);
-    light.Intensity = 1.0f;
+    light.Intensity = 0.5f;
     light.CastShadows = true;
     
     GELight* light2 = [GELight new];
     //light2.LightType = GE_LIGHT_POINT;
-    light2.Position = GLKVector3Make(0.0f, 60.0f, 0.0f);
-    light2.DiffuseColor = GLKVector3Make(0.0f, 0.0f, 1.0f);
-    light2.Intensity = 0.5f;
+    light2.Position = GLKVector3Make(0.0f, 100.0f, -20.0f);
+    //light2.DiffuseColor = GLKVector3Make(0.0f, 0.0f, 1.0f);
+    light2.Intensity = 1.0f;
+    light2.CastShadows = true;
     
     [m_testView addLight:light];
-    //[m_testView addLight:light2];
+    [m_testView addLight:light2];
     
     m_testLayer = [m_testView addLayerWithName:@"TestLayer"];
     

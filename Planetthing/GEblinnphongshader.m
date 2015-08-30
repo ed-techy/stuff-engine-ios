@@ -72,8 +72,7 @@
     m_uniforms[GE_UNIFORM_MATERIAL_OPASITY] = glGetUniformLocation(m_programID, "materialOpasity");
     
     // Uniform locations for all possible 10 lights.
-    m_uniforms[GE_UNIFORM_NUMBER_OF_VERTEX_LIGHTS] = glGetUniformLocation(m_programID, "numberOfVertexLights");
-    m_uniforms[GE_UNIFORM_NUMBER_OF_FRAGMENT_LIGHTS] = glGetUniformLocation(m_programID, "numberOfFragmentLights");
+    m_uniforms[GE_UNIFORM_NUMBER_OF_LIGHTS] = glGetUniformLocation(m_programID, "numberOfLights");
     for(int i = 0; i < 10; i++)
     {
         m_lightUniforms[i][GE_UNIFORM_LIGHT_TYPE] = glGetUniformLocation(m_programID, [[NSString stringWithFormat:@"%@%@%@", @"lights[", [@(i) stringValue], @"].type"] UTF8String]);
@@ -150,8 +149,7 @@
     }
     
     // Lights.
-    glUniform1i(m_uniforms[GE_UNIFORM_NUMBER_OF_VERTEX_LIGHTS], (GLint)Lights.count);
-    glUniform1i(m_uniforms[GE_UNIFORM_NUMBER_OF_FRAGMENT_LIGHTS], (GLint)Lights.count);
+    glUniform1i(m_uniforms[GE_UNIFORM_NUMBER_OF_LIGHTS], (GLint)Lights.count);
     [Lights enumerateObjectsUsingBlock:^(GELight* light, NSUInteger index, BOOL *stop)
      {
          glUniform1i(m_lightUniforms[index][GE_UNIFORM_LIGHT_TYPE], light.LightType);

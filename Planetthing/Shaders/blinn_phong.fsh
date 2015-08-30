@@ -28,10 +28,9 @@ struct Light
 };
 
 uniform Light lights[8];
-uniform int numberOfFragmentLights;
+uniform highp int numberOfLights;
 
 varying highp vec3 finalPositionLightSpaceCoord[8];
-uniform int lightShadowMapTexelSize[8];
 
 void main()
 {
@@ -40,7 +39,7 @@ void main()
     lowp vec3 perLightColor;
     
     // Material properties.
-    lowp vec3 surficeColor;
+    lowp vec3 surfaceColor;
     lowp float surfaceOpasity;
     lowp vec3 surfaceSpecular;
     
@@ -53,7 +52,7 @@ void main()
     lowp vec3 ambient = vec3(0.0);
     lowp vec3 specular = vec3(0.0);
     highp float spec;
-    highp vec3 reflectDir;
+    highp vec3 halfwayDir;
     mediump float shadow;
     highp float normalDir;
     
@@ -61,11 +60,11 @@ void main()
     // Surfice color from sampling the diffuse texture or taking the diffuce color.
     if(materialDiffuceMapEnabled)
     {
-        surficeColor = texture2D(materialDiffuceMapSampler, finalTextureCoord).rgb;
+        surfaceColor = texture2D(materialDiffuceMapSampler, finalTextureCoord).rgb;
         surfaceOpasity = texture2D(materialDiffuceMapSampler, finalTextureCoord).a;
     }
     else
-        surficeColor = materialDiffuceColor;
+        surfaceColor = materialDiffuceColor;
     
     // Specular surface factor.
     if(materialSpecularMapEnabled)
@@ -79,8 +78,9 @@ void main()
     // View vector for this fragment.
     viewDir = normalize(vec3(0.0, 90.0, 120.0) - finalPositionCoord);
     
+    
     // Calculate the contribution of every light.
-    for(int i = 0; i < numberOfFragmentLights; i++)
+    for(int i = 0; i < numberOfLights; i++)
     {
         // Calculate the light to surfice direction.
         if(lights[i].type == 0) // Directional light.
@@ -141,16 +141,15 @@ void main()
         diffuse += lights[i].diffuseColor * lightFace * (1.0 - shadow);
         
         // Specular color base camera and light positions.
-        highp vec3 halfwayDir = normalize(lightDir + viewDir);
-        reflectDir = reflect(-lightDir, normal);
+        halfwayDir = normalize(lightDir + viewDir);
         specular += lights[i].specularColor * pow(max(dot(normal, halfwayDir), 0.0), materialShininess);;
     }
     
     // Final ambient color.
-    ambient *= materialAmbientColor * surficeColor;
+    ambient *= materialAmbientColor * surfaceColor;
     
     // Final diffuce color.
-    diffuse *= surficeColor;
+    diffuse *= surfaceColor;
     
     // Final specular color.
     specular *= surfaceSpecular;

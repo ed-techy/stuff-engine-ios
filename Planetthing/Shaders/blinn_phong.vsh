@@ -12,7 +12,7 @@ varying vec3 finalNormalCoord;
 varying vec3 finalPositionLightSpaceCoord[8];
 
 uniform mat4 lightModelViewProjectionMatrices[8];
-uniform int numberOfVertexLights;
+uniform int numberOfLights;
 
 void main()
 {
@@ -22,7 +22,7 @@ void main()
     finalNormalCoord = normalCoord;
     
     // Calculate the light space position of this vertex.
-    for(int i = 0; i < numberOfVertexLights; i++)
+    for(int i = 0; i < numberOfLights; i++)
     {
         vec4 lightPosCoord = lightModelViewProjectionMatrices[i] * vec4(positionCoord, 1.0);
         
