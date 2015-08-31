@@ -52,7 +52,7 @@
         m_lights = [NSMutableArray new];
         
         // Full Screen
-        m_fullScreen = [GEFullScreen new];
+        m_fullScreen = [GEFullScreen sharedIntance];
     }
     
     return self;
