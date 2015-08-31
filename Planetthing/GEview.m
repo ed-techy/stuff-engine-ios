@@ -103,6 +103,8 @@
     m_blinnPhongShader.Lights = m_lights;
     m_colorShader.ModelViewProjectionMatrix = &matrix;
     
+    glCullFace(GL_BACK);
+    
     // Render normal objects;
     for(NSString* layer in Layers)
     {

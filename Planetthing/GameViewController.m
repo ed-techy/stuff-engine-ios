@@ -38,7 +38,7 @@
     m_updateCaller = [GEUpdateCaller sharedIntance];
     
     // Game Center delegate
-    [IHGameCenter sharedIntance].ViewDelegate = self;
+    //[IHGameCenter sharedIntance].ViewDelegate = self;
     
     // Initalize the Game
     [GMmain sharedIntance];
@@ -86,6 +86,9 @@
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
+    glFrontFace(GL_CW);
+    glEnable(GL_CULL_FACE);
+    
     [m_updateCaller render];
 }
 
